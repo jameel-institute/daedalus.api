@@ -9,8 +9,8 @@ Authors@R: c(
 Description: API server for the 'daedalus' model, using 'porcelain' and
     'plumber'.
 License: MIT + file LICENSE
-URL: https://github.com/j-idea/daedalus.api
-BugReports: https://github.com/j-idea/daedalus.api/issues
+URL: https://github.com/jameel-institute/daedalus.api
+BugReports: https://github.com/jameel-institute/daedalus.api/issues
 Imports: 
     daedalus,
     docopt,
@@ -27,7 +27,7 @@ Remotes:
     reside-ic/porcelain
 Config/testthat/edition: 3
 Encoding: UTF-8
-Language: en-US
+Language: en-GB
 Roxygen: list(markdown = TRUE, roclets = c("rd", "namespace",
     "porcelain::porcelain_roclet"))
 RoxygenNote: 7.3.2
