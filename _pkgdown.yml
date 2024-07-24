@@ -1,0 +1,10 @@
+url: ~
+template:
+  bootstrap: 5
+development:
+  mode: auto
+reference:
+  - title: All package functions
+    desc: All daedalus.api functions
+    contents:
+    - starts_with("*")
