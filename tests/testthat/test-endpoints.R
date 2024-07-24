@@ -14,8 +14,9 @@ test_that("Root data returns sensible, validated, data", {
 
 test_that("Can construct the api", {
   obj <- api()
-  value <- obj$request("GET", "/")$status
-  result <- evaluate_promise()
+  result <- evaluate_promise({
+    value <- obj$request("GET", "/")$status
+  })
   expect_identical(value, 200L)
   logs <- lapply(
     strsplit(result$output, "\n", fixed = TRUE)[[1L]],

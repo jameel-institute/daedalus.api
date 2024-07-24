@@ -48,7 +48,7 @@ test_that("Can construct api", {
 
   mockery::expect_called(mock_run, 1L)
   expect_identical(
-    mockery::mock_args(mock_run)[[1]],
-    list("0.0.0.0", port = 8001)
+    mockery::mock_args(mock_run)[[1L]],
+    list("0.0.0.0", port = 8001L) # mockery::mock_args() returns an integer
   )
 })
