@@ -1,17 +1,33 @@
 Package: daedalus.api
-Title: Package Title Here
-Version: 0.1.0
+Title: Serve the 'daedalus' model via an API
+Version: 0.0.1
 Authors@R: c(
-    person("First", "Last", , "email@example.com", role = c("aut", "cre")),
+    person("Pratik", "Gupte", , "p.gupte24@imperial.ac.uk", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-5294-7819")),
     person("Imperial College of Science, Technology and Medicine", role = "cph")
   )
-Description: Description of the pacakge in more than one full sentence.
+Description: API server for the 'daedalus' model, using 'porcelain' and
+    'plumber'.
 License: MIT + file LICENSE
 URL: https://github.com/j-idea/daedalus.api
 BugReports: https://github.com/j-idea/daedalus.api/issues
-Suggests:
+Imports: 
+    daedalus,
+    docopt,
+    jsonlite,
+    lgr,
+    porcelain
+Suggests: 
+    httr,
+    mockery,
+    spelling,
     testthat (>= 3.0.0)
+Remotes:
+    j-idea/daedalus,
+    reside-ic/porcelain
 Config/testthat/edition: 3
 Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+Language: en-US
+Roxygen: list(markdown = TRUE, roclets = c("rd", "namespace",
+    "porcelain::porcelain_roclet"))
+RoxygenNote: 7.3.2
