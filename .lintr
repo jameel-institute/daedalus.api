@@ -1,6 +1,20 @@
-linters: linters_with_defaults(
-    object_length_linter = NULL,
-    object_usage_linter = NULL,
-    cyclocomp_linter = NULL
-    )
-exclusions: list("tests/testthat.R", "R/cpp11.R")
+linters: all_linters(
+	indentation_linter = NULL, # unstable as of lintr 3.1.0
+	extraction_operator_linter = NULL # allow R6 syntax from {porcelain}
+	)
+exclusions: list(
+	"R/porcelain.R" = list(
+		object_name_linter = Inf # allow fn name `__porcelain__`
+	),
+	"tests/testthat.R" = list(
+		unused_import_linter = Inf,
+		undesirable_function_linter = Inf # allow library() calls
+	),
+	"tests/testthat/test-main.R" = list(
+		implicit_integer_linter = Inf # allow port notation without integer L
+	),
+	"vignettes" = list(
+		undesirable_function_linter = Inf
+	),
+	"R/cpp11.R"
+	)
