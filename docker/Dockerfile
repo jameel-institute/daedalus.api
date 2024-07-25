@@ -1,5 +1,5 @@
 # TODO: update version
-FROM rocker/r-ver:4.1.2
+FROM rocker/r-ver:4.4.1
 
 RUN apt-get update &&  apt-get install -y --no-install-recommends \
         libcurl4-openssl-dev \
@@ -8,6 +8,9 @@ RUN apt-get update &&  apt-get install -y --no-install-recommends \
         zlib1g-dev \
         && apt-get clean \
         && rm -rf /var/lib/apt/lists/*
+
+# NOTE: manual install stringi to link against libicu70 over libicu66
+RUN install2.r --error stringi
 
 # Without this, we are unable to pick up more recent packages
 COPY docker/Rprofile.site /usr/local/lib/R/etc/Rprofile.site
