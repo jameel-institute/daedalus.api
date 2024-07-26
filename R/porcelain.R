@@ -7,8 +7,6 @@
         "/",
         root,
         returning = porcelain::porcelain_returning_json("root"),
-        validate = validate
-      )
-    }
-  )
+        validate = validate)
+    })
 }
