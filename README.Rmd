@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/daedalus.api)](https://CRAN.R-project.org/package=daedalus.api)
 [![Codecov test coverage](https://codecov.io/gh/j-idea/daedalus.api/branch/main/graph/badge.svg)](https://app.codecov.io/gh/j-idea/daedalus.api?branch=main)
 [![R-CMD-check](https://github.com/j-idea/daedalus.api/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/j-idea/daedalus.api/actions/workflows/R-CMD-check.yaml)
+[![Build status](https://badge.buildkite.com/2fe5d34f1b4c4681b4e0e8d464f4fdaf44358fc48325b92580.svg)](https://buildkite.com/mrc-ide/daedalus-dot-api)
 <!-- badges: end -->
 
 _daedalus.api_ is an API package for the [_daedalus_ package](https://github.com/jameel-institute/daedalus) and is primarily intended for internal use.
