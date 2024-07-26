@@ -12,7 +12,6 @@
 ^docker$
 ^\.hadolint\.yaml$
 \.valgrind_ignore$
-^scripts$
 \.gcda$
 \.gcno$
 ^pkgdown$
@@ -25,3 +24,4 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
+^CITATION\.cff$
