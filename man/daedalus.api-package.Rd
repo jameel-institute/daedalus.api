@@ -11,8 +11,8 @@ API server for the 'daedalus' model, using 'porcelain' and 'plumber'.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/j-idea/daedalus.api}
-  \item Report bugs at \url{https://github.com/j-idea/daedalus.api/issues}
+  \item \url{https://github.com/jameel-institute/daedalus.api}
+  \item Report bugs at \url{https://github.com/jameel-institute/daedalus.api/issues}
 }
 
 }
