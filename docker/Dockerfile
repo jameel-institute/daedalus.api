@@ -19,7 +19,9 @@ COPY docker/Rprofile.site /usr/local/lib/R/etc/Rprofile.site
 # NOTE: need to convert to using r-universe instead
 RUN install2.r --error \
         --repos=https://mrc-ide.r-universe.dev \
+        --repos=https://jameel-institute.r-universe.dev \
         --repos=https://packagemanager.posit.co/all/__linux__/focal/latest \
+        daedalus \
         docopt \
         jsonlite \
         logr \
