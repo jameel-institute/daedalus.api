@@ -18,7 +18,7 @@ COPY docker/Rprofile.site /usr/local/lib/R/etc/Rprofile.site
 # More cache-friendly installation of some dependencies:
 # NOTE: need to convert to using r-universe instead
 RUN install2.r --error \
-        --repos=https://mrc-ide.github.io/drat \
+        --repos=https://mrc-ide.r-universe.dev \
         --repos=https://packagemanager.posit.co/all/__linux__/focal/latest \
         docopt \
         jsonlite \
