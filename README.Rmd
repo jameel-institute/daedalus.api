@@ -35,12 +35,9 @@ devtools::install_github("jameel-institute/daedalus.api")
 
 ## Quick start
 
-Clone this repository and run the following command from the repository directory to build the Docker image described by `docker/Dockerfile`.
-You will need [Docker Engine](https://docs.docker.com/engine/) for this. You may also need `sudo` permissions.
-
 ```sh
 # the image will be assigned the tag 'latest'
-docker build . -f docker/Dockerfile -t daedalus.api:latest
+docker pull mrcide/daedalus.api:latest
 
 # run the container
 # see docker run --help for options
