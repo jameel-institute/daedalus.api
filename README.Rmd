@@ -41,10 +41,13 @@ docker pull mrcide/daedalus.api:latest
 
 # run the container
 # see docker run --help for options
-docker run -d --rm -p 8001:8001 daedalus.api:latest
+docker run -d --name daedalus-api --rm -p 8001:8001 mrcide/daedalus.api:latest
 
 # check root endpoint `GET/`
 curl -s http://localhost:8001 | jq
+
+# stop the service
+docker stop daedalus-api
 ```
 
 Instructions to build directly from this repository will be added soon.
