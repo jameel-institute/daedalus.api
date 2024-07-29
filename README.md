@@ -4,26 +4,18 @@
 # daedalus.api
 
 <!-- badges: start -->
-
-[![Project Status: Concept – Minimal or no implementation has been done
-yet, or the repository is only intended to be a limited example, demo,
-or
-proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
-[![CRAN
-status](https://www.r-pkg.org/badges/version/daedalus.api)](https://CRAN.R-project.org/package=daedalus.api)
-[![Codecov test
-coverage](https://codecov.io/gh/j-idea/daedalus.api/branch/main/graph/badge.svg)](https://app.codecov.io/gh/j-idea/daedalus.api?branch=main)
-[![R-CMD-check](https://github.com/j-idea/daedalus.api/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/j-idea/daedalus.api/actions/workflows/R-CMD-check.yaml)
+[![Project Status: Concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept)
+[![CRAN status](https://www.r-pkg.org/badges/version/daedalus.api)](https://CRAN.R-project.org/package=daedalus.api)
+[![Codecov test coverage](https://codecov.io/gh/jameel-institute/daedalus.api/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jameel-institute/daedalus.api?branch=main)
+[![R-CMD-check](https://github.com/jameel-institute/daedalus.api/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jameel-institute/daedalus.api/actions/workflows/R-CMD-check.yaml)
+[![Build status](https://badge.buildkite.com/2fe5d34f1b4c4681b4e0e8d464f4fdaf44358fc48325b92580.svg)](https://buildkite.com/mrc-ide/daedalus-dot-api)
 <!-- badges: end -->
 
-*daedalus.api* is an API package for the [*daedalus*
-package](https://github.com/jameel-institute/daedalus) and is primarily
-intended for internal use.
+_daedalus.api_ is an API package for the [_daedalus_ package](https://github.com/jameel-institute/daedalus) and is primarily intended for internal use.
 
 ## Installation
 
-You can install the development version of daedalus.api from
-[GitHub](https://github.com/) with:
+You can install the development version of daedalus.api from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -32,28 +24,21 @@ devtools::install_github("jameel-institute/daedalus.api")
 
 ## Quick start
 
-Clone this repository and run the following command from the repository
-directory to build the Docker image described by `docker/Dockerfile`.
-You will need [Docker Engine](https://docs.docker.com/engine/) for this.
-You may also need `sudo` permissions.
-
-``` sh
+```sh
 # the image will be assigned the tag 'latest'
-docker build . -f docker/Dockerfile -t daedalus.api:latest
+docker pull mrcide/daedalus.api:latest
 
 # run the container
 # see docker run --help for options
-docker run -d --rm -p 8001:8001 daedalus.api:latest
+docker run -d --name daedalus-api --rm -p 8001:8001 mrcide/daedalus.api:latest
 
 # check root endpoint `GET/`
 curl -s http://localhost:8001 | jq
-```
 
-Instructions to build directly from this repository will be added soon.
+# stop the service
+docker stop daedalus-api
+```
 
 ## Related projects
 
-See the [*daedalus*
-package](https://github.com/jameel-institute/daedalus) which implements
-the DAEDALUS integrated model of economic, social, and health costs of a
-pandemic.
+See the [_daedalus_ package](https://github.com/jameel-institute/daedalus) which implements the DAEDALUS integrated model of economic, social, and health costs of a pandemic.
