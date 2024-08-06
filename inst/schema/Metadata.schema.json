@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "modelVersion": {
+         "type": "string",
+        "pattern": "^[0-9]+(\\.[0-9]+)*$"
+      },
+      "parameters":{
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": { "type": "string" },
+            "label": { "type": "string" },
+            "parameterType": {
+              "type": "string",
+              "enum": ["select", "globeSelect"]
+            },
+            "defaultOption": {
+              "type": ["string", null]
+            },
+            "ordered": { "type": "boolean" },
+            "options": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties":{
+                  "id": { "type": "string" },
+                  "label": { "type": "string" }
+                },
+                "additionalProperties": false,
+                "required": ["id", "label"]
+              }
+            }
+          },
+          "additionalProperties": false,
+          "required": ["id", "label", "parameterType", "defaultOption", "ordered", "options"]
+        }
+      }
+    },
+    "additionalProperties": false,
+    "required": ["modelVersion", "parameters"]json
+}
