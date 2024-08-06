@@ -31,9 +31,14 @@ root <- function() {
   lapply(versions, function(v) scalar(as.character(v)))
 }
 
-# TODO: specify schema!!
+# TODO: specify schema and rerun roxygen2::roxygenize()!!
 ##' @porcelain GET /metadata => json
 metadata <- function() {
-  response <- read_json("metadata_0.1.0.json")
+  # TODO: Use relevant model version
+  model_version <- "0.1.0"
+  metadata_file <- sprintf("metadata_%s.json", model_version)
+  response <- read_json(metadata_file)
+  
+  response$modelVersion <- model_version
   response
 }
