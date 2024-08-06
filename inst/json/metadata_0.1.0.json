@@ -2,7 +2,7 @@
   "modelVersion": null,
   "parameters": [
     {
-      "id": "country,
+      "id": "country",
       "label": "Country",
       "defaultOption": null,
       "ordered": false,
@@ -18,7 +18,7 @@
     {
       "id": "response",
       "label": "Response",
-      "defaultOption": "no_closure"
+      "defaultOption": "no_closure",
       "ordered": true,
       "options": [
         { "id": "no_closure", "label": "No closures" },

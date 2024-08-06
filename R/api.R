@@ -30,3 +30,10 @@ root <- function() {
   )
   lapply(versions, function(v) scalar(as.character(v)))
 }
+
+# TODO: specify schema!!
+##' @porcelain GET /metadata => json
+metadata <- function() {
+  response <- read_json("metadata_0.1.0.json")
+  response
+}
