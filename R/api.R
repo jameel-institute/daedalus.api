@@ -41,20 +41,34 @@ metadata <- function() {
   response <- read_json(metadata_file)
   response$modelVersion <- model_version
   
+  # Helper for the options which don't come from the json
+  get_option <- function(id, label) {
+    list(id = scalar(id), label = scalar(label))
+  }
+  
   # Set available countries from daedalus package
   # TODO: use the right version of daedalus/model
   # TODO: get ISO ids from daedalus when available
   country_options <- lapply(daedalus::country_names, function(country) {
-    country_string <- scalar(as.character(country))
-    list(
-      id = country_string,
-      label = country_string
-    )
+    country_string <- as.character(country)
+    get_option(country_string, country_string)
   })
-  countryIdx <- match("country", response$parameters$id)
-  response$parameters$options[[countryIdx]] <- country_options
+  country_idx <- match("country", response$parameters$id)
+  response$parameters$options[[country_idx]] <- country_options
   
-  pathogenIdx <- match("pathogen", response$parameters$id)
+  # TODO: get pathogen information from daedalus, when available
+  # TODO: make ticket for this!
+  pathogen_options <- list(
+    get_option("sars-cov-1", "SARS-CoV-1"),
+    get_option("sars-cov-2-pre-alpha", "SARS-CoV-2 pre-alpha (wildtype)"),
+    get_option("sars-cov-2-omicron", "SARS-CoV-2 omicron"),
+    get_option("sars-cov-2-delta", "SARS-CoV-2 delta"),
+    get_option("influenza-2009", "Influenza 2009 (Swine flu)"),
+    get_option("influenza-1957", "Influenza 1957"),
+    get_option("influenza-1918", "Influenza 1918 (Spanish flu)")
+  )
+  pathogen_idx <- match("pathogen", response$parameters$id)
+  response$parameters$options[[pathogen_idx]] <- pathogen_options
   
   response
 }
