@@ -34,11 +34,27 @@ root <- function() {
 # TODO: specify schema and rerun roxygen2::roxygenize()!!
 ##' @porcelain GET /metadata => json
 metadata <- function() {
-  # TODO: Use relevant model version
+  # TODO: Use relevant model version - from qs if specified, else from latest available metadata file
   model_version <- "0.1.0"
+  # TODO: read in correct metadata version according to qs
   metadata_file <- sprintf("metadata_%s.json", model_version)
   response <- read_json(metadata_file)
-  
   response$modelVersion <- model_version
+  
+  # Set available countries from daedalus package
+  # TODO: use the right version of daedalus/model
+  # TODO: get ISO ids from daedalus when available
+  country_options <- lapply(daedalus::country_names, function(country) {
+    country_string <- scalar(as.character(country))
+    list(
+      id = country_string,
+      label = country_string
+    )
+  })
+  countryIdx <- match("country", response$parameters$id)
+  response$parameters$options[[countryIdx]] <- country_options
+  
+  pathogenIdx <- match("pathogen", response$parameters$id)
+  
   response
 }

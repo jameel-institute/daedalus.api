@@ -16,6 +16,6 @@ system_file <- function(...) {
 }
 
 read_json <- function(filename) {
-  json <- jsonlite::read_json(system_file("json", filename))
+  json <- jsonlite::fromJSON(system_file("json", filename))
   json
 }
