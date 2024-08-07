@@ -18,7 +18,7 @@
               "enum": ["select", "globeSelect"]
             },
             "defaultOption": {
-              "type": ["string", null]
+              "type": ["string", "null"]
             },
             "ordered": { "type": "boolean" },
             "options": {
@@ -40,5 +40,5 @@
       }
     },
     "additionalProperties": false,
-    "required": ["modelVersion", "parameters"]json
+    "required": ["modelVersion", "parameters"]
 }

@@ -32,7 +32,7 @@ root <- function() {
 }
 
 # TODO: specify schema and rerun roxygen2::roxygenize()!!
-##' @porcelain GET /metadata => json
+##' @porcelain GET /metadata => json(metadata)
 metadata <- function() {
   # TODO: Use relevant model version - from qs if specified, else from latest available metadata file
   model_version <- "0.1.0"
@@ -56,8 +56,7 @@ metadata <- function() {
   country_idx <- match("country", response$parameters$id)
   response$parameters$options[[country_idx]] <- country_options
   
-  # TODO: get pathogen information from daedalus, when available
-  # TODO: make ticket for this!
+  # TODO: get pathogen information from daedalus, when available (JIDEA-61)
   pathogen_options <- list(
     get_option("sars-cov-1", "SARS-CoV-1"),
     get_option("sars-cov-2-pre-alpha", "SARS-CoV-2 pre-alpha (wildtype)"),

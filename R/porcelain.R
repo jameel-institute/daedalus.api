@@ -14,7 +14,7 @@
         "GET",
         "/metadata",
         metadata,
-        returning = porcelain::porcelain_returning_json(),
+        returning = porcelain::porcelain_returning_json("metadata"),
         validate = validate)
     })
 }
