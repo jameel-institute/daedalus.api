@@ -2,7 +2,7 @@ test_that("Root data returns sensible, validated, data", {
   ## Just hello world for the package really
   endpoint <- daedalus_api_endpoint("GET", "/")
   expect_no_condition(
-    res <- endpoint$run()
+    res <- endpoint$run() # nolint
   )
   expect_true(res$validated)
 
@@ -31,7 +31,7 @@ test_that("Can construct the api", {
 test_that("Can get metadata", {
   endpoint <- daedalus_api_endpoint("GET", "/metadata")
   expect_no_condition(
-    res <- endpoint$run()
+    res <- endpoint$run() # nolint
   )
   expect_true(res$validated)
   expected_parameters <- c(
@@ -49,16 +49,16 @@ test_that("Can get metadata", {
   daedalus_countries <- daedalus::country_names
   # expect country ids to match those from daedalus
   expect_identical(
-    vapply(country_options, function(option){
+    vapply(country_options, function(option) {
         option$id
-    }, character(1)),
+    }, character(1L)),
     daedalus_countries
   )
   # expect country labels to match those from daedalus
   expect_identical(
-    vapply(country_options, function(option){
+    vapply(country_options, function(option) {
       option$label
-    }, character(1)),
+    }, character(1L)),
     daedalus_countries
   )
 })
