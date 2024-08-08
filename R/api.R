@@ -31,32 +31,29 @@ root <- function() {
   lapply(versions, function(v) scalar(as.character(v)))
 }
 
-# TODO: specify schema and rerun roxygen2::roxygenize()!!
 ##' @porcelain GET /metadata => json(metadata)
 metadata <- function() {
-  # TODO: Use relevant model version - from qs if specified, else from latest available metadata file (jidea-62)
+  # JIDEA-62: we will use relevant model version - from qs if specified, else 
+  # from latest available metadata file
   model_version <- scalar("0.1.0")
-  # TODO: read in correct metadata version according to model_version (jidea-62)
+  # JIDEA-62: we will read in correct metadata version according to model_version
   metadata_file <- sprintf("metadata_%s.json", model_version)
   response <- read_json(metadata_file)
   response$modelVersion <- model_version
-  
   # Helper for the options which don't come from the json
   get_option <- function(id, label) {
     list(id = scalar(id), label = scalar(label))
   }
-  
   # Set available countries from daedalus package
-  # TODO: use the right version of daedalus/model
-  # TODO: get ISO ids from daedalus when available
+  # JIDEA-62: use the right version of daedalus/model
+  # we will get ISO ids from daedalus when available
   country_options <- lapply(daedalus::country_names, function(country) {
     country_string <- as.character(country)
     get_option(country_string, country_string)
   })
   country_idx <- match("country", response$parameters$id)
   response$parameters$options[[country_idx]] <- country_options
-  
-  # TODO: get pathogen information from daedalus, when available (JIDEA-61)
+  # JIDEA-61: get pathogen information from daedalus, when available
   pathogen_options <- list(
     get_option("sars-cov-1", "SARS-CoV-1"),
     get_option("sars-cov-2-pre-alpha", "SARS-CoV-2 pre-alpha (wildtype)"),
