@@ -30,18 +30,17 @@ test_that("Can get metadata", {
   endpoint <- daedalus_api_endpoint("GET", "/metadata")
   res <- endpoint$run()
   expect_true(res$validated)
-  
-  lapply(res$data$parameters$id, function(id){
+  lapply(res$data$parameters$id, function(id) {
     expect_true(id %in% expected_parameters)
   })
-  
   # expect country ids to match those from daedalus
   country_idx <- match("country", res$data$parameters$id)
   country_options <- res$data$parameters$options[[country_idx]]
-  daedalus_countries = daedalus::country_names
-  expect_equal(length(country_options), length(daedalus_countries))
+  daedalus_countries <- daedalus::country_names
+  expect_length(country_options, length(daedalus_countries))
   lapply(seq_along(country_options), function(idx) {
-    expect_equal(country_options[[idx]]$id, scalar(daedalus_countries[[idx]]))
-    expect_equal(country_options[[idx]]$label, scalar(daedalus_countries[[idx]]))
+    daedalus_country <- scalar(daedalus_countries[[idx]])
+    expect_identical(country_options[[idx]]$id, daedalus_country)
+    expect_identical(country_options[[idx]]$label, daedalus_country)
   })
 })

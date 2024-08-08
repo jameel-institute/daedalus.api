@@ -33,10 +33,11 @@ root <- function() {
 
 ##' @porcelain GET /metadata => json(metadata)
 metadata <- function() {
-  # JIDEA-62: we will use relevant model version - from qs if specified, else 
+  # JIDEA-62: we will use relevant model version - from qs if specified, else
   # from latest available metadata file
   model_version <- scalar("0.1.0")
-  # JIDEA-62: we will read in correct metadata version according to model_version
+  # JIDEA-62: we will read in correct metadata version according to
+  # model_version
   metadata_file <- sprintf("metadata_%s.json", model_version)
   response <- read_json(metadata_file)
   response$modelVersion <- model_version
@@ -65,6 +66,5 @@ metadata <- function() {
   )
   pathogen_idx <- match("pathogen", response$parameters$id)
   response$parameters$options[[pathogen_idx]] <- pathogen_options
-  
   response
 }
