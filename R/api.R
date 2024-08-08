@@ -34,12 +34,13 @@ root <- function() {
 ##' @porcelain GET /metadata => json(metadata)
 metadata <- function() {
   # JIDEA-62: we will use relevant model version - from qs if specified, else
-  # from latest available metadata file
-  model_version <- scalar("0.1.0")
-  # JIDEA-62: we will read in correct metadata version according to
+  # from latest available metadata file. For now get model version from package.
+  model_version <- scalar(as.character(packageVersion("daedalus")))
+  # JIDEA-62: we will read in correct metadata version according to requested
   # model_version
-  metadata_file <- sprintf("metadata_%s.json", model_version)
-  response <- read_json(metadata_file)
+  metadata_version <- "0.1.0"
+  metadata_file <- sprintf("metadata_%s.json", metadata_version)
+  response <- read_local_json(metadata_file)
   response$modelVersion <- model_version
   # Helper for the options which don't come from the json
   get_option <- function(id, label) {

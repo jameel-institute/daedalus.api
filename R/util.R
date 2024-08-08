@@ -6,6 +6,7 @@ package_version_string <- function(name) {
   as.character(utils::packageVersion(name))
 }
 
+# Overwrite base function with more informative error
 system_file <- function(...) {
   tryCatch({
     system.file(..., mustWork = TRUE, package = "daedalus.api")
@@ -15,7 +16,7 @@ system_file <- function(...) {
   })
 }
 
-read_json <- function(filename) {
+read_local_json <- function(filename) {
   json <- jsonlite::fromJSON(system_file("json", filename))
   json
 }

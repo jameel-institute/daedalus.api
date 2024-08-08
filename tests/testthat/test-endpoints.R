@@ -1,7 +1,9 @@
 test_that("Root data returns sensible, validated, data", {
   ## Just hello world for the package really
   endpoint <- daedalus_api_endpoint("GET", "/")
-  res <- endpoint$run()
+  expect_no_condition(
+    res <- endpoint$run()
+  )
   expect_true(res$validated)
 
   expect_contains(
@@ -28,19 +30,35 @@ test_that("Can construct the api", {
 
 test_that("Can get metadata", {
   endpoint <- daedalus_api_endpoint("GET", "/metadata")
-  res <- endpoint$run()
+  expect_no_condition(
+    res <- endpoint$run()
+  )
   expect_true(res$validated)
-  lapply(res$data$parameters$id, function(id) {
-    expect_true(id %in% expected_parameters)
-  })
-  # expect country ids to match those from daedalus
+  expected_parameters <- c(
+    "country",
+    "pathogen",
+    "response",
+    "vaccine"
+  )
+  expect_setequal(
+    res$data$parameters$id,
+    expected_parameters
+  )
   country_idx <- match("country", res$data$parameters$id)
   country_options <- res$data$parameters$options[[country_idx]]
   daedalus_countries <- daedalus::country_names
-  expect_length(country_options, length(daedalus_countries))
-  lapply(seq_along(country_options), function(idx) {
-    daedalus_country <- scalar(daedalus_countries[[idx]])
-    expect_identical(country_options[[idx]]$id, daedalus_country)
-    expect_identical(country_options[[idx]]$label, daedalus_country)
-  })
+  # expect country ids to match those from daedalus
+  expect_identical(
+    vapply(country_options, function(option){
+        option$id
+    }, character(1)),
+    daedalus_countries
+  )
+  # expect country labels to match those from daedalus
+  expect_identical(
+    vapply(country_options, function(option){
+      option$label
+    }, character(1)),
+    daedalus_countries
+  )
 })
