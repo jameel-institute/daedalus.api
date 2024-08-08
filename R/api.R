@@ -34,9 +34,9 @@ root <- function() {
 # TODO: specify schema and rerun roxygen2::roxygenize()!!
 ##' @porcelain GET /metadata => json(metadata)
 metadata <- function() {
-  # TODO: Use relevant model version - from qs if specified, else from latest available metadata file
-  model_version <- "0.1.0"
-  # TODO: read in correct metadata version according to qs
+  # TODO: Use relevant model version - from qs if specified, else from latest available metadata file (jidea-62)
+  model_version <- scalar("0.1.0")
+  # TODO: read in correct metadata version according to model_version (jidea-62)
   metadata_file <- sprintf("metadata_%s.json", model_version)
   response <- read_json(metadata_file)
   response$modelVersion <- model_version

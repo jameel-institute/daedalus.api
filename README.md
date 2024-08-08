@@ -6,7 +6,7 @@
 
 <!-- badges: end -->
 
-*daedalus.api* is an API package for the [*daedalus* package](https://github.com/jameel-institute/daedalus) and is primarily intended for internal use.
+_daedalus.api_ is an API package for the [_daedalus_ package](https://github.com/jameel-institute/daedalus) and is primarily intended for internal use.
 
 ## Installation
 
@@ -19,7 +19,7 @@ devtools::install_github("jameel-institute/daedalus.api")
 
 ## Quick start
 
-``` sh
+```sh
 # the image will be assigned the tag 'latest'
 docker pull mrcide/daedalus.api:latest
 
@@ -52,4 +52,4 @@ model version will be the most recent metadata's `[VERSION]`.
 
 ## Related projects
 
-See the [*daedalus* package](https://github.com/jameel-institute/daedalus) which implements the DAEDALUS integrated model of economic, social, and health costs of a pandemic.
+See the [_daedalus_ package](https://github.com/jameel-institute/daedalus) which implements the DAEDALUS integrated model of economic, social, and health costs of a pandemic.

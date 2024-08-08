@@ -4,6 +4,7 @@
     {
       "id": "country",
       "label": "Country",
+      "parameterType": "globeSelect",
       "defaultOption": null,
       "ordered": false,
       "options": null
@@ -11,6 +12,7 @@
     {
       "id": "pathogen",
       "label": "Disease",
+      "parameterType": "select",
       "defaultOption": null,
       "ordered": false,
       "options": null
@@ -18,6 +20,7 @@
     {
       "id": "response",
       "label": "Response",
+      "parameterType": "select",
       "defaultOption": "no_closure",
       "ordered": true,
       "options": [
@@ -30,6 +33,7 @@
     {
       "id": "vaccine",
       "label": "Advance vaccine investment",
+      "parameterType": "select",
       "defaultOption": "none",
       "ordered": true,
       "options": [
