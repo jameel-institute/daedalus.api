@@ -8,5 +8,13 @@
         root,
         returning = porcelain::porcelain_returning_json("root"),
         validate = validate)
+    },
+    "GET /metadata" = function(state, validate) {
+      porcelain::porcelain_endpoint$new(
+        "GET",
+        "/metadata",
+        metadata,
+        returning = porcelain::porcelain_returning_json("metadata"),
+        validate = validate)
     })
 }

@@ -1,0 +1,47 @@
+{
+  "modelVersion": null,
+  "parameters": [
+    {
+      "id": "country",
+      "label": "Country",
+      "parameterType": "globeSelect",
+      "defaultOption": null,
+      "ordered": false,
+      "options": null
+    },
+    {
+      "id": "pathogen",
+      "label": "Disease",
+      "parameterType": "select",
+      "defaultOption": null,
+      "ordered": false,
+      "options": null
+    },
+    {
+      "id": "response",
+      "label": "Response",
+      "parameterType": "select",
+      "defaultOption": "no_closure",
+      "ordered": true,
+      "options": [
+        { "id": "no_closure", "label": "No closures" },
+        { "id": "school_closure", "label": "School closures" },
+        { "id": "business_closure", "label": "Business closures" },
+        { "id": "elimination", "label": "Elimination" }
+      ]
+    },
+    {
+      "id": "vaccine",
+      "label": "Advance vaccine investment",
+      "parameterType": "select",
+      "defaultOption": "none",
+      "ordered": true,
+      "options": [
+        { "id": "none", "label": "None" },
+        { "id": "low", "label": "Low" },
+        { "id": "medium", "label": "Medium" },
+        { "id": "high", "label": "High" }
+      ]
+    }
+  ]
+}

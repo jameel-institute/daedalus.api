@@ -3,9 +3,6 @@ linters: all_linters(
 	extraction_operator_linter = NULL # allow R6 syntax from {porcelain}
 	)
 exclusions: list(
-	"R/porcelain.R" = list(
-		object_name_linter = Inf # allow fn name `__porcelain__`
-	),
 	"tests/testthat.R" = list(
 		unused_import_linter = Inf,
 		undesirable_function_linter = Inf # allow library() calls
@@ -16,5 +13,6 @@ exclusions: list(
 	"vignettes" = list(
 		undesirable_function_linter = Inf
 	),
-	"R/cpp11.R"
+	"R/cpp11.R",
+	"R/porcelain.R"
 	)
