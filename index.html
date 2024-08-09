@@ -50,6 +50,7 @@
 </h1></div>
 <!-- badges: start -->
 
+<!-- badges: end -->
 <p><em>daedalus.api</em> is an API package for the <a href="https://github.com/jameel-institute/daedalus" class="external-link"><em>daedalus</em> package</a> and is primarily intended for internal use.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -74,6 +75,17 @@
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co"># stop the service</span></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="ex">docker</span> stop daedalus-api</span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="development">Development<a class="anchor" aria-label="anchor" href="#development"></a>
+</h2>
+<p>To add an endpoint, implement a method in <code>api.R</code> with <code>@porcelain</code> comment, then run <code>roxygen2::roxygenize()</code> to generate the porcelain code in <code>porcelain.R</code>. See the <a href="https://reside-ic.github.io/porcelain/articles/roxygen.html" class="external-link">porcelain docs</a> for more details.</p>
+</div>
+<div class="section level2">
+<h2 id="model-versions">Model versions<a class="anchor" aria-label="anchor" href="#model-versions"></a>
+</h2>
+<p>The API should be backwards compatible and support running older versions of the model. Some endpoints support providing <code>modelVersion</code> as a query string parameter, e.g. to run or get metadata for a particular version of the model.</p>
+<p>Metadata is stored in the <code>inst/json</code> folder, in files named <code>metadata_[VERSION].json</code> where <code>[VERSION]</code> is the first model version where that metadata applied. Requesting metadata for a model version will return the metadata which applies to that version, (which may have been first introduced in an earlier version). The metadata response includes a <code>modelVersion</code> property - this value will be the <code>modelVersion</code> requested in the query string, if provided. If <code>modelVersion</code> was not provided in the query string, the returned model version will be the most recent metadata’s <code>[VERSION]</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="related-projects">Related projects<a class="anchor" aria-label="anchor" href="#related-projects"></a>
