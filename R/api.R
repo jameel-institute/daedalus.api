@@ -69,3 +69,27 @@ metadata <- function() {
   response$parameters$options[[pathogen_idx]] <- pathogen_options
   response
 }
+
+#' @porcelain
+#'   POST /scenario/run => json(scenarioRunResponse)
+#'   body data :: json(scenarioRunRequest)
+scenarioRun <- function(data) {
+  # Returning sample response for now
+  read_local_json_file("sample_scenario_run_response.json")
+}
+
+#' @porcelain
+#'   GET /scenario/status => json(scenarioStatus)
+#'   query runId :: string
+scenarioStatus <-  function(runId) {
+  # Returning sample response for now
+  read_local_json_file("sample_scenario_status_response.json")
+}
+
+#' @porcelain
+#'   GET /scenario/results => json(scenarioResults)
+#'   query runId :: string
+scenarioResults <- function(runId) {
+  # Returning sample response for now
+  read_local_json_file("sample_scenario_results_response.json")
+}

@@ -12,10 +12,10 @@
             "type": "string",
             "enum": ["queued", "running", "complete", "failed"]
         },
-        "success": {
+        "runSuccess": {
             "type": ["boolean", "null"]
         },
-        "errors": {
+        "runErrors": {
             "type": ["array", "null"]
         }
     },

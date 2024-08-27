@@ -23,6 +23,19 @@
                 "required": ["id", "value"]
             }
         },
+        "interventions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type":  "string" },
+                    "start": { "type": "number" },
+                    "end": { "type": "number" }
+                },
+                "additionalProperties": false,
+                "required": [ "id", "start", "end" ]
+            }
+        },
         "time_series": {
             "type": "object",
             "additionalProperties": {
@@ -34,5 +47,5 @@
         }
     },
     "additionalProperties": false,
-    "required": ["runId", "costs", "capacities", "time_series"]
+    "required": ["runId", "costs", "capacities", "interventions", "time_series"]
 }
