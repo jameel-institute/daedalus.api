@@ -11,7 +11,7 @@ exclusions: list(
 		implicit_integer_linter = Inf # allow port notation without integer L
 	),
 	"tests/testthat/test-endpoints.R" = list(
-	    absolute_path_linter = Inf # spurious path errors for routes,
+	    absolute_path_linter = Inf, # spurious path errors for routes
 	    nonportable_path_linter = Info # ditto
 	),
 	"vignettes" = list(
