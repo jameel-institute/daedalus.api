@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "runId": {
+            "type": "string"
+        },
+        "costs": {
+            "type": "array",
+            "items": {
+                "$ref": "scenarioCost.json"
+            }
+        },
+        "capacities": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "value": { "type": "number" }
+                },
+                "additionalProperties": false,
+                "required": ["id", "value"]
+            }
+        },
+        "time_series": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "array",
+                "items": {
+                    "type": "number"
+                }
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": ["runId", "costs", "capacities", "time_series"]
+}
