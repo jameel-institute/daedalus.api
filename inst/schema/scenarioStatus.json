@@ -8,7 +8,7 @@
         "done": {
             "type": "boolean"
         },
-        "status": {
+        "runStatus": {
             "type": "string",
             "enum": ["queued", "running", "complete", "failed"]
         },
@@ -20,5 +20,5 @@
         }
     },
     "additionalProperties": false,
-    "required": ["runId", "done", "status", "success", "errors"]
+    "required": ["runId", "done", "runStatus", "runSuccess", "runErrors"]
 }

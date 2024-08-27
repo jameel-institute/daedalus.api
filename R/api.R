@@ -75,7 +75,7 @@ metadata <- function() {
 #'   body data :: json(scenarioRunRequest)
 scenarioRun <- function(data) {
   # Returning sample response for now
-  read_local_json_file("sample_scenario_run_response.json")
+  json_verbatim(read_local_json("sample_scenario_run_response.json"))
 }
 
 #' @porcelain
@@ -83,7 +83,7 @@ scenarioRun <- function(data) {
 #'   query runId :: string
 scenarioStatus <-  function(runId) {
   # Returning sample response for now
-  read_local_json_file("sample_scenario_status_response.json")
+  json_verbatim(read_local_json("sample_scenario_status_response.json"))
 }
 
 #' @porcelain
@@ -91,5 +91,5 @@ scenarioStatus <-  function(runId) {
 #'   query runId :: string
 scenarioResults <- function(runId) {
   # Returning sample response for now
-  read_local_json_file("sample_scenario_results_response.json")
+  json_verbatim(read_local_json("sample_scenario_results_response.json"))
 }

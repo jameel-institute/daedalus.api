@@ -5,11 +5,11 @@
     "value": 27000000,
     "children": [
       {
-        "id": "gdp"
+        "id": "gdp",
         "value": 4000000,
         "children": [
           {
-            "id": "gdp_closures"
+            "id": "gdp_closures",
             "value": 1000000
           },
           {
@@ -33,7 +33,7 @@
         ]
       },
       {
-        "id": "life_years"
+        "id": "life_years",
         "value": 17000000,
         "children": [
           {
@@ -64,6 +64,18 @@
     {
       "id": "icu_capacity",
       "value": 5000
+    }
+  ],
+  "interventions": [
+    {
+      "id": "school_closures",
+      "start": 1,
+      "end": 4
+    },
+    {
+      "id": "business_closures",
+      "start": 3,
+      "end": 8
     }
   ],
   "time_series": {

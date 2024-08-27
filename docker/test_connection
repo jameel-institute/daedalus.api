@@ -13,7 +13,7 @@ function cleanup {
     docker kill $NAME_SERVER > /dev/null || true
 }
 
-trap cleanup EXIT
+#trap cleanup EXIT
 
 docker run --rm -d -p 8001:8001 --name $NAME_SERVER $TAG_SHA
 

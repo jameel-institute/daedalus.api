@@ -62,3 +62,19 @@ test_that("Can get metadata", {
     daedalus_countries
   )
 })
+
+test_that("Can get scenario run response", {
+  res <- daedalus_api_endpoint("POST", "/scenario/run")$run()
+  expect_true(res$validated)
+})
+
+test_that("Can get scenario status", {
+  res <- daedalus_api_endpoint("GET", "/scenario/status")$run()
+  expect_true(res$validated)
+})
+
+test_that("Can get scenario results", {
+  res <- daedalus_api_endpoint("GET", "/scenario/results")$run()
+  expect_true(res$validated)
+})
+

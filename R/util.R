@@ -17,6 +17,11 @@ system_file <- function(...) {
 }
 
 read_local_json <- function(filename) {
-  json <- jsonlite::fromJSON(system_file("json", filename))
-  json
+  jsonlite::fromJSON(system_file("json", filename))
+}
+
+# (Probably) temporary method to return verbatim sample json
+# - return nulls as nulls and scalars as scalars!
+json_verbatim <- function(json) {
+  jsonlite::toJSON(json, auto_unbox = TRUE, null = "null")
 }
