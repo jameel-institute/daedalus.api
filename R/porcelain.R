@@ -21,7 +21,7 @@
       porcelain::porcelain_endpoint$new(
         "POST",
         "/scenario/run",
-        scenarioRun,
+        scenario_run,
         porcelain::porcelain_input_body_json("data", "scenarioRunRequest"),
         returning = porcelain::porcelain_returning_json("scenarioRunResponse"),
         validate = validate)
@@ -30,8 +30,8 @@
       porcelain::porcelain_endpoint$new(
         "GET",
         "/scenario/status",
-        scenarioStatus,
-        porcelain::porcelain_input_query(runId = "string"),
+        scenario_status,
+        porcelain::porcelain_input_query(run_id = "string"),
         returning = porcelain::porcelain_returning_json("scenarioStatus"),
         validate = validate)
     },
@@ -39,8 +39,8 @@
       porcelain::porcelain_endpoint$new(
         "GET",
         "/scenario/results",
-        scenarioResults,
-        porcelain::porcelain_input_query(runId = "string"),
+        scenario_results,
+        porcelain::porcelain_input_query(run_id = "string"),
         returning = porcelain::porcelain_returning_json("scenarioResults"),
         validate = validate)
     })

@@ -77,4 +77,3 @@ test_that("Can get scenario results", {
   res <- daedalus_api_endpoint("GET", "/scenario/results")$run()
   expect_true(res$validated)
 })
-

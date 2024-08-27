@@ -10,6 +10,10 @@ exclusions: list(
 	"tests/testthat/test-main.R" = list(
 		implicit_integer_linter = Inf # allow port notation without integer L
 	),
+	"tests/testthat/test-endpoints.R" = list(
+	    absolute_path_linter = Inf # spurious path errors for route containing /
+	    nonportable_path_linter = Info # ditto
+	),
 	"vignettes" = list(
 		undesirable_function_linter = Inf
 	),
