@@ -12,7 +12,7 @@ exclusions: list(
 	),
 	"tests/testthat/test-endpoints.R" = list(
 	    absolute_path_linter = Inf, # spurious path errors for routes
-	    nonportable_path_linter = Info # ditto
+	    nonportable_path_linter = Inf # ditto
 	),
 	"vignettes" = list(
 		undesirable_function_linter = Inf
