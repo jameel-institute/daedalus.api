@@ -16,5 +16,32 @@
         metadata,
         returning = porcelain::porcelain_returning_json("metadata"),
         validate = validate)
+    },
+    "POST /scenario/run" = function(state, validate) {
+      porcelain::porcelain_endpoint$new(
+        "POST",
+        "/scenario/run",
+        scenario_run,
+        porcelain::porcelain_input_body_json("data", "scenarioRunRequest"),
+        returning = porcelain::porcelain_returning_json("scenarioRunResponse"),
+        validate = validate)
+    },
+    "GET /scenario/status" = function(state, validate) {
+      porcelain::porcelain_endpoint$new(
+        "GET",
+        "/scenario/status",
+        scenario_status,
+        porcelain::porcelain_input_query(run_id = "string"),
+        returning = porcelain::porcelain_returning_json("scenarioStatus"),
+        validate = validate)
+    },
+    "GET /scenario/results" = function(state, validate) {
+      porcelain::porcelain_endpoint$new(
+        "GET",
+        "/scenario/results",
+        scenario_results,
+        porcelain::porcelain_input_query(run_id = "string"),
+        returning = porcelain::porcelain_returning_json("scenarioResults"),
+        validate = validate)
     })
 }

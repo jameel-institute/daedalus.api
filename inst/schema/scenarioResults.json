@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "runId": {
+            "type": "string"
+        },
+        "parameters": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "costs": {
+            "type": "array",
+            "items": {
+                "$ref": "scenarioCost.json"
+            }
+        },
+        "capacities": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "value": { "type": "number" }
+                },
+                "additionalProperties": false,
+                "required": ["id", "value"]
+            }
+        },
+        "interventions": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": { "type":  "string" },
+                    "level": {
+                        "type": "string",
+                        "enum": ["light", "heavy"]
+                    },
+                    "start": { "type": "number" },
+                    "end": { "type": "number" }
+                },
+                "additionalProperties": false,
+                "required": [ "id", "start", "end" ]
+            }
+        },
+        "time_series": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "array",
+                "items": {
+                    "type": "number"
+                }
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": ["runId", "costs", "capacities", "interventions", "time_series"]
+}

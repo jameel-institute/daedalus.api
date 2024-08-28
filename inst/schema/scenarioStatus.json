@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "runId": {
+            "type": "string"
+        },
+        "done": {
+            "type": "boolean"
+        },
+        "runStatus": {
+            "type": "string",
+            "enum": ["queued", "running", "complete", "failed"]
+        },
+        "runSuccess": {
+            "type": ["boolean", "null"]
+        },
+        "runErrors": {
+            "type": ["array", "null"]
+        }
+    },
+    "additionalProperties": false,
+    "required": ["runId", "done", "runStatus", "runSuccess", "runErrors"]
+}
