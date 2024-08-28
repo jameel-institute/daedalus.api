@@ -5,6 +5,12 @@
         "runId": {
             "type": "string"
         },
+        "parameters": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
         "costs": {
             "type": "array",
             "items": {
@@ -29,6 +35,10 @@
                 "type": "object",
                 "properties": {
                     "id": { "type":  "string" },
+                    "level": {
+                        "type": "string",
+                        "enum": ["light", "heavy"]
+                    },
                     "start": { "type": "number" },
                     "end": { "type": "number" }
                 },

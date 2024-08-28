@@ -1,5 +1,11 @@
 {
   "runId": "007e5f5453d64850",
+  "parameters": {
+      "country": "Canada",
+      "pathogen": "influenza_1918",
+      "response": "elimination",
+      "vaccine": "low"
+  },
   "costs": [{
     "id":  "total",
     "value": 27000000,
@@ -69,11 +75,13 @@
   "interventions": [
     {
       "id": "school_closures",
+      "level": "light",
       "start": 1,
       "end": 4
     },
     {
       "id": "business_closures",
+      "level": "heavy",
       "start": 3,
       "end": 8
     }
