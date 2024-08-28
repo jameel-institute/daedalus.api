@@ -1,5 +1,17 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
+    "$defs": {
+        "info": {
+            "type": "object",
+            "properties": {
+                "id": { "type": "string" },
+                "label": { "type": "string" },
+                "description": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false,
+            "required": ["id", "label"]
+        }
+    },
     "type": "object",
     "properties": {
       "modelVersion": {
@@ -37,8 +49,39 @@
           "additionalProperties": false,
           "required": ["id", "label", "parameterType", "defaultOption", "ordered", "options"]
         }
+      },
+      "results": {
+        "type": "object",
+        "properties": {
+          "costs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/info"
+            }
+          },
+          "capacities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/info"
+            }
+          },
+          "interventions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/info"
+            }
+          },
+          "time_series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/info"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": ["costs", "capacities", "interventions", "time_series"]
       }
     },
     "additionalProperties": false,
-    "required": ["modelVersion", "parameters"]
+    "required": ["modelVersion", "parameters", "results"]
 }
