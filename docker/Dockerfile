@@ -3,6 +3,7 @@ FROM rocker/r-ver:4.4.1
 
 RUN apt-get update &&  apt-get install -y --no-install-recommends \
         libcurl4-openssl-dev \
+        libhiredis-dev \
         libssl-dev \
         libv8-dev \
         zlib1g-dev \
@@ -45,4 +46,4 @@ RUN R CMD INSTALL --install-tests /src && \
 # ENTRYPOINT for api is "/usr/local/bin/daedalus.api"
 # ENTRYPOINT for worker is "/usr/local/bin/daedalus.api.worker"
 # Set env vars DAEDALUS_QUEUE_ID and REDIS_CONTAINER_NAME for both
-# A volume should be mounted at /daedalus/results and (for the worker) at logs/worker
+# A persistent volume should be mounted at /daedalus/results and (for the worker) at logs/worker

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -ex
+HERE=$(dirname $0)
+. $HERE/common
+
+echo "Cleaning up"
+docker kill $NAME_SERVER || true
+docker kill $NAME_WORKER || true
+docker kill $NAME_REDIS || true
+docker network remove $NAME_NETWORK || true

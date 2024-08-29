@@ -15,13 +15,13 @@ Queue <- R6::R6Class("Queue",
 
       # Configure rrq to store data > 1KB to disk
       queue_id <- get_queue_id()
-      rrq::rrq_configure(queue_id, store_max_size = 1000, offload_path = results_dir)
+      rrq::rrq_configure(queue_id, store_max_size = 1000, offload_path = results_dir, con = con)
 
       # Create queue
-      self$controller <- rrq::rrq(queue_id, con = con)
+      self$controller <- rrq::rrq_controller(queue_id, con = con)
       dir.create(logs_dir, showWarnings = FALSE)
       worker_config <- rrq::rrq_worker_config(logdir = logs_dir)
-      rrq::rrq_worker_config.save(localhost, worker_config, controller = self$controller)
+      rrq::rrq_worker_config_save("localhost", worker_config, controller = self$controller)
     },
 
     #' @description
@@ -29,10 +29,10 @@ Queue <- R6::R6Class("Queue",
     #'
     #' @param parameters parameter values for the model run
     #' @modelVersion requested model version to use for the run
-    queue_model_run = function(parameters, modelVersion = NULL) {
+    queue_model_run = function(parameters, model_version = NULL) {
       run_args <- list(
         parameters,
-        modelVersion
+        model_version
       )
       rrq::rrq_task_create_call(model_run, run_args,
                                 separate_process = TRUE, controller = self$controller)
@@ -59,10 +59,10 @@ Queue <- R6::R6Class("Queue",
     #' Get results data for a completed model run. Throws an error if the task was not successful.
     #'
     #' @param run_id the run id of the model run
-    get_run_results <- function(run_id) {
+    get_run_results = function(run_id) {
       rrq::rrq_task_result(run_id, controller = self$controller, error = TRUE)
     }
-  )
+  ),
 )
 
 get_queue_id <- function() {

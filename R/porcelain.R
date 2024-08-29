@@ -23,6 +23,7 @@
         "/scenario/run",
         scenario_run,
         porcelain::porcelain_input_body_json("data", "scenarioRunRequest"),
+        porcelain::porcelain_state(queue = state$queue),
         returning = porcelain::porcelain_returning_json("scenarioRunResponse"),
         validate = validate)
     },
@@ -32,6 +33,7 @@
         "/scenario/status",
         scenario_status,
         porcelain::porcelain_input_query(run_id = "string"),
+        porcelain::porcelain_state(queue = state$queue),
         returning = porcelain::porcelain_returning_json("scenarioStatus"),
         validate = validate)
     },
@@ -41,6 +43,7 @@
         "/scenario/results",
         scenario_results,
         porcelain::porcelain_input_query(run_id = "string"),
+        porcelain::porcelain_state(queue = state$queue),
         returning = porcelain::porcelain_returning_json("scenarioResults"),
         validate = validate)
     })

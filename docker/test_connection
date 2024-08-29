@@ -6,16 +6,13 @@ HERE=$(dirname $0)
 # In case we switch agents between steps
 [ ! -z $(docker images -q $TAG_SHA) ] || docker pull $TAG_SHA
 
-NAME_SERVER=daedalus-api
-
 function cleanup {
-    echo "Cleaning up"
-    docker kill $NAME_SERVER > /dev/null || true
+   . $HERE/run_containers
 }
 
 trap cleanup EXIT
 
-docker run --rm -d -p 8001:8001 --name $NAME_SERVER $TAG_SHA
+. $HERE/run_containers
 
 set +e
 for attempt in $(seq 10); do

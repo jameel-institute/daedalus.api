@@ -21,7 +21,7 @@ main <- function(args = commandArgs(TRUE)) {
 }
 
 
-parse_main_worker <- function(args = commandArgs(TRUE)) {
+main_worker <- function(args = commandArgs(TRUE)) {
   usage <- "Usage:
   daedalus.api.worker"
 
@@ -29,8 +29,7 @@ parse_main_worker <- function(args = commandArgs(TRUE)) {
 
   worker <- rrq::rrq_worker$new(
     queue$controller$queue_id,
-    con = queue$controller.con
+    con = queue$controller$con
   )
-
   worker$loop()
 }

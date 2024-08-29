@@ -73,24 +73,25 @@ metadata <- function() {
 
 #' @porcelain
 #'   POST /scenario/run => json(scenarioRunResponse)
+#'   state queue :: queue
 #'   body data :: json(scenarioRunRequest)
-scenario_run <- function(data) {
-  # Returning sample response for now
-  json_verbatim(read_local_json("sample_scenario_run_response.json"))
+scenario_run <- function(queue, data) {
+  run_id <- queue$queue_model_run(data$parameters, model_version = data$modelVersion)
+  list(runId = run_id)
 }
 
 #' @porcelain
 #'   GET /scenario/status => json(scenarioStatus)
+#'   state queue :: queue
 #'   query run_id :: string
-scenario_status <-  function(run_id) {
-  # Returning sample response for now
-  json_verbatim(read_local_json("sample_scenario_status_response.json"))
+scenario_status <-  function(queue, run_id) {
+  queue$get_run_status(run_id)
 }
 
 #' @porcelain
 #'   GET /scenario/results => json(scenarioResults)
+#'   state queue :: queue
 #'   query run_id :: string
-scenario_results <- function(run_id) {
-  # Returning sample response for now
-  json_verbatim(read_local_json("sample_scenario_results_response.json"))
+scenario_results <- function(queue, run_id) {
+  queue$get_run_results(run_id)
 }
