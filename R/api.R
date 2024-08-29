@@ -16,7 +16,8 @@
 api <- function(validate = NULL, log_level = "info") {
   logger <- make_logger(log_level)
   api <- porcelain::porcelain$new(validate = validate, logger = logger)
-  api$include_package_endpoints()
+  queue <- Queue$new()
+  api$include_package_endpoints(state = list(queue = queue))
   api
 }
 

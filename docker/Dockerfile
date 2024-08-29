@@ -38,7 +38,11 @@ EXPOSE 8001
 
 COPY . /src
 RUN R CMD INSTALL --install-tests /src && \
-        cp /src/docker/daedalus_api /usr/local/bin && \
+        cp /src/docker/daedalus.api /usr/local/bin && \
+        cp /src/docker/daedalus.api.worker /usr/local/bin && \
         rm -rf /src
 
-ENTRYPOINT ["/usr/local/bin/daedalus_api"]
+# ENTRYPOINT for api is "/usr/local/bin/daedalus.api"
+# ENTRYPOINT for worker is "/usr/local/bin/daedalus.api.worker"
+# Set env vars DAEDALUS_QUEUE_ID and REDIS_CONTAINER_NAME for both
+# A volume should be mounted at /daedalus/results and (for the worker) at logs/worker

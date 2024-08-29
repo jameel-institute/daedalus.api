@@ -16,7 +16,10 @@ Imports:
     docopt,
     jsonlite,
     lgr,
-    porcelain
+    porcelain,
+    R6,
+    redux,
+    rrq
 Suggests: 
     httr,
     mockery,
@@ -24,6 +27,7 @@ Suggests:
     testthat (>= 3.0.0)
 Remotes:
     jameel-institute/daedalus,
+    mrc-ide/rrq,
     reside-ic/porcelain
 Config/testthat/edition: 3
 Encoding: UTF-8
