@@ -16,6 +16,7 @@ Imports:
     docopt,
     jsonlite,
     lgr,
+    openssl,
     porcelain,
     R6,
     redux,

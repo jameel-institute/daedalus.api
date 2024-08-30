@@ -28,6 +28,7 @@ TAG_VERSION="${PACKAGE_ORG}/${PACKAGE_NAME}:v${PACKAGE_VERSION}"
 TAG_LATEST="${PACKAGE_ORG}/${PACKAGE_NAME}:latest"
 
 NAME_NETWORK=daedalus
+NAME_VOLUME=daedalus-results-volume
 NAME_SERVER=daedalus-api
 NAME_WORKER=daedalus-api-worker
 NAME_REDIS=daedalus-redis

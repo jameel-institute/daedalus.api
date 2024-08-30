@@ -20,6 +20,7 @@ Queue <- R6::R6Class("Queue",
       # Create queue
       self$controller <- rrq::rrq_controller(queue_id, con = con)
       dir.create(logs_dir, showWarnings = FALSE)
+      dir.create(results_dir, showWarnings = FALSE)
       worker_config <- rrq::rrq_worker_config(logdir = logs_dir)
       rrq::rrq_worker_config_save("localhost", worker_config, controller = self$controller)
     },
@@ -30,6 +31,7 @@ Queue <- R6::R6Class("Queue",
     #' @param parameters parameter values for the model run
     #' @modelVersion requested model version to use for the run
     queue_model_run = function(parameters, model_version = NULL) {
+      print("QUEUEING MODEL RUN")
       run_args <- list(
         parameters,
         model_version
@@ -43,15 +45,29 @@ Queue <- R6::R6Class("Queue",
     #'
     #' @param run_id the run id of the model run
     get_run_status = function(run_id) {
-      rrq_status <- rrq::rrq_task_status(c(task_id), controller = self$controller)[1]
+      print("GETTING RUN STATUS")
+      print("run_id")
+      print(run_id)
+      rrq_status <- rrq::rrq_task_status(c(run_id), controller = self$controller)[1]
       status <- switch(rrq_status,
                        PENDING = list(runStatus = "queued", runSuccess = NULL, done = FALSE),
                        RUNNING = list(runStatus = "running", runSuccess = NULL, done = FALSE),
                        COMPLETE = list(runStatus = "complete", runSuccess = TRUE, done = TRUE),
-                       list(runStatus = "faled", runSuccess = FALSE, done = TRUE)
+                       list(runStatus = "failed", runSuccess = FALSE, done = TRUE)
       )
       status$runId <- run_id
-      status$runErrors <- NULL # TODO: include errors for failed jobs
+      status$runErrors <- NULL
+      # include errors for failed jobs
+      if (status$done[1] && !status$runSuccess[1]) {
+        print("job failed")
+        se <- rrq::rrq_task_result(run_id, controller = self$controller, error = FALSE)
+        print("ERRORS")
+        print(se)
+
+        # TODO: turn this into a single error in the schema as it will be easier anyway!!
+        status$runErrors <- list(error="SERVER_TASK_ERROR", detail=conditionMessage(se))
+        print("set run errors")
+      }
       status
     },
 
@@ -60,6 +76,7 @@ Queue <- R6::R6Class("Queue",
     #'
     #' @param run_id the run id of the model run
     get_run_results = function(run_id) {
+      print("GETTING RUN RESULTS")
       rrq::rrq_task_result(run_id, controller = self$controller, error = TRUE)
     }
   ),

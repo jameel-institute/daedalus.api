@@ -6,6 +6,7 @@ HERE=$(dirname $0)
 QUEUE_ID=daedalus-api-queue
 
 docker network create $NAME_NETWORK
+docker volume create $NAME_VOLUME
 
 docker run --rm -d \
   -p 127.0.0.1:6379:6379 \
@@ -17,6 +18,7 @@ docker run --rm -d \
   -p 8001:8001 \
   --name=$NAME_SERVER \
   --network=$NAME_NETWORK \
+  -v $NAME_VOLUME:/daedalus/results \
   --env=DAEDALUS_QUEUE_ID=$QUEUE_ID \
   --env=REDIS_CONTAINER_NAME=$NAME_REDIS\
   --entrypoint="/usr/local/bin/daedalus.api" \
@@ -25,6 +27,7 @@ docker run --rm -d \
 docker run --rm -d \
   --name=$NAME_WORKER \
   --network=$NAME_NETWORK \
+  -v $NAME_VOLUME:/daedalus/results \
   --env=DAEDALUS_QUEUE_ID=$QUEUE_ID \
   --env=REDIS_CONTAINER_NAME=$NAME_REDIS\
   --entrypoint="/usr/local/bin/daedalus.api.worker" \

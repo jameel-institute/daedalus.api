@@ -1,5 +1,5 @@
 # TODO: update version
-FROM rocker/r-ver:4.4.1
+FROM rocker/r-ver:4.1
 
 RUN apt-get update &&  apt-get install -y --no-install-recommends \
         libcurl4-openssl-dev \

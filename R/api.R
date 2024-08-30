@@ -76,6 +76,9 @@ metadata <- function() {
 #'   state queue :: queue
 #'   body data :: json(scenarioRunRequest)
 scenario_run <- function(queue, data) {
+  print("handling request")
+  data <- jsonlite::parse_json(data)
+  print(data)
   run_id <- queue$queue_model_run(data$parameters, model_version = data$modelVersion)
   list(runId = run_id)
 }
@@ -85,7 +88,7 @@ scenario_run <- function(queue, data) {
 #'   state queue :: queue
 #'   query run_id :: string
 scenario_status <-  function(queue, run_id) {
-  queue$get_run_status(run_id)
+  json_verbatim(queue$get_run_status(run_id))
 }
 
 #' @porcelain
