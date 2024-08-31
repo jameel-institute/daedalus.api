@@ -84,17 +84,15 @@ scenario_run <- function(queue, data) {
 }
 
 #' @porcelain
-#'   GET /scenario/status => json(scenarioStatus)
+#'   GET /scenario/status/<run_id:string> => json(scenarioStatus)
 #'   state queue :: queue
-#'   query run_id :: string
 scenario_status <-  function(queue, run_id) {
   json_verbatim(queue$get_run_status(run_id))
 }
 
 #' @porcelain
-#'   GET /scenario/results => json(scenarioResults)
+#'   GET /scenario/results/<run_id:string> => json(scenarioResults)
 #'   state queue :: queue
-#'   query run_id :: string
 scenario_results <- function(queue, run_id) {
   queue$get_run_results(run_id)
 }

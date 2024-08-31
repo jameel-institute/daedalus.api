@@ -64,8 +64,7 @@ Queue <- R6::R6Class("Queue",
         print("ERRORS")
         print(se)
 
-        # TODO: turn this into a single error in the schema as it will be easier anyway!!
-        status$runErrors <- list(error="SERVER_TASK_ERROR", detail=conditionMessage(se))
+        status$runErrors <- list(list(error="SERVER_TASK_ERROR", detail=conditionMessage(se)))
         print("set run errors")
       }
       status
