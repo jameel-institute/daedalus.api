@@ -43,5 +43,34 @@
         { "id": "high", "label": "High" }
       ]
     }
-  ]
+  ],
+  "results": {
+    "costs": [
+      { "id": "total", "label": "Total", "description": "Total cost to national economy" },
+      { "id": "gdp", "label": "GDP" },
+      { "id": "gdp_closures", "label": "Closures" },
+      { "id": "gdp_absences", "label": "Absences" },
+      { "id": "education", "label": "Education" },
+      { "id": "education_closures", "label": "Closures" },
+      { "id": "education_absences", "label": "Absences" },
+      { "id": "life_years", "label": "Life Years" },
+      { "id": "life_years_infants", "label": "Infants" },
+      { "id": "life_years_adolescents", "label": "Adolescents" },
+      { "id": "life_years_working_age", "label": "Working-age Adults" },
+      { "id": "life_years_retirement_age", "label": "Retirement-age Adults" }
+    ],
+    "capacities": [
+      { "id": "hospital_capacity", "label": "Hospital Capacity", "description": "Total hospital beds" },
+      { "id": "icu_capacity", "label": "ICU Capacity", "description": "ICU hospital beds" }
+    ],
+    "interventions": [
+      { "id": "school_closures", "label": "School closures" },
+      { "id": "business_closures", "label": "Business closures" }
+    ],
+    "time_series": [
+      { "id": "cases", "label": "Cases", "description": "Number of confirmed cases" },
+      { "id": "vacc", "label": "Vaccinated", "description": "Cumulative vaccinations" },
+      { "id": "hosp_occ", "label": "Hospital Occupancy", "description": "Number of hospitalised cases" }
+    ]
+  }
 }
