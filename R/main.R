@@ -25,7 +25,7 @@ main_worker <- function(args = commandArgs(TRUE)) {
   usage <- "Usage:
   daedalus.api.worker"
 
-  queue <- Queue$new()
+  queue <- Queue$new(configure_queue = FALSE)
 
   worker <- rrq::rrq_worker$new(
     queue$controller$queue_id,

@@ -1,7 +1,8 @@
 check_for_redis();
 queue <- start_test_queue_with_worker()
 bg <- porcelain::porcelain_background$new(
-  api
+  api,
+  list(validate = TRUE)
 )
 bg$start()
 on.exit(rrq::rrq_worker_stop(controller = queue$controller))
@@ -35,8 +36,12 @@ test_that("can run model, get status and results", {
     encode = "raw",
     httr::content_type("application/json")
   )
-  expect_equal(httr::status_code(run_response), 200)
+  #expect_true(run_response$validated)
+  print("RUN RESPONSE")
   body <- httr::content(run_response)
+  print(body)
+  expect_equal(httr::status_code(run_response), 200)
+
   run_id <- body$data$runId[[1]]
   expect_equal(nchar(run_id), 32)
 

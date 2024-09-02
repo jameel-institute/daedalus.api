@@ -43,7 +43,7 @@ test_that("Can construct api", {
   mockery::expect_called(mock_api, 1L)
   expect_identical(
     mockery::mock_args(mock_api)[[1L]],
-    list(FALSE, "debug")
+    list(FALSE, "debug", configure_queue = TRUE)
   )
 
   mockery::expect_called(mock_run, 1L)
@@ -51,4 +51,12 @@ test_that("Can construct api", {
     mockery::mock_args(mock_run)[[1L]],
     list("0.0.0.0", port = 8001L) # mockery::mock_args() returns an integer
   )
+})
+
+test_that("Can create worker", {
+  mock_loop <- mockery::mock()
+  mock_new_worker <- mockery::mock(list(loop = mock_loop))
+  mockery::stub(main_worker, "rrq::rrq_worker$new", mock_new_worker)
+  main_worker()
+  mockery::expect_called(mock_loop, 1)
 })

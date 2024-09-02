@@ -10,7 +10,6 @@ Queue <- R6::R6Class("Queue",
     #' @description
     #' Initialise redis connection and rrq.
     initialize = function(configure_queue) {
-      print("CREATING Q")
       logs_dir <- get_logs_dir()
       results_dir <- get_results_dir()
 
@@ -22,7 +21,6 @@ Queue <- R6::R6Class("Queue",
       if (configure_queue) {
         rrq::rrq_configure(queue_id, store_max_size = 1000, offload_path = results_dir, con = con)
       }
-      print("CONFIGURED Q")
 
       # Create queue
       self$controller <- rrq::rrq_controller(queue_id, con = con)
@@ -38,7 +36,6 @@ Queue <- R6::R6Class("Queue",
     #' @param parameters parameter values for the model run
     #' @modelVersion requested model version to use for the run
     queue_model_run = function(parameters, model_version = NULL) {
-      print("QUEUEING MODEL RUN")
       run_args <- list(
         parameters,
         model_version
@@ -52,9 +49,6 @@ Queue <- R6::R6Class("Queue",
     #'
     #' @param run_id the run id of the model run
     get_run_status = function(run_id) {
-      print("GETTING RUN STATUS")
-      print("run_id")
-      print(run_id)
       rrq_status <- rrq::rrq_task_status(c(run_id), controller = self$controller)[1]
       status <- switch(rrq_status,
                        PENDING = list(runStatus = "queued", runSuccess = NULL, done = FALSE),
@@ -66,13 +60,8 @@ Queue <- R6::R6Class("Queue",
       status$runErrors <- NULL
       # include errors for failed jobs
       if (status$done[1] && !status$runSuccess[1]) {
-        print("job failed")
         se <- rrq::rrq_task_result(run_id, controller = self$controller, error = FALSE)
-        print("ERRORS")
-        print(se)
-
         status$runErrors <- list(list(error="SERVER_TASK_ERROR", detail=conditionMessage(se)))
-        print("set run errors")
       }
       status
     },
@@ -82,7 +71,6 @@ Queue <- R6::R6Class("Queue",
     #'
     #' @param run_id the run id of the model run
     get_run_results = function(run_id) {
-      print("GETTING RUN RESULTS")
       rrq::rrq_task_result(run_id, controller = self$controller, error = TRUE)
     }
   ),
