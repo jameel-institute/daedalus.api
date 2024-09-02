@@ -17,7 +17,7 @@ Options:
 
 main <- function(args = commandArgs(TRUE)) {
   dat <- parse_main(args)
-  api(dat$validate, dat$log_level)$run("0.0.0.0", port = dat$port)
+  api(dat$validate, dat$log_level, configure_queue = TRUE)$run("0.0.0.0", port = dat$port)
 }
 
 

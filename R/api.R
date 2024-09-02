@@ -13,10 +13,10 @@
 ##'   start the server
 ##'
 ##' @export
-api <- function(validate = NULL, log_level = "info") {
+api <- function(validate = NULL, log_level = "info", configure_queue = FALSE) {
   logger <- make_logger(log_level)
   api <- porcelain::porcelain$new(validate = validate, logger = logger)
-  queue <- Queue$new()
+  queue <- Queue$new(configure_queue = configure_queue)
   api$include_package_endpoints(state = list(queue = queue))
   api
 }

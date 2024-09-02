@@ -9,13 +9,20 @@ Queue <- R6::R6Class("Queue",
 
     #' @description
     #' Initialise redis connection and rrq.
-    initialize = function(logs_dir = "logs/worker", results_dir = "daedalus/results") {
+    initialize = function(configure_queue) {
+      print("CREATING Q")
+      logs_dir <- get_logs_dir()
+      results_dir <- get_results_dir()
+
       # Connect to Redis
       con <- redux::hiredis(host = get_redis_host())
 
       # Configure rrq to store data > 1KB to disk
       queue_id <- get_queue_id()
-      rrq::rrq_configure(queue_id, store_max_size = 1000, offload_path = results_dir, con = con)
+      if (configure_queue) {
+        rrq::rrq_configure(queue_id, store_max_size = 1000, offload_path = results_dir, con = con)
+      }
+      print("CONFIGURED Q")
 
       # Create queue
       self$controller <- rrq::rrq_controller(queue_id, con = con)
@@ -86,6 +93,14 @@ get_queue_id <- function() {
 }
 
 get_redis_host <- function() {
-  name <- Sys.getenv("REDIS_CONTAINER_NAME", "")
-  if (nzchar(name)) name else NULL
+  host <- Sys.getenv("REDIS_CONTAINER_NAME", "")
+  if (nzchar(host)) host else NULL
+}
+
+get_logs_dir <- function() {
+  Sys.getenv("DAEDALUS_LOGS_DIR", "logs/worker")
+}
+
+get_results_dir <- function() {
+  Sys.getenv("DAEDALUS_RESULTS_DIR", "daedalus/results")
 }
