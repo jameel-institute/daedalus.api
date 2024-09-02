@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "$defs": {
-        "info": {
+        "displayInfo": {
             "type": "object",
             "properties": {
                 "id": { "type": "string" },
@@ -56,25 +56,25 @@
           "costs": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/info"
+              "$ref": "#/$defs/displayInfo"
             }
           },
           "capacities": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/info"
+              "$ref": "#/$defs/displayInfo"
             }
           },
           "interventions": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/info"
+              "$ref": "#/$defs/displayInfo"
             }
           },
           "time_series": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/info"
+              "$ref": "#/$defs/displayInfo"
             }
           }
         },
