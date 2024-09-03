@@ -2,7 +2,7 @@ check_for_redis();
 queue <- start_test_queue_with_worker()
 bg <- porcelain::porcelain_background$new(
   api,
-  list(validate = TRUE)
+  list(validate = TRUE) # Force error response if data does not validate against schema
 )
 bg$start()
 on.exit(rrq::rrq_worker_stop(controller = queue$controller))
@@ -36,13 +36,10 @@ test_that("can run model, get status and results", {
     encode = "raw",
     httr::content_type("application/json")
   )
-  #expect_true(run_response$validated)
-  print("RUN RESPONSE")
   body <- httr::content(run_response)
-  print(body)
   expect_equal(httr::status_code(run_response), 200)
 
-  run_id <- body$data$runId[[1]]
+  run_id <- body$data$runId
   expect_equal(nchar(run_id), 32)
 
   # 2. Wait for run to complete successfully
@@ -52,8 +49,9 @@ test_that("can run model, get status and results", {
   # 3. Test can get expected statu response
   status_url <- paste0("/scenario/status/", run_id)
   status_response <- bg$request("GET", status_url)
-  expect_equal(httr::status_code(status_response), 200)
   status_body <- httr::content(status_response)
+  expect_equal(httr::status_code(status_response), 200)
+
   expect_equal(status_body$data$runStatus, "complete")
   expect_true(status_body$data$runSuccess)
   expect_true(status_body$data$done)

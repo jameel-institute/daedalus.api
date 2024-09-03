@@ -51,13 +51,12 @@ Queue <- R6::R6Class("Queue",
     get_run_status = function(run_id) {
       rrq_status <- rrq::rrq_task_status(c(run_id), controller = self$controller)[1]
       status <- switch(rrq_status,
-                       PENDING = list(runStatus = "queued", runSuccess = NULL, done = FALSE),
-                       RUNNING = list(runStatus = "running", runSuccess = NULL, done = FALSE),
-                       COMPLETE = list(runStatus = "complete", runSuccess = TRUE, done = TRUE),
-                       list(runStatus = "failed", runSuccess = FALSE, done = TRUE)
+                       PENDING = list(runStatus = "queued", runSuccess = NULL, done = FALSE, runErrors = NULL),
+                       RUNNING = list(runStatus = "running", runSuccess = NULL, done = FALSE, runErrors = NULL),
+                       COMPLETE = list(runStatus = "complete", runSuccess = TRUE, done = TRUE, runErrors = NULL),
+                       list(runStatus = "failed", runSuccess = FALSE, done = TRUE, runErrors = NULL)
       )
       status$runId <- run_id
-      status$runErrors <- NULL
       # include errors for failed jobs
       if (status$done[1] && !status$runSuccess[1]) {
         se <- rrq::rrq_task_result(run_id, controller = self$controller, error = FALSE)

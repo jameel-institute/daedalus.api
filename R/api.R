@@ -80,7 +80,7 @@ scenario_run <- function(queue, data) {
   data <- jsonlite::parse_json(data)
   print(data)
   run_id <- queue$queue_model_run(data$parameters, model_version = data$modelVersion)
-  list(runId = run_id)
+  json_verbatim(list(runId = run_id))
 }
 
 #' @porcelain
