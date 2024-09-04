@@ -9,6 +9,8 @@ Queue <- R6::R6Class("Queue", # nolint
 
     #' @description
     #' Initialise redis connection and rrq.
+    #'
+    #' @param configure_queue whether this instance should configure rrq queue
     initialize = function(configure_queue) {
       logs_dir <- get_logs_dir()
       results_dir <- get_results_dir()

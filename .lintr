@@ -19,12 +19,12 @@ exclusions: list(
 	    implicit_integer_linter = Inf
 	),
 	"tests/testthat/test-queue.R" = list(
-        object_usage = Inf # allow expects outside tests
+        object_usage = Inf, # allow expects outside tests
         implicit_integer_linter = Inf
     ),
 	"tests/testthat/test-zzz-e2e.R" = list(
 	    absolute_path_linter = Inf, # spurious path errors for routes
-        nonportable_path_linter, = Inf # ditto
+        nonportable_path_linter = Inf, # ditto
         implicit_integer_linter = Inf
 	),
 	"vignettes" = list(
