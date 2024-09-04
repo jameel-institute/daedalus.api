@@ -1,6 +1,10 @@
 CMD
 Codecov
 ORCID
+RRQ
+Redis
 api
 daedalus
 metadata's
+redis
+rrq

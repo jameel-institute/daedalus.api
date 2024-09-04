@@ -1,12 +1,12 @@
 skip_if_no_redis()
-tempDir <- tempdir()
+temp_dir <- tempdir()
 # Env vars required by the queue
 withr::local_envvar(
   .new = list(
     DAEDALUS_QUEUE_ID = "daedalus.api.tests.queue",
     REDIS_CONTAINER_NAME = "localhost",
-    DAEDALUS_LOGS_DIR = tempDir,
-    DAEDALUS_RESULTS_DIR = tempDir
+    DAEDALUS_LOGS_DIR = temp_dir,
+    DAEDALUS_RESULTS_DIR = temp_dir
   )
 )
 queue <- start_test_queue_with_worker()
@@ -54,7 +54,7 @@ test_that("can run model, get status and results", {
   expect_identical(nchar(run_id), 32L)
 
   # 2. Wait for run to complete successfully
-  is_task_successful <- wait_for_task_complete(run_id, queue$controller, 10L)
+  is_task_successful <- wait_for_task_complete(run_id, queue$controller, 10)
   expect_true(is_task_successful)
 
   # 3. Test can get expected statu response
@@ -74,8 +74,8 @@ test_that("can run model, get status and results", {
   expect_identical(httr::status_code(results_response), 200L)
   results_body <- httr::content(results_response)
   results_data <- results_body$data
-  expect_gt(length(results_data$costs), 0L)
-  expect_gt(length(results_data$capacities), 0L)
-  expect_gt(length(results_data$interventions), 0L)
-  expect_gt(length(results_data$time_series), 0L)
+  expect_gt(length(results_data$costs), 0)
+  expect_gt(length(results_data$capacities), 0)
+  expect_gt(length(results_data$interventions), 0)
+  expect_gt(length(results_data$time_series), 0)
 })

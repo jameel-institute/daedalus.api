@@ -23,7 +23,7 @@ test_that("Can construct the api", {
   })
   expect_identical(value, 200L)
   logs <- lapply(
-    strsplit(result$output, "\n", fixed = TRUE)[[1L]],
+    strsplit(result$output, "\n", fixed = TRUE)[[1]],
     jsonlite::parse_json
   )
   expect_length(logs, 2L)
@@ -53,14 +53,14 @@ test_that("Can get metadata", {
   expect_identical(
     vapply(country_options, function(option) {
         option$id
-    }, character(1L)),
+    }, character(1)),
     daedalus_countries
   )
   # expect country labels to match those from daedalus
   expect_identical(
     vapply(country_options, function(option) {
       option$label
-    }, character(1L)),
+    }, character(1)),
     daedalus_countries
   )
 })

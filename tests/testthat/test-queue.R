@@ -26,8 +26,8 @@ expect_status_from_queue <- function(rrq_status,
 
   status <- queue$get_run_status(run_id)
 
-  mockery::expect_called(mock_rrq_status, 1L)
-  expect_equal(mockery::mock_args(mock_rrq_status)[[1]],
+  mockery::expect_called(mock_rrq_status, 1)
+  expect_identical(mockery::mock_args(mock_rrq_status)[[1]],
                list("12345", controller = queue$controller))
 
   expect_identical(status, expected_run_status)
@@ -97,8 +97,8 @@ test_that("can get run results", {
   result <- queue$get_run_results("12345")
   expect_identical(result, task_result)
 
-  mockery::expect_called(mock_rrq_task_result, 1L)
-  args <- mockery::mock_args(mock_rrq_task_result)[[1L]]
+  mockery::expect_called(mock_rrq_task_result, 1)
+  args <- mockery::mock_args(mock_rrq_task_result)[[1]]
   expect_identical(args, list(
     "12345",
     controller = queue$controller,

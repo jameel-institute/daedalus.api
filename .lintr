@@ -8,18 +8,24 @@ exclusions: list(
 		undesirable_function_linter = Inf # allow library() calls
 	),
 	"tests/testthat/helper-daedalus-api.R" = list(
-	    object_usage_linter = Inf
+	    object_usage_linter = Inf # allow expects outside tests
 	),
 	"tests/testthat/test-main.R" = list(
 		implicit_integer_linter = Inf # allow port notation without integer L
 	),
 	"tests/testthat/test-endpoints.R" = list(
 	    absolute_path_linter = Inf, # spurious path errors for routes
-	    nonportable_path_linter = Inf # ditto
+	    nonportable_path_linter = Inf, # ditto
+	    implicit_integer_linter = Inf
 	),
+	"tests/testthat/test-queue.R" = list(
+        object_usage, = Inf # allow expects outside tests
+        implicit_integer_linter = Inf
+    ),
 	"tests/testthat/test-zzz-e2e.R" = list(
 	    absolute_path_linter = Inf, # spurious path errors for routes
-        nonportable_path_linter = Inf # ditto
+        nonportable_path_linter, = Inf # ditto
+        implicit_integer_linter = Inf
 	),
 	"vignettes" = list(
 		undesirable_function_linter = Inf
