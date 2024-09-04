@@ -7,11 +7,12 @@ HERE=$(dirname $0)
 [ ! -z $(docker images -q $TAG_SHA) ] || docker pull $TAG_SHA
 
 function cleanup {
-   . $HERE/run_containers
+   . $HERE/clear_containers
 }
 
 trap cleanup EXIT
 
+cleanup
 . $HERE/run_containers
 
 set +e
