@@ -9,6 +9,8 @@
 ##' @param log_level Logging level to use. Sensible options are "off",
 ##'   "info" and "all".
 ##'
+##' @param configure_queue Whether to configure the rrq queue
+##'
 ##' @return A [porcelain::porcelain] object. Notably this does *not*
 ##'   start the server
 ##'

@@ -9,7 +9,7 @@ test_that("can queue model run", {
   queue$queue_model_run(params, "0.1.0")
 
   mockery::expect_called(mock_rrq_task_create_call, 1)
-  expect_equal(mockery::mock_args(mock_rrq_task_create_call)[[1]], list(
+  expect_identical(mockery::mock_args(mock_rrq_task_create_call)[[1]], list(
     model_run,
     list(params, "0.1.0"),
     separate_process = TRUE,
