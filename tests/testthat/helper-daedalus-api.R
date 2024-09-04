@@ -5,9 +5,12 @@ daedalus_api_endpoint <- function(..., validate = TRUE) {
   )
 }
 
-check_for_redis <- function() {
+skip_if_no_redis <- function() {
+  # Allows skipping redis/rrq e2e tests on mac os
   available <- redux::redis_available()
-  expect_true(available)
+  if (!available) {
+    testthat::skip("Skipping test as redis is not available")
+  }
 }
 
 start_test_queue_with_worker <- function() {

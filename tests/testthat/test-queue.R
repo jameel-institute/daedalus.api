@@ -9,7 +9,7 @@ test_that("can queue model run", {
   queue$queue_model_run(params, "0.1.0")
 
   mockery::expect_called(mock_rrq_task_create_call, 1)
-  expect_equal(mock_args(mock_rrq_task_create_call)[[1]], list(
+  expect_equal(mockery::mock_args(mock_rrq_task_create_call)[[1]], list(
     model_run,
     list(params, "0.1.0"),
     separate_process = TRUE,
@@ -27,7 +27,8 @@ expect_status_from_queue <- function(rrq_status,
   status <- queue$get_run_status(run_id)
 
   mockery::expect_called(mock_rrq_status, 1L)
-  expect_equal(mock_args(mock_rrq_status)[[1]], list("12345", controller = queue$controller))
+  expect_equal(mockery::mock_args(mock_rrq_status)[[1]],
+               list("12345", controller = queue$controller))
 
   expect_identical(status, expected_run_status)
 }
@@ -97,7 +98,8 @@ test_that("can get run results", {
   expect_identical(result, task_result)
 
   mockery::expect_called(mock_rrq_task_result, 1L)
-  expect_identical(mock_args(mock_rrq_task_result)[[1L]], list(
+  args <- mockery::mock_args(mock_rrq_task_result)[[1L]]
+  expect_identical(args, list(
     "12345",
     controller = queue$controller,
     error = TRUE

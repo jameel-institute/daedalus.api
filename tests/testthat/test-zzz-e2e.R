@@ -1,4 +1,4 @@
-check_for_redis()
+skip_if_no_redis()
 tempDir <- tempdir()
 # Env vars required by the queue
 withr::local_envvar(
