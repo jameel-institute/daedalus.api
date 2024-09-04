@@ -39,6 +39,10 @@ docker stop daedalus-api
 To add an endpoint, implement a method in `api.R` with `@porcelain` comment, then run `roxygen2::roxygenize()` to generate the porcelain code
 in `porcelain.R`. See the [porcelain docs](https://reside-ic.github.io/porcelain/articles/roxygen.html) for more details.
 
+## Testing
+
+Redis needs to be running for the e2e tests to pass. Use `./scripts/redis start`, and tear down with `./scripts/redis kill.`
+
 ## Model versions
 
 The API should be backwards compatible and support running older versions of the model. 

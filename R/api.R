@@ -76,10 +76,11 @@ metadata <- function() {
 #'   state queue :: queue
 #'   body data :: json(scenarioRunRequest)
 scenario_run <- function(queue, data) {
-  print("handling request")
   data <- jsonlite::parse_json(data)
-  print(data)
-  run_id <- queue$queue_model_run(data$parameters, model_version = data$modelVersion)
+  run_id <- queue$queue_model_run(
+    data$parameters,
+    model_version = data$modelVersion
+  )
   json_verbatim(list(runId = run_id))
 }
 

@@ -17,14 +17,12 @@ Options:
 
 main <- function(args = commandArgs(TRUE)) {
   dat <- parse_main(args)
-  api(dat$validate, dat$log_level, configure_queue = TRUE)$run("0.0.0.0", port = dat$port)
+  api <- api(dat$validate, dat$log_level, configure_queue = TRUE)
+  api$run("0.0.0.0", port = dat$port)
 }
 
 
-main_worker <- function(args = commandArgs(TRUE)) {
-  usage <- "Usage:
-  daedalus.api.worker"
-
+main_worker <- function() {
   queue <- Queue$new(configure_queue = FALSE)
 
   worker <- rrq::rrq_worker$new(

@@ -19,7 +19,10 @@ Queue <- R6::R6Class("Queue",
       # Configure rrq to store data > 1KB to disk
       queue_id <- get_queue_id()
       if (configure_queue) {
-        rrq::rrq_configure(queue_id, store_max_size = 1000, offload_path = results_dir, con = con)
+        rrq::rrq_configure(queue_id,
+                           store_max_size = 1000L,
+                           offload_path = results_dir,
+                           con = con)
       }
 
       # Create queue
@@ -27,7 +30,9 @@ Queue <- R6::R6Class("Queue",
       dir.create(logs_dir, showWarnings = FALSE)
       dir.create(results_dir, showWarnings = FALSE)
       worker_config <- rrq::rrq_worker_config(logdir = logs_dir)
-      rrq::rrq_worker_config_save("localhost", worker_config, controller = self$controller)
+      rrq::rrq_worker_config_save("localhost",
+                                  worker_config,
+                                  controller = self$controller)
     },
 
     #' @description
@@ -41,7 +46,8 @@ Queue <- R6::R6Class("Queue",
         model_version
       )
       rrq::rrq_task_create_call(model_run, run_args,
-                                separate_process = TRUE, controller = self$controller)
+                                separate_process = TRUE,
+                                controller = self$controller)
     },
 
     #' @description
