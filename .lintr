@@ -19,7 +19,7 @@ exclusions: list(
 	    implicit_integer_linter = Inf
 	),
 	"tests/testthat/test-queue.R" = list(
-        object_usage, = Inf # allow expects outside tests
+        object_usage = Inf # allow expects outside tests
         implicit_integer_linter = Inf
     ),
 	"tests/testthat/test-zzz-e2e.R" = list(
