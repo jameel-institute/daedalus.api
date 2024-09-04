@@ -54,6 +54,7 @@ test_that("Can construct api", {
 })
 
 test_that("Can create worker", {
+  skip_if_no_redis()
   mock_loop <- mockery::mock()
   mock_new_worker <- mockery::mock(list(loop = mock_loop))
   mockery::stub(main_worker, "rrq::rrq_worker$new", mock_new_worker)

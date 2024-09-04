@@ -1,3 +1,5 @@
+skip_if_no_redis()
+
 test_that("can queue model run", {
   queue <- Queue$new(configure_queue = FALSE)
   mock_rrq_task_create_call <- mockery::mock()
