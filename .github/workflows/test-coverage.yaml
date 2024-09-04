@@ -29,7 +29,7 @@ jobs:
           extra-packages: any::covr, any::xml2
           needs: coverage
       - name: Run redis
-        run: ./scripts/redis run
+        run: ./scripts/redis start
       - name: Test coverage
         run: |
           cov <- covr::package_coverage(
