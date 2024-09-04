@@ -4,7 +4,7 @@
 \alias{api}
 \title{Create daedalus.api}
 \usage{
-api(validate = NULL, log_level = "info")
+api(validate = NULL, log_level = "info", configure_queue = FALSE)
 }
 \arguments{
 \item{validate}{Logical, indicating if validation should be done

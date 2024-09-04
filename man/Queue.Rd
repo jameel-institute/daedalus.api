@@ -34,7 +34,7 @@ Class for managing running jobs on the redis queue
 \subsection{Method \code{new()}}{
 Initialise redis connection and rrq.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Queue$new(logs_dir = "logs/worker", results_dir = "daedalus/results")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Queue$new(configure_queue)}\if{html}{\out{</div>}}
 }
 
 }
@@ -76,7 +76,8 @@ Get status information for a model run
 \if{html}{\out{<a id="method-Queue-get_run_results"></a>}}
 \if{latex}{\out{\hypertarget{method-Queue-get_run_results}{}}}
 \subsection{Method \code{get_run_results()}}{
-Get results data for a completed model run. Throws an error if the task was not successful.
+Get results data for a completed model run. Throws an error if the task
+was not successful.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Queue$get_run_results(run_id)}\if{html}{\out{</div>}}
 }
