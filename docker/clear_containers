@@ -4,8 +4,8 @@ HERE=$(dirname $0)
 . $HERE/common
 
 echo "Cleaning up"
-docker kill $NAME_SERVER || true
-docker kill $NAME_WORKER || true
-docker kill $NAME_REDIS || true
+docker rm -f $NAME_SERVER || true
+docker rm -f $NAME_WORKER || true
+docker rm -f $NAME_REDIS || true
 docker volume remove -f $NAME_VOLUME || true
 docker network remove $NAME_NETWORK || true
