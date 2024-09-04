@@ -1,7 +1,7 @@
 #' Class for managing running jobs on the redis queue
 #' #'
 #' @keywords internal
-Queue <- R6::R6Class("Queue",
+Queue <- R6::R6Class("Queue", # nolint
   cloneable = FALSE,
   public = list(
     #' @field controller RRQ controller
@@ -55,30 +55,48 @@ Queue <- R6::R6Class("Queue",
     #'
     #' @param run_id the run id of the model run
     get_run_status = function(run_id) {
-      rrq_status <- rrq::rrq_task_status(c(run_id), controller = self$controller)[1]
+      rrq_status <- rrq::rrq_task_status(c(run_id),
+                                         controller = self$controller)[1L]
       status <- switch(rrq_status,
-                       PENDING = list(runStatus = "queued", runSuccess = NULL, done = FALSE, runErrors = NULL),
-                       RUNNING = list(runStatus = "running", runSuccess = NULL, done = FALSE, runErrors = NULL),
-                       COMPLETE = list(runStatus = "complete", runSuccess = TRUE, done = TRUE, runErrors = NULL),
-                       list(runStatus = "failed", runSuccess = FALSE, done = TRUE, runErrors = NULL)
+                       PENDING = list(runStatus = "queued",
+                                      runSuccess = NULL,
+                                      done = FALSE,
+                                      runErrors = NULL),
+                       RUNNING = list(runStatus = "running",
+                                      runSuccess = NULL,
+                                      done = FALSE,
+                                      runErrors = NULL),
+                       COMPLETE = list(runStatus = "complete",
+                                       runSuccess = TRUE,
+                                       done = TRUE,
+                                       runErrors = NULL),
+                       list(runStatus = "failed",
+                            runSuccess = FALSE,
+                            done = TRUE,
+                            runErrors = NULL)
       )
       status$runId <- run_id
       # include errors for failed jobs
-      if (status$done[1] && !status$runSuccess[1]) {
-        se <- rrq::rrq_task_result(run_id, controller = self$controller, error = FALSE)
-        status$runErrors <- list(list(error="SERVER_TASK_ERROR", detail=conditionMessage(se)))
+      if (status$done[1L] && !status$runSuccess[1L]) {
+        se <- rrq::rrq_task_result(run_id,
+                                   controller = self$controller,
+                                   error = FALSE)
+        status$runErrors <- list(
+          list(error = "SERVER_TASK_ERROR", detail = conditionMessage(se))
+        )
       }
       status
     },
 
     #' @description
-    #' Get results data for a completed model run. Throws an error if the task was not successful.
+    #' Get results data for a completed model run. Throws an error if the task
+    #' was not successful.
     #'
     #' @param run_id the run id of the model run
     get_run_results = function(run_id) {
       rrq::rrq_task_result(run_id, controller = self$controller, error = TRUE)
     }
-  ),
+  )
 )
 
 get_queue_id <- function() {
@@ -91,9 +109,9 @@ get_redis_host <- function() {
 }
 
 get_logs_dir <- function() {
-  Sys.getenv("DAEDALUS_LOGS_DIR", "logs/worker")
+  Sys.getenv("DAEDALUS_LOGS_DIR", file.path("logs", "worker"))
 }
 
 get_results_dir <- function() {
-  Sys.getenv("DAEDALUS_RESULTS_DIR", "daedalus/results")
+  Sys.getenv("DAEDALUS_RESULTS_DIR", file.path("daedalus", "results"))
 }

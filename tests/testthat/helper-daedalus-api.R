@@ -11,11 +11,8 @@ check_for_redis <- function() {
 }
 
 start_test_queue_with_worker <- function() {
-  tempDir <- tempdir()
-  Sys.setenv(DAEDALUS_QUEUE_ID = "daedalus.api.tests.queue", REDIS_CONTAINER_NAME = "localhost")
-  Sys.setenv(DAEDALUS_LOGS_DIR = tempDir, DAEDALUS_RESULTS_DIR = tempDir)
-  queue <- Queue$new(configure_queue = FALSE)
-  rrq::rrq_worker_spawn(1, controller = queue$controller)
+  queue <- Queue$new(configure_queue = FALSE) # nolint
+  rrq::rrq_worker_spawn(1L, controller = queue$controller)
   queue
 }
 

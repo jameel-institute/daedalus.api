@@ -3,9 +3,12 @@ linters: all_linters(
 	extraction_operator_linter = NULL # allow R6 syntax from {porcelain}
 	)
 exclusions: list(
-	"tests/testthat.R" = list(
+    "tests/testthat.R" = list(
 		unused_import_linter = Inf,
 		undesirable_function_linter = Inf # allow library() calls
+	),
+	"tests/testthat/helper-daedalus-api.R" = list(
+	    object_usage_linter = Inf
 	),
 	"tests/testthat/test-main.R" = list(
 		implicit_integer_linter = Inf # allow port notation without integer L
@@ -13,6 +16,10 @@ exclusions: list(
 	"tests/testthat/test-endpoints.R" = list(
 	    absolute_path_linter = Inf, # spurious path errors for routes
 	    nonportable_path_linter = Inf # ditto
+	),
+	"tests/testthat/test-zzz-e2e.R" = list(
+	    absolute_path_linter = Inf, # spurious path errors for routes
+        nonportable_path_linter = Inf # ditto
 	),
 	"vignettes" = list(
 		undesirable_function_linter = Inf
