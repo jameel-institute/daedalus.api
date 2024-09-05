@@ -5,7 +5,6 @@
       "id": "country",
       "label": "Country",
       "parameterType": "globeSelect",
-      "defaultOption": null,
       "ordered": false,
       "options": null
     },
@@ -13,7 +12,6 @@
       "id": "pathogen",
       "label": "Disease",
       "parameterType": "select",
-      "defaultOption": null,
       "ordered": false,
       "options": null
     },
@@ -47,11 +45,9 @@
       "id": "hospital_capacity",
       "label": "Hospital capacity",
       "parameterType": "numeric",
+      "ordered": false,
       "step": 100,
-      "updateNumericFrom": {
-        "parameterId": "country",
-        "values": null
-      }
+      "updateNumericFrom": null
     }
   ],
   "results": {
