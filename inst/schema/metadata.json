@@ -27,7 +27,7 @@
             "label": { "type": "string" },
             "parameterType": {
               "type": "string",
-              "enum": ["select", "globeSelect"]
+              "enum": ["select", "globeSelect", "numeric"]
             },
             "defaultOption": {
               "type": ["string", "null"]
@@ -43,11 +43,33 @@
                 },
                 "additionalProperties": false,
                 "required": ["id", "label"]
+              },
+              "step": { "type": "number" },
+              "updateNumericFrom": {
+                "type": "object",
+                "properties": {
+                  "parameterId":  { "type": "string" },
+                  "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "object",
+                      "properties": {
+                        "min": { "type": "number" },
+                        "default": { "type": "number" },
+                        "max": { "type": "number" }
+                      },
+                      "additionalProperties": false,
+                      "required": ["min", "default", "max"]
+                    }
+                  }
+                },
+                "additionalProperties": false,
+                "required": ["parameterId", "values"]
               }
             }
           },
           "additionalProperties": false,
-          "required": ["id", "label", "parameterType", "defaultOption", "ordered", "options"]
+          "required": ["id", "label", "parameterType"]
         }
       },
       "results": {

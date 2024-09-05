@@ -42,6 +42,16 @@
         { "id": "medium", "label": "Medium" },
         { "id": "high", "label": "High" }
       ]
+    },
+    {
+      "id": "hospital_capacity",
+      "label": "Hospital capacity",
+      "parameterType": "numeric",
+      "step": 100,
+      "updateNumericFrom": {
+        "parameterId": "country",
+        "values": null
+      }
     }
   ],
   "results": {
