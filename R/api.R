@@ -41,7 +41,6 @@ metadata <- function() {
   metadata_version <- "0.1.0"
   metadata_file <- sprintf("metadata_%s.json", metadata_version)
   response <- read_local_json(metadata_file)
-
   response$modelVersion <- model_version
   # Helper for the options which don't come from the json
   get_option <- function(id, label) {
@@ -77,9 +76,9 @@ metadata <- function() {
   pathogen_idx <- match("pathogen", param_ids)
   response$parameters[[pathogen_idx]]$options <- pathogen_options
 
-  # setNames to get json object not array
   hospital_capacity_idx <- match("hospital_capacity", param_ids)
   step <- response$parameters[[hospital_capacity_idx]]$step
+  # setNames to get json object not array
   hospital_capacities <- lapply(setNames(country_names, country_names), function(country) {
     demography <- daedalus::country_data[[country]]$demography
     population <- sum(unlist(demography))

@@ -34,18 +34,25 @@ test_that("Can get metadata", {
     res <- endpoint$run() # nolint
   )
   expect_true(res$validated)
+
+  res <- jsonlite::fromJSON(res$body, simplifyVector=FALSE)
+
+  params <- res$data$parameters
   expected_parameters <- c(
     "country",
     "pathogen",
     "response",
-    "vaccine"
+    "vaccine",
+    "hospital_capacity"
   )
   expect_setequal(
-    res$data$parameters$id,
+    vapply(params, function(param) {
+      param$id
+    }, character(1L)),
     expected_parameters
   )
-  country_idx <- match("country", res$data$parameters$id)
-  country_options <- res$data$parameters$options[[country_idx]]
+  country_idx <- match("country", expected_parameters)
+  country_options <- params[[country_idx]]$options
   daedalus_countries <- daedalus::country_names
   # expect country ids to match those from daedalus
   expect_identical(
@@ -61,6 +68,19 @@ test_that("Can get metadata", {
     }, character(1L)),
     daedalus_countries
   )
+  expect_identical(params[[country_idx]]$defaultOption, "Thailand")
+  # expect hospital_capacity updateNumericFrom keys to match countries from daedalus
+  hosp_cap_idx <- match("hospital_capacity", expected_parameters)
+  update_values <- res$data$parameters[[hosp_cap_idx]]$updateNumericFrom$values
+  expect_identical(names(update_values), daedalus_countries)
+  for (country in daedalus_countries) {
+    values <- update_values[[country]]
+    expect_identical(values$min %% 100, 0)
+    expect_identical(values$default %% 100, 0)
+    expect_identical(values$max %% 100, 0)
+    expect_gte(values$max, values$default)
+    expect_gte(values$default, values$min)
+  }
 })
 
 test_that("Can get scenario run response", {

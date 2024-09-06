@@ -5,6 +5,7 @@
       "id": "country",
       "label": "Country",
       "parameterType": "globeSelect",
+      "defaultOption": "Thailand",
       "ordered": false,
       "options": null
     },
