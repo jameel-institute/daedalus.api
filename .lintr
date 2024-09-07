@@ -1,7 +1,7 @@
 linters: all_linters(
 	indentation_linter = NULL, # unstable as of lintr 3.1.0
 	extraction_operator_linter = NULL, # allow R6 syntax from {porcelain}
-	implicit_integer_linter = NULL # allow port notation without integer L
+	implicit_integer_linter = NULL
 	)
 exclusions: list(
 	"tests/testthat.R" = list(
