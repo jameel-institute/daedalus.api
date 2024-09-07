@@ -1,4 +1,4 @@
-skip_if_no_redis()
+check_for_redis()
 
 test_that("can queue model run", {
   queue <- Queue$new(configure_queue = FALSE)

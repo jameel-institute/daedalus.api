@@ -20,8 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macos-latest,   r: 'release'}
-          - {os: windows-latest, r: 'release'}
           - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
           - {os: ubuntu-latest,   r: 'oldrel-1'}
@@ -46,7 +44,6 @@ jobs:
           extra-packages: any::rcmdcheck
           needs: check
       - name: Run redis
-        if: ${{ matrix.config.os != 'macos-latest' }}
         run: ./scripts/redis start
       - uses: r-lib/actions/check-r-package@v2
         with:

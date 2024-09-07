@@ -16,7 +16,7 @@ Queue <- R6::R6Class("Queue", # nolint
       results_dir <- get_results_dir()
 
       # Connect to Redis
-      con <- redux::hiredis(host = get_redis_host())
+      con <- get_redis_connection()
 
       # Configure rrq to store data > 1KB to disk
       queue_id <- get_queue_id()
@@ -105,9 +105,12 @@ get_queue_id <- function() {
   Sys.getenv("DAEDALUS_QUEUE_ID", "daedalus.run.queue")
 }
 
-get_redis_host <- function() {
+get_redis_connection <- function() {
   host <- Sys.getenv("REDIS_CONTAINER_NAME", "")
-  if (nzchar(host)) host else NULL
+  if (nzchar(host)) {
+    host <- NULL
+  }
+  redux::hiredis(host = host)
 }
 
 get_logs_dir <- function() {

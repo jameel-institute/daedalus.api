@@ -23,11 +23,9 @@ main <- function(args = commandArgs(TRUE)) {
 
 
 main_worker <- function() {
-  queue <- Queue$new(configure_queue = FALSE)
-
   worker <- rrq::rrq_worker$new(
-    queue$controller$queue_id,
-    con = queue$controller$con
+    get_queue_id(),
+    con = get_redis_connection()
   )
   worker$loop()
 }
