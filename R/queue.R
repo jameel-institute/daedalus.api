@@ -107,7 +107,7 @@ get_queue_id <- function() {
 
 get_redis_connection <- function() {
   host <- Sys.getenv("REDIS_CONTAINER_NAME", "")
-  if (nzchar(host)) {
+  if (!nzchar(host)) {
     host <- NULL
   }
   redux::hiredis(host = host)
