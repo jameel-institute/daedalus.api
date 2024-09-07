@@ -1,14 +1,12 @@
 linters: all_linters(
 	indentation_linter = NULL, # unstable as of lintr 3.1.0
 	extraction_operator_linter = NULL # allow R6 syntax from {porcelain}
+	implicit_integer_linter = Inf # allow port notation without integer L
 	)
 exclusions: list(
 	"tests/testthat.R" = list(
 		unused_import_linter = Inf,
 		undesirable_function_linter = Inf # allow library() calls
-	),
-	"tests/testthat/test-main.R" = list(
-		implicit_integer_linter = Inf # allow port notation without integer L
 	),
 	"tests/testthat/test-endpoints.R" = list(
 	    absolute_path_linter = Inf, # spurious path errors for routes

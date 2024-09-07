@@ -35,7 +35,7 @@ test_that("Can get metadata", {
   )
   expect_true(res$validated)
 
-  res <- jsonlite::fromJSON(res$body, simplifyVector=FALSE)
+  res <- jsonlite::fromJSON(res$body, simplifyVector = FALSE)
 
   params <- res$data$parameters
   expected_parameters <- c(
@@ -69,10 +69,9 @@ test_that("Can get metadata", {
     daedalus_countries
   )
   expect_identical(params[[country_idx]]$defaultOption, "Thailand")
-  # expect hospital_capacity updateNumericFrom keys to match countries from daedalus
   hosp_cap_idx <- match("hospital_capacity", expected_parameters)
   update_values <- res$data$parameters[[hosp_cap_idx]]$updateNumericFrom$values
-  expect_identical(names(update_values), daedalus_countries)
+  expect_named(update_values, daedalus_countries)
   for (country in daedalus_countries) {
     values <- update_values[[country]]
     expect_identical(values$min %% 100, 0)

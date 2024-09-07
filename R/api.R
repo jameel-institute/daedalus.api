@@ -47,7 +47,7 @@ metadata <- function() {
     list(id = scalar(id), label = scalar(label))
   }
 
-  param_ids <- lapply(response$parameters, function(param){
+  param_ids <- lapply(response$parameters, function(param) {
     param$id
   })
 
@@ -79,10 +79,12 @@ metadata <- function() {
   hospital_capacity_idx <- match("hospital_capacity", param_ids)
   step <- response$parameters[[hospital_capacity_idx]]$step
   # setNames to get json object not array
-  hospital_capacities <- lapply(setNames(country_names, country_names), function(country) {
-    demography <- daedalus::country_data[[country]]$demography
-    population <- sum(unlist(demography))
-    get_hospital_capacity_for_population(population, step)
+  hospital_capacities <- lapply(
+    setNames(country_names, country_names),
+    function(country) {
+      demography <- daedalus::country_data[[country]]$demography
+      population <- sum(unlist(demography))
+      get_hospital_capacity_for_pop(population, step)
   })
   response$parameters[[hospital_capacity_idx]]$updateNumericFrom <- list(
     parameterId = "country",
