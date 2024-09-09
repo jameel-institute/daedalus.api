@@ -8,5 +8,4 @@ docker rm -f $NAME_SERVER || true
 docker rm -f $NAME_WORKER || true
 docker rm -f $NAME_REDIS || true
 docker volume remove -f $NAME_VOLUME || true
-docker volume prune -a -f || true # This might be overkill
-docker network remove $NAME_NETWORK || true
+ddocker network remove $NAME_NETWORK || true
