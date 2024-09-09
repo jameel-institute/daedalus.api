@@ -26,5 +26,6 @@ for attempt in $(seq 10); do
     sleep 1
 done
 
+docker logs $NAME_SERVER
 echo "FAIL"
 exit 1
