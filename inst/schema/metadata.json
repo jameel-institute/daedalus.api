@@ -27,27 +27,56 @@
             "label": { "type": "string" },
             "parameterType": {
               "type": "string",
-              "enum": ["select", "globeSelect"]
+              "enum": ["select", "globeSelect", "numeric"]
             },
             "defaultOption": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "ordered": { "type": "boolean" },
             "options": {
               "type": "array",
               "items": {
                 "type": "object",
-                "properties":{
-                  "id": { "type": "string" },
-                  "label": { "type": "string" }
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
                 },
                 "additionalProperties": false,
-                "required": ["id", "label"]
+                "required": [
+                  "id",
+                  "label"
+                ]
               }
+            },
+            "step": { "type": "number" },
+            "updateNumericFrom": {
+              "type": "object",
+              "properties": {
+                "parameterId":  { "type": "string" },
+                "values": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "min": { "type": "number" },
+                      "default": { "type": "number" },
+                      "max": { "type": "number" }
+                    },
+                    "additionalProperties": false,
+                    "required": ["min", "default", "max"]
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": ["parameterId", "values"]
             }
           },
           "additionalProperties": false,
-          "required": ["id", "label", "parameterType", "defaultOption", "ordered", "options"]
+          "required": ["id", "label", "parameterType", "ordered"]
         }
       },
       "results": {

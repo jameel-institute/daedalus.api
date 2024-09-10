@@ -17,11 +17,28 @@ system_file <- function(...) {
 }
 
 read_local_json <- function(filename) {
-  jsonlite::fromJSON(system_file("json", filename))
+  jsonlite::fromJSON(system_file("json", filename), simplifyVector = FALSE)
 }
 
 # (Probably) temporary method to return verbatim sample json
 # - return nulls as nulls and scalars as scalars!
 json_verbatim <- function(json) {
   jsonlite::toJSON(json, auto_unbox = TRUE, null = "null")
+}
+
+get_hospital_capacity_for_pop <- function(population, step) {
+  # This is very likely to change but for now we set hospital capacity values
+  # for a country as:
+  # min: 30 per 100K population
+  # default: 45 per 100K population
+  # max: 130 per 100K population
+  value_per_100k_pop_as_absolute <- function(value, population, step) {
+    unrounded <- (population / 100000) * value
+    round(unrounded / step) * step
+  }
+  list(
+    min = value_per_100k_pop_as_absolute(30, population, step),
+    default = value_per_100k_pop_as_absolute(45, population, step),
+    max = value_per_100k_pop_as_absolute(130, population, step)
+  )
 }

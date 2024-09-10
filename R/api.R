@@ -46,15 +46,22 @@ metadata <- function() {
   get_option <- function(id, label) {
     list(id = scalar(id), label = scalar(label))
   }
+
+  param_ids <- lapply(response$parameters, function(param) {
+    param$id
+  })
+
   # Set available countries from daedalus package
   # JIDEA-62: use the right version of daedalus/model
   # we will get ISO ids from daedalus when available
-  country_options <- lapply(daedalus::country_names, function(country) {
-    country_string <- as.character(country)
-    get_option(country_string, country_string)
+  country_names <- daedalus::country_names
+
+  country_options <- lapply(country_names, function(country) {
+    get_option(country, country)
   })
-  country_idx <- match("country", response$parameters$id)
-  response$parameters$options[[country_idx]] <- country_options
+  country_idx <- match("country", param_ids)
+  response$parameters[[country_idx]]$options <- country_options
+
   # JIDEA-61: get pathogen information from daedalus, when available
   pathogen_options <- list(
     get_option("sars-cov-1", "SARS-CoV-1"),
@@ -65,9 +72,25 @@ metadata <- function() {
     get_option("influenza-1957", "Influenza 1957"),
     get_option("influenza-1918", "Influenza 1918 (Spanish flu)")
   )
-  pathogen_idx <- match("pathogen", response$parameters$id)
-  response$parameters$options[[pathogen_idx]] <- pathogen_options
-  response
+  pathogen_idx <- match("pathogen", param_ids)
+  response$parameters[[pathogen_idx]]$options <- pathogen_options
+
+  hospital_capacity_idx <- match("hospital_capacity", param_ids)
+  step <- response$parameters[[hospital_capacity_idx]]$step
+  # setNames to get json object not array
+  hospital_capacities <- lapply(
+    setNames(country_names, country_names),
+    function(country) {
+      demography <- daedalus::country_data[[country]]$demography
+      population <- sum(demography)
+      get_hospital_capacity_for_pop(population, step)
+  })
+  response$parameters[[hospital_capacity_idx]]$updateNumericFrom <- list(
+    parameterId = "country",
+    values = hospital_capacities
+  )
+
+  json_verbatim(response)
 }
 
 #' @porcelain

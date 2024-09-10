@@ -5,7 +5,7 @@
       "id": "country",
       "label": "Country",
       "parameterType": "globeSelect",
-      "defaultOption": null,
+      "defaultOption": "Thailand",
       "ordered": false,
       "options": null
     },
@@ -13,7 +13,6 @@
       "id": "pathogen",
       "label": "Disease",
       "parameterType": "select",
-      "defaultOption": null,
       "ordered": false,
       "options": null
     },
@@ -42,6 +41,14 @@
         { "id": "medium", "label": "Medium" },
         { "id": "high", "label": "High" }
       ]
+    },
+    {
+      "id": "hospital_capacity",
+      "label": "Hospital capacity",
+      "parameterType": "numeric",
+      "ordered": false,
+      "step": 100,
+      "updateNumericFrom": null
     }
   ],
   "results": {
