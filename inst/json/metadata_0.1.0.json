@@ -32,7 +32,7 @@
     },
     {
       "id": "vaccine",
-      "label": "Advance vaccine investment",
+      "label": "Global vaccine investment",
       "parameterType": "select",
       "defaultOption": "none",
       "ordered": true,
