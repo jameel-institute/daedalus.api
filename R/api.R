@@ -57,8 +57,7 @@ metadata <- function() {
   country_names <- daedalus::country_names
 
   country_options <- lapply(country_names, function(country) {
-    country_string <- as.character(country)
-    get_option(country_string, country_string)
+    get_option(country, country)
   })
   country_idx <- match("country", param_ids)
   response$parameters[[country_idx]]$options <- country_options
@@ -83,7 +82,7 @@ metadata <- function() {
     setNames(country_names, country_names),
     function(country) {
       demography <- daedalus::country_data[[country]]$demography
-      population <- sum(unlist(demography))
+      population <- sum(demography)
       get_hospital_capacity_for_pop(population, step)
   })
   response$parameters[[hospital_capacity_idx]]$updateNumericFrom <- list(
