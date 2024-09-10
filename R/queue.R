@@ -21,10 +21,11 @@ Queue <- R6::R6Class("Queue", # nolint
       # Configure rrq to store data > 1KB to disk
       queue_id <- get_queue_id()
       if (configure_queue) {
-        rrq::rrq_configure(queue_id,
-                           store_max_size = 1000L,
-                           offload_path = results_dir,
-                           con = con)
+        # TODO: Check that the queue is configured, when rrq api is available
+        #rrq::rrq_configure(queue_id,
+        #                   store_max_size = 1000L,
+        #                   offload_path = results_dir,
+        #                   con = con)
       }
 
       # Create queue

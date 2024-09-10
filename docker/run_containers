@@ -3,7 +3,7 @@ set -ex
 HERE=$(dirname $0)
 . $HERE/common
 
-QUEUE_ID=daedalus-api-queue
+QUEUE_ID=daedalus-api-queue-$(uuidgen)
 
 docker network create $NAME_NETWORK
 docker volume create $NAME_VOLUME
@@ -13,6 +13,13 @@ docker run --rm -d \
   --name=$NAME_REDIS \
   --network=$NAME_NETWORK \
   redis
+
+docker run --rm \
+  --network=$NAME_NETWORK \
+  --env=DAEDALUS_QUEUE_ID=$QUEUE_ID \
+  --env=REDIS_CONTAINER_NAME=$NAME_REDIS \
+  --entrypoint="/usr/local/bin/daedalus.api.configure" \
+  $TAG_SHA
 
 docker run --rm -d \
   -p 8001:8001 \

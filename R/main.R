@@ -29,3 +29,11 @@ main_worker <- function() {
   )
   worker$loop()
 }
+
+main_configure_queue <- function() {
+  queue_id <- get_queue_id()
+  rrq::rrq_configure(queue_id,
+                     store_max_size = 1000L,
+                     offload_path = get_results_dir(),
+                     con = get_redis_connection())
+}
