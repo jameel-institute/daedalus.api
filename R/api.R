@@ -91,7 +91,7 @@ metadata <- function() {
     values = hospital_capacities
   )
 
-  json_verbatim(response)
+  to_json(response, auto_unbox = TRUE)
 }
 
 #' @porcelain
