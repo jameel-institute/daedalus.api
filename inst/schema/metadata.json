@@ -1,5 +1,17 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
+    "$defs": {
+        "displayInfo": {
+            "type": "object",
+            "properties": {
+                "id": { "type": "string" },
+                "label": { "type": "string" },
+                "description": { "type": ["string", "null"] }
+            },
+            "additionalProperties": false,
+            "required": ["id", "label"]
+        }
+    },
     "type": "object",
     "properties": {
       "modelVersion": {
@@ -15,30 +27,90 @@
             "label": { "type": "string" },
             "parameterType": {
               "type": "string",
-              "enum": ["select", "globeSelect"]
+              "enum": ["select", "globeSelect", "numeric"]
             },
             "defaultOption": {
-              "type": ["string", "null"]
+              "type": "string"
             },
             "ordered": { "type": "boolean" },
             "options": {
               "type": "array",
               "items": {
                 "type": "object",
-                "properties":{
-                  "id": { "type": "string" },
-                  "label": { "type": "string" }
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
                 },
                 "additionalProperties": false,
-                "required": ["id", "label"]
+                "required": [
+                  "id",
+                  "label"
+                ]
               }
+            },
+            "step": { "type": "number" },
+            "updateNumericFrom": {
+              "type": "object",
+              "properties": {
+                "parameterId":  { "type": "string" },
+                "values": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "properties": {
+                      "min": { "type": "number" },
+                      "default": { "type": "number" },
+                      "max": { "type": "number" }
+                    },
+                    "additionalProperties": false,
+                    "required": ["min", "default", "max"]
+                  }
+                }
+              },
+              "additionalProperties": false,
+              "required": ["parameterId", "values"]
             }
           },
           "additionalProperties": false,
-          "required": ["id", "label", "parameterType", "defaultOption", "ordered", "options"]
+          "required": ["id", "label", "parameterType", "ordered"]
         }
+      },
+      "results": {
+        "type": "object",
+        "properties": {
+          "costs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayInfo"
+            }
+          },
+          "capacities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayInfo"
+            }
+          },
+          "interventions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayInfo"
+            }
+          },
+          "time_series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayInfo"
+            }
+          }
+        },
+        "additionalProperties": false,
+        "required": ["costs", "capacities", "interventions", "time_series"]
       }
     },
     "additionalProperties": false,
-    "required": ["modelVersion", "parameters"]
+    "required": ["modelVersion", "parameters", "results"]
 }
