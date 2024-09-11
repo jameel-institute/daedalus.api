@@ -81,14 +81,14 @@ scenario_run <- function(queue, data) {
     data$parameters,
     model_version = data$modelVersion
   )
-  json_verbatim(list(runId = run_id))
+  to_json(list(runId = run_id), auto_unbox = TRUE)
 }
 
 #' @porcelain
 #'   GET /scenario/status/<run_id:string> => json(scenarioStatus)
 #'   state queue :: queue
 scenario_status <-  function(queue, run_id) {
-  json_verbatim(queue$get_run_status(run_id))
+  to_json(queue$get_run_status(run_id), auto_unbox = TRUE)
 }
 
 #' @porcelain

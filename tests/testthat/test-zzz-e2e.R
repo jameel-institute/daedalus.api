@@ -40,7 +40,7 @@ test_that("can run model, get status and results", {
       param1 = "param1"
     )
   )
-  body <- json_verbatim(data)
+  body <- to_json(data, auto_unbox = TRUE)
   run_response <- bg$request(
     "POST", "/scenario/run",
     body = body,
@@ -57,7 +57,7 @@ test_that("can run model, get status and results", {
   is_task_successful <- wait_for_task_complete(run_id, queue$controller, 10)
   expect_true(is_task_successful)
 
-  # 3. Test can get expected statu response
+  # 3. Test can get expected status response
   status_url <- paste0("/scenario/status/", run_id) # nolint
   status_response <- bg$request("GET", status_url)
   status_body <- httr::content(status_response)
