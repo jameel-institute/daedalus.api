@@ -18,7 +18,7 @@ Queue <- R6::R6Class("Queue", # nolint
 
       # Configure rrq to store data > 1KB to disk
       queue_id <- get_queue_id()
-      # TODO: Check that the queue is configured, when rrq api is available
+      # TODO: Check that the queue is configured, when rrq api is available # nolint
 
       # Create queue
       self$controller <- rrq::rrq_controller(queue_id, con = con)

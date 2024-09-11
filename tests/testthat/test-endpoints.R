@@ -1,5 +1,3 @@
-# NB endpoints requiring interaction with rrq/redis are tested in test-zzz-e2e
-
 test_that("Root data returns sensible, validated, data", {
   ## Just hello world for the package really
   endpoint <- daedalus_api_endpoint("GET", "/")
