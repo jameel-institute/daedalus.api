@@ -11,7 +11,7 @@ check_for_redis <- function() {
 }
 
 start_test_queue_with_worker <- function() {
-  queue <- Queue$new(configure_queue = FALSE) # nolint
+  queue <- Queue$new() # nolint
   rrq::rrq_worker_spawn(1L, controller = queue$controller)
   queue
 }

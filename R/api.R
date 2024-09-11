@@ -9,16 +9,14 @@
 ##' @param log_level Logging level to use. Sensible options are "off",
 ##'   "info" and "all".
 ##'
-##' @param configure_queue Whether to configure the rrq queue
-##'
 ##' @return A [porcelain::porcelain] object. Notably this does *not*
 ##'   start the server
 ##'
 ##' @export
-api <- function(validate = NULL, log_level = "info", configure_queue = FALSE) {
+api <- function(validate = NULL, log_level = "info") {
   logger <- make_logger(log_level)
   api <- porcelain::porcelain$new(validate = validate, logger = logger)
-  queue <- Queue$new(configure_queue = configure_queue)
+  queue <- Queue$new()
   api$include_package_endpoints(state = list(queue = queue))
   api
 }

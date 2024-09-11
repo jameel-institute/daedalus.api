@@ -34,16 +34,9 @@ Class for managing running jobs on the redis queue
 \subsection{Method \code{new()}}{
 Initialise redis connection and rrq.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Queue$new(configure_queue)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Queue$new()}\if{html}{\out{</div>}}
 }
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{configure_queue}}{whether this instance should configure rrq queue}
-}
-\if{html}{\out{</div>}}
-}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Queue-queue_model_run"></a>}}

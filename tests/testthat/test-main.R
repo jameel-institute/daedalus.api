@@ -43,7 +43,7 @@ test_that("Can construct api", {
   mockery::expect_called(mock_api, 1L)
   expect_identical(
     mockery::mock_args(mock_api)[[1L]],
-    list(FALSE, "debug", configure_queue = TRUE)
+    list(FALSE, "debug")
   )
 
   mockery::expect_called(mock_run, 1L)

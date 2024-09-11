@@ -17,7 +17,7 @@ test_that("Root data returns sensible, validated, data", {
 })
 
 test_that("Can construct the api", {
-  obj <- api(configure_queue = FALSE)
+  obj <- api()
   result <- evaluate_promise({
     value <- obj$request("GET", "/")$status
   })

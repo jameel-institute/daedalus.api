@@ -1,7 +1,7 @@
 check_for_redis()
 
 test_that("can queue model run", {
-  queue <- Queue$new(configure_queue = FALSE)
+  queue <- Queue$new()
   mock_rrq_task_create_call <- mockery::mock()
   mockery::stub(queue$queue_model_run,
                 "rrq::rrq_task_create_call",
@@ -22,7 +22,7 @@ test_that("can queue model run", {
 expect_status_from_queue <- function(rrq_status,
                                      expected_run_status,
                                      run_id = "12345") {
-  queue <- Queue$new(configure_queue = FALSE)
+  queue <- Queue$new()
   mock_rrq_status <- mockery::mock(rrq_status)
   mockery::stub(queue$get_run_status, "rrq::rrq_task_status", mock_rrq_status)
 
@@ -66,7 +66,7 @@ test_that("can get complete status", {
 })
 
 test_that("can get failed status", {
-  queue <- Queue$new(configure_queue = FALSE)
+  queue <- Queue$new()
 
   mock_rrq_status <- mockery::mock("FAILED")
   mockery::stub(queue$get_run_status, "rrq::rrq_task_status", mock_rrq_status)
@@ -88,7 +88,7 @@ test_that("can get failed status", {
 })
 
 test_that("can get run results", {
-  queue <- Queue$new(configure_queue = FALSE)
+  queue <- Queue$new()
 
   task_result <- list("test results")
   mock_rrq_task_result <- mockery::mock(task_result)
