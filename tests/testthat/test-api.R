@@ -5,6 +5,5 @@ test_that("can run scenario", {
   )
   queue <- Queue$new()
   result <- scenario_run(queue, jsonlite::toJSON(data))
-  obj <- jsonlite::parse_json(result)
-  expect_type(obj$runId, "character")
+  expect_type(result$runId, "character")
 })

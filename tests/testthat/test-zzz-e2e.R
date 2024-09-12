@@ -41,7 +41,7 @@ test_that("can run model, get status and results", {
       param1 = "param1"
     )
   )
-  body <- to_json(data, auto_unbox = TRUE)
+  body <- jsonlite::toJSON(data, auto_unbox = TRUE)
   run_response <- bg$request(
     "POST", "/scenario/run",
     body = body,

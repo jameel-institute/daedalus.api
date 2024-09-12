@@ -104,14 +104,14 @@ scenario_run <- function(queue, data) {
     data$parameters,
     model_version = data$modelVersion
   )
-  to_json(list(runId = run_id), auto_unbox = TRUE)
+  list(runId = scalar(run_id))
 }
 
 #' @porcelain
 #'   GET /scenario/status/<run_id:string> => json(scenarioStatus)
 #'   state queue :: queue
 scenario_status <-  function(queue, run_id) {
-  to_json(queue$get_run_status(run_id), auto_unbox = TRUE)
+  lapply(queue$get_run_status(run_id), scalar)
 }
 
 #' @porcelain
