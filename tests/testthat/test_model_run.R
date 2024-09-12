@@ -1,6 +1,5 @@
 test_that("can run model and return results", {
-  res_json <- model_run(list(), "0.0.1")
-  res <- jsonlite::fromJSON(res_json)
+  res <- model_run(list(), "0.0.1")
   expect_named(res, c(
     "runId",
     "parameters",
