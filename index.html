@@ -82,6 +82,11 @@
 <p>To add an endpoint, implement a method in <code>api.R</code> with <code>@porcelain</code> comment, then run <code>roxygen2::roxygenize()</code> to generate the porcelain code in <code>porcelain.R</code>. See the <a href="https://reside-ic.github.io/porcelain/articles/roxygen.html" class="external-link">porcelain docs</a> for more details.</p>
 </div>
 <div class="section level2">
+<h2 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
+</h2>
+<p>Redis needs to be running for the e2e tests to pass. Use <code>./scripts/redis start</code>, and tear down with <code>./scripts/redis kill.</code></p>
+</div>
+<div class="section level2">
 <h2 id="model-versions">Model versions<a class="anchor" aria-label="anchor" href="#model-versions"></a>
 </h2>
 <p>The API should be backwards compatible and support running older versions of the model. Some endpoints support providing <code>modelVersion</code> as a query string parameter, e.g. to run or get metadata for a particular version of the model.</p>
