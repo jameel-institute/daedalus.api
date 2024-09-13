@@ -20,10 +20,8 @@ read_local_json <- function(filename) {
   jsonlite::fromJSON(system_file("json", filename), simplifyVector = FALSE)
 }
 
-# (Probably) temporary method to return verbatim sample json
-# - return nulls as nulls and scalars as scalars!
-json_verbatim <- function(json) {
-  jsonlite::toJSON(json, auto_unbox = TRUE, null = "null")
+to_json <- function(data, auto_unbox = FALSE) {
+  jsonlite::toJSON(data, auto_unbox = auto_unbox, null = "null")
 }
 
 get_hospital_capacity_for_pop <- function(population, step) {

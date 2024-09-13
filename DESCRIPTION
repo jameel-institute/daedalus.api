@@ -16,14 +16,21 @@ Imports:
     docopt,
     jsonlite,
     lgr,
-    porcelain
+    openssl,
+    porcelain,
+    R6,
+    redux,
+    rrq
 Suggests: 
     httr,
     mockery,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    uuid,
+    withr
 Remotes:
     jameel-institute/daedalus,
+    mrc-ide/rrq,
     reside-ic/porcelain
 Config/testthat/edition: 3
 Encoding: UTF-8

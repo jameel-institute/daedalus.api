@@ -1,20 +1,16 @@
 linters: all_linters(
-	indentation_linter = NULL, # unstable as of lintr 3.1.0
-	extraction_operator_linter = NULL, # allow R6 syntax from {porcelain}
-	implicit_integer_linter = NULL
-	)
+    indentation_linter = NULL, # unstable as of lintr 3.1.0
+    extraction_operator_linter = NULL, # allow R6 syntax from {porcelain}
+    implicit_integer_linter = NULL,
+    absolute_path_linter = NULL, # spurious path errors for routes
+    nonportable_path_linter = NULL, # ditto
+    object_usage_linter = NULL, # allow expects outside tests
+    undesirable_function_linter = NULL # allow library() calls
+    )
 exclusions: list(
-	"tests/testthat.R" = list(
-		unused_import_linter = Inf,
-		undesirable_function_linter = Inf # allow library() calls
-	),
-	"tests/testthat/test-endpoints.R" = list(
-	    absolute_path_linter = Inf, # spurious path errors for routes
-	    nonportable_path_linter = Inf # ditto
-	),
-	"vignettes" = list(
-		undesirable_function_linter = Inf
-	),
-	"R/cpp11.R",
-	"R/porcelain.R"
-	)
+    "tests/testthat.R" = list(
+        unused_import_linter = Inf
+    ),
+    "R/cpp11.R",
+    "R/porcelain.R"
+    )

@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -ex
+HERE=$(dirname $0)
+. $HERE/common
+
+QUEUE_ID=daedalus-api-queue-$(uuidgen)
+
+docker network create $NAME_NETWORK
+docker volume create $NAME_VOLUME
+
+docker run --rm -d \
+  -p 127.0.0.1:6379:6379 \
+  --name=$NAME_REDIS \
+  --network=$NAME_NETWORK \
+  redis
+
+docker run --rm \
+  --network=$NAME_NETWORK \
+  --env=DAEDALUS_QUEUE_ID=$QUEUE_ID \
+  --env=REDIS_CONTAINER_NAME=$NAME_REDIS \
+  --entrypoint="/usr/local/bin/daedalus.api.configure" \
+  $TAG_SHA
+
+docker run --rm -d \
+  -p 8001:8001 \
+  --name=$NAME_SERVER \
+  --network=$NAME_NETWORK \
+  -v $NAME_VOLUME:/daedalus/results \
+  --env=DAEDALUS_QUEUE_ID=$QUEUE_ID \
+  --env=REDIS_CONTAINER_NAME=$NAME_REDIS\
+  --entrypoint="/usr/local/bin/daedalus.api" \
+  $TAG_SHA
+
+docker run --rm -d \
+  --name=$NAME_WORKER \
+  --network=$NAME_NETWORK \
+  -v $NAME_VOLUME:/daedalus/results \
+  --env=DAEDALUS_QUEUE_ID=$QUEUE_ID \
+  --env=REDIS_CONTAINER_NAME=$NAME_REDIS\
+  --entrypoint="/usr/local/bin/daedalus.api.worker" \
+  $TAG_SHA

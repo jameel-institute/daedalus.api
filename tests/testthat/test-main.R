@@ -52,3 +52,11 @@ test_that("Can construct api", {
     list("0.0.0.0", port = 8001L) # mockery::mock_args() returns an integer
   )
 })
+
+test_that("Can create worker", {
+  mock_loop <- mockery::mock()
+  mock_new_worker <- mockery::mock(list(loop = mock_loop))
+  mockery::stub(main_worker, "rrq::rrq_worker$new", mock_new_worker)
+  main_worker()
+  mockery::expect_called(mock_loop, 1)
+})

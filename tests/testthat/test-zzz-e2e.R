@@ -1,6 +1,26 @@
+check_for_redis()
+temp_dir <- tempdir()
+# Env vars required by the queue
+qid <- paste0("daedalus.api.tests.queue-", uuid::UUIDgenerate())
+withr::local_envvar(
+  .new = list(
+    DAEDALUS_QUEUE_ID = qid,
+    REDIS_CONTAINER_NAME = "localhost",
+    DAEDALUS_LOGS_DIR = temp_dir,
+    DAEDALUS_RESULTS_DIR = temp_dir
+  )
+)
+queue <- start_test_queue_with_worker()
+bg <- porcelain::porcelain_background$new(
+  api,
+  # Force error response if data does not validate against schema
+  list(validate = TRUE)
+)
+bg$start()
+on.exit(rrq::rrq_worker_stop(controller = queue$controller))
+on.exit(bg$stop(), add = TRUE)
+
 test_that("can run server", {
-  bg <- porcelain::porcelain_background$new(api)
-  bg$start()
   r <- bg$request("GET", "/")
   expect_identical(httr::status_code(r), 200L)
 
@@ -11,4 +31,52 @@ test_that("can run server", {
   expect_identical(
     dat$data$daedalus.api, package_version_string("daedalus.api")
   )
+})
+
+test_that("can run model, get status and results", {
+  # 1. Run model
+  data <- list(
+    modelVersion = "0.0.1",
+    parameters = list(
+      param1 = "param1"
+    )
+  )
+  body <- jsonlite::toJSON(data, auto_unbox = TRUE)
+  run_response <- bg$request(
+    "POST", "/scenario/run",
+    body = body,
+    encode = "raw",
+    httr::content_type("application/json")
+  )
+  body <- httr::content(run_response)
+  expect_identical(httr::status_code(run_response), 200L)
+
+  run_id <- body$data$runId
+  expect_identical(nchar(run_id), 32L)
+
+  # 2. Wait for run to complete successfully
+  is_task_successful <- wait_for_task_complete(run_id, queue$controller, 10)
+  expect_true(is_task_successful)
+
+  # 3. Test can get expected status response
+  status_url <- paste0("/scenario/status/", run_id) # nolint
+  status_response <- bg$request("GET", status_url)
+  status_body <- httr::content(status_response)
+  expect_identical(httr::status_code(status_response), 200L)
+
+  expect_identical(status_body$data$runStatus, "complete")
+  expect_true(status_body$data$runSuccess)
+  expect_true(status_body$data$done)
+  expect_identical(status_body$data$runId, run_id)
+
+  # 4. Test can get results
+  results_url <- paste0("/scenario/results/", run_id) # nolint
+  results_response <- bg$request("GET", results_url)
+  expect_identical(httr::status_code(results_response), 200L)
+  results_body <- httr::content(results_response)
+  results_data <- results_body$data
+  expect_gt(length(results_data$costs), 0)
+  expect_gt(length(results_data$capacities), 0)
+  expect_gt(length(results_data$interventions), 0)
+  expect_gt(length(results_data$time_series), 0)
 })

@@ -21,7 +21,7 @@ test_that("Can construct the api", {
   })
   expect_identical(value, 200L)
   logs <- lapply(
-    strsplit(result$output, "\n", fixed = TRUE)[[1L]],
+    strsplit(result$output, "\n", fixed = TRUE)[[1]],
     jsonlite::parse_json
   )
   expect_length(logs, 2L)
@@ -58,14 +58,14 @@ test_that("Can get metadata", {
   expect_identical(
     vapply(country_options, function(option) {
         option$id
-    }, character(1L)),
+    }, character(1)),
     daedalus_countries
   )
   # expect country labels to match those from daedalus
   expect_identical(
     vapply(country_options, function(option) {
       option$label
-    }, character(1L)),
+    }, character(1)),
     daedalus_countries
   )
   expect_identical(params[[country_idx]]$defaultOption, "Thailand")
@@ -80,19 +80,4 @@ test_that("Can get metadata", {
     expect_gte(values$max, values$default)
     expect_gte(values$default, values$min)
   }
-})
-
-test_that("Can get scenario run response", {
-  res <- daedalus_api_endpoint("POST", "/scenario/run")$run()
-  expect_true(res$validated)
-})
-
-test_that("Can get scenario status", {
-  res <- daedalus_api_endpoint("GET", "/scenario/status")$run()
-  expect_true(res$validated)
-})
-
-test_that("Can get scenario results", {
-  res <- daedalus_api_endpoint("GET", "/scenario/results")$run()
-  expect_true(res$validated)
 })

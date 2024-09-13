@@ -17,5 +17,23 @@ Options:
 
 main <- function(args = commandArgs(TRUE)) {
   dat <- parse_main(args)
-  api(dat$validate, dat$log_level)$run("0.0.0.0", port = dat$port)
+  api <- api(dat$validate, dat$log_level)
+  api$run("0.0.0.0", port = dat$port)
+}
+
+
+main_worker <- function() {
+  worker <- rrq::rrq_worker$new(
+    get_queue_id(),
+    con = get_redis_connection()
+  )
+  worker$loop()
+}
+
+main_configure_queue <- function() {
+  queue_id <- get_queue_id()
+  rrq::rrq_configure(queue_id,
+                     store_max_size = 1000L,
+                     offload_path = get_results_dir(),
+                     con = get_redis_connection())
 }
