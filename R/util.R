@@ -20,8 +20,8 @@ read_local_json <- function(filename) {
   jsonlite::fromJSON(system_file("json", filename), simplifyVector = FALSE)
 }
 
-to_json <- function(data, auto_unbox = FALSE) {
-  jsonlite::toJSON(data, auto_unbox = auto_unbox, null = "null")
+to_json <- function(data, auto_unbox = FALSE, ...) {
+  jsonlite::toJSON(data, auto_unbox = auto_unbox, null = "null", ...)
 }
 
 get_hospital_capacity_for_pop <- function(population, step) {
@@ -39,4 +39,10 @@ get_hospital_capacity_for_pop <- function(population, step) {
     default = value_per_100k_pop_as_absolute(45, population, step),
     max = value_per_100k_pop_as_absolute(130, population, step)
   )
+}
+
+aggregate_daedalus_output <- function(daedalus_output) {
+  # Aggregate daedalus output for age group and economic sector, and return values
+  # as a vector ordered by time value
+  aggregate(daedalus_output, list(daedalus_output$time, daedalus_output$compartment), FUN=sum)
 }

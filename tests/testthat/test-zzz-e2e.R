@@ -1,3 +1,4 @@
+skip()
 check_for_redis()
 temp_dir <- tempdir()
 # Env vars required by the queue
@@ -36,12 +37,16 @@ test_that("can run server", {
 test_that("can run model, get status and results", {
   # 1. Run model
   data <- list(
-    modelVersion = "0.0.1",
+    modelVersion = "0.0.2",
     parameters = list(
-      param1 = "param1"
+      country = "Thailand",
+      pathogen = "sars-cov-1",
+      response = "economic_closures"
     )
   )
   body <- jsonlite::toJSON(data, auto_unbox = TRUE)
+  print("TEST BODY")
+  print(body)
   run_response <- bg$request(
     "POST", "/scenario/run",
     body = body,

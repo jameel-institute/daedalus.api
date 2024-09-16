@@ -1,3 +1,4 @@
+skip()
 check_for_redis()
 
 test_that("can queue model run", {

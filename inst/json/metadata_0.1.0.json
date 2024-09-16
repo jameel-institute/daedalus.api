@@ -20,12 +20,12 @@
       "id": "response",
       "label": "Response",
       "parameterType": "select",
-      "defaultOption": "no_closure",
+      "defaultOption": "none",
       "ordered": true,
       "options": [
-        { "id": "no_closure", "label": "No closures" },
-        { "id": "school_closure", "label": "School closures" },
-        { "id": "business_closure", "label": "Business closures" },
+        { "id": "none", "label": "No closures" },
+        { "id": "school_closures", "label": "School closures" },
+        { "id": "economic_closures", "label": "Business closures" },
         { "id": "elimination", "label": "Elimination" }
       ]
     },
@@ -75,9 +75,8 @@
       { "id": "business_closures", "label": "Business closures" }
     ],
     "time_series": [
-      { "id": "cases", "label": "Cases", "description": "Number of confirmed cases" },
-      { "id": "vacc", "label": "Vaccinated", "description": "Cumulative vaccinations" },
-      { "id": "hosp_occ", "label": "Hospital Occupancy", "description": "Number of hospitalised cases" }
+      { "id": "hospitalised", "label": "Hospital Occupancy", "description": "Number of hospitalised cases" },
+      { "id": "deaths", "label": "Deaths", "description": "Number of deaths" }
     ]
   }
 }

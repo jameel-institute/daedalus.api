@@ -99,6 +99,8 @@ metadata <- function() {
 #'   state queue :: queue
 #'   body data :: json(scenarioRunRequest)
 scenario_run <- function(queue, data) {
+  print("REQUEST")
+  print(data)
   data <- jsonlite::parse_json(data)
   run_id <- queue$queue_model_run(
     data$parameters,
@@ -118,5 +120,5 @@ scenario_status <-  function(queue, run_id) {
 #'   GET /scenario/results/<run_id:string> => json(scenarioResults)
 #'   state queue :: queue
 scenario_results <- function(queue, run_id) {
-  to_json(queue$get_run_results(run_id), auto_unbox = TRUE)
+  to_json(queue$get_run_results(run_id), dataframe = "columns", auto_unbox = TRUE)
 }
