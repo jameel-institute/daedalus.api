@@ -12,15 +12,17 @@ License: MIT + file LICENSE
 URL: https://github.com/jameel-institute/daedalus.api
 BugReports: https://github.com/jameel-institute/daedalus.api/issues
 Imports: 
-    daedalus,
+    daedalus (>= 0.0.6),
     docopt,
+    dplyr,
     jsonlite,
     lgr,
     openssl,
     porcelain,
     R6,
     redux,
-    rrq
+    rrq,
+    tidyr
 Suggests: 
     httr,
     mockery,

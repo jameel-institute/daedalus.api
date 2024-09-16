@@ -120,5 +120,5 @@ scenario_status <-  function(queue, run_id) {
 #'   GET /scenario/results/<run_id:string> => json(scenarioResults)
 #'   state queue :: queue
 scenario_results <- function(queue, run_id) {
-  to_json(queue$get_run_results(run_id), dataframe = "columns", auto_unbox = TRUE)
+  jsonlite::toJSON(queue$get_run_results(run_id), dataframe = "columns")
 }
