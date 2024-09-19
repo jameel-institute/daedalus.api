@@ -1,4 +1,3 @@
-skip()
 test_that("Can parse arguments", {
   expect_mapequal(
     parse_main(character()),

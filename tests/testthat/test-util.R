@@ -14,7 +14,7 @@ test_that("can validate valid parameters", {
     )
   )
   # should be no error
-  validate_parameters(parameters, metadata)
+  expect_no_condition(validate_parameters(parameters, metadata))
 })
 
 test_that("can validate invalid parameters", {

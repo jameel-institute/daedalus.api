@@ -1,4 +1,3 @@
-skip()
 test_that("Root data returns sensible, validated, data", {
   ## Just hello world for the package really
   endpoint <- daedalus_api_endpoint("GET", "/")

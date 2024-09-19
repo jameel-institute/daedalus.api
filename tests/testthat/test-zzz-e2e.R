@@ -1,4 +1,3 @@
-skip()
 check_for_redis()
 temp_dir <- tempdir()
 # Env vars required by the queue
@@ -40,13 +39,13 @@ test_that("can run model, get status and results", {
     modelVersion = "0.0.2",
     parameters = list(
       country = "Thailand",
-      pathogen = "sars-cov-1",
-      response = "economic_closures"
+      pathogen = "sars_cov_1",
+      response = "economic_closures",
+      vaccine = "low",
+      hospital_capacity = "4500"
     )
   )
   body <- jsonlite::toJSON(data, auto_unbox = TRUE)
-  print("TEST BODY")
-  print(body)
   run_response <- bg$request(
     "POST", "/scenario/run",
     body = body,
@@ -66,6 +65,7 @@ test_that("can run model, get status and results", {
   # 3. Test can get expected status response
   status_url <- paste0("/scenario/status/", run_id) # nolint
   status_response <- bg$request("GET", status_url)
+
   status_body <- httr::content(status_response)
   expect_identical(httr::status_code(status_response), 200L)
 
@@ -77,8 +77,14 @@ test_that("can run model, get status and results", {
   # 4. Test can get results
   results_url <- paste0("/scenario/results/", run_id) # nolint
   results_response <- bg$request("GET", results_url)
-  expect_identical(httr::status_code(results_response), 200L)
+
+  text <- httr::content(results_response, as = "text")
+  print("TEXT")
+  print(text)
+
   results_body <- httr::content(results_response)
+
+  expect_identical(httr::status_code(results_response), 200L)
   results_data <- results_body$data
   expect_gt(length(results_data$costs), 0)
   expect_gt(length(results_data$capacities), 0)
