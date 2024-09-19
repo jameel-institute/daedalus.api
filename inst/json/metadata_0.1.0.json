@@ -76,7 +76,7 @@
     ],
     "time_series": [
       { "id": "hospitalised", "label": "Hospital Occupancy", "description": "Number of hospitalised cases" },
-      { "id": "deaths", "label": "Deaths", "description": "Number of deaths" }
+      { "id": "dead", "label": "Dead", "description": "Cumulative deaths" }
     ]
   }
 }

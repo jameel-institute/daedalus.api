@@ -1,12 +1,17 @@
 model_run <- function(parameters, model_version) {
-  # TODO: use real parameters
-  results <- daedalus::daedalus("Canada", "influenza_1918")
-  d <- dplyr::group_by(results$model_data, time, compartment) |> dplyr::summarise(value = sum(value)) |> tidyr::pivot_wider(id_cols = "time", values_from = "value", names_from = "compartment")
-  d <- d[,c("hospitalised", "dead")]
-  names(d)[[2]] <- "deaths"
-  # read all sample data, and replace time series with daedalus results
-  #from_file <- read_local_json("sample_scenario_results_response.json")
-  #from_file$time_series <- d
-  #from_file
-  list(time_series = d)
+  # TODO: validate parameters in endpoint
+  country <- parameters$country
+  pathogen <- parameters$pathogen
+  response <- parameters$response
+  vaccine <- parameters$vaccine # TODO: include vaccine in params to daedalus
+  results <- daedalus::daedalus(country, pathogen, response_strategy = response)
+  time_series <- dplyr::group_by(results$model_data, time, compartment) |>
+    dplyr::summarise(value = sum(value)) |>
+    tidyr::pivot_wider(id_cols = "time", values_from = "value", names_from = "compartment")
+  time_series <- time_series[,c("hospitalised", "dead")]
+  # read all sample data, and replace time series with daedalus results, and parameters with real params
+  results <- read_local_json("sample_scenario_results_response.json")
+  results$parameters <- list(country = country, pathogen = pathogen, response = response, vaccine = vaccine)
+  results$time_series <- time_series
+  results
 }
