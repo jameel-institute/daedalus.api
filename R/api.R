@@ -65,13 +65,13 @@ metadata <- function() {
 
   # JIDEA-61: get pathogen information from daedalus, when available
   pathogen_options <- list(
-    get_option("sars-cov-1", "SARS-CoV-1"),
-    get_option("sars-cov-2-pre-alpha", "SARS-CoV-2 pre-alpha (wildtype)"),
-    get_option("sars-cov-2-omicron", "SARS-CoV-2 omicron"),
-    get_option("sars-cov-2-delta", "SARS-CoV-2 delta"),
-    get_option("influenza-2009", "Influenza 2009 (Swine flu)"),
-    get_option("influenza-1957", "Influenza 1957"),
-    get_option("influenza-1918", "Influenza 1918 (Spanish flu)")
+    get_option("sars_cov_1", "SARS-CoV-1"),
+    get_option("sars_cov_2_pre_alpha", "SARS-CoV-2 pre-alpha (wildtype)"),
+    get_option("sars_cov_2_omicron", "SARS-CoV-2 omicron"),
+    get_option("sars_cov_2_delta", "SARS-CoV-2 delta"),
+    get_option("influenza_2009", "Influenza 2009 (Swine flu)"),
+    get_option("influenza_1957", "Influenza 1957"),
+    get_option("influenza_1918", "Influenza 1918 (Spanish flu)")
   )
   pathogen_idx <- match("pathogen", param_ids)
   response$parameters[[pathogen_idx]]$options <- pathogen_options
@@ -122,6 +122,5 @@ scenario_status <-  function(queue, run_id) {
 scenario_results <- function(queue, run_id) {
   results <- queue$get_run_results(run_id)
   results$runId <- run_id
-  #jsonlite::toJSON(results, dataframe = "columns")
   to_json(results, auto_unbox = TRUE, dataframe = "columns")
 }

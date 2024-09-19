@@ -1,11 +1,6 @@
 {
   "runId": null,
-  "parameters": {
-      "country": "Canada",
-      "pathogen": "influenza_1918",
-      "response": "elimination",
-      "vaccine": "low"
-  },
+  "parameters": null,
   "costs": [{
     "id":  "total",
     "value": 27000000,
