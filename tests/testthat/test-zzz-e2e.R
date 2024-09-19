@@ -77,11 +77,6 @@ test_that("can run model, get status and results", {
   # 4. Test can get results
   results_url <- paste0("/scenario/results/", run_id) # nolint
   results_response <- bg$request("GET", results_url)
-
-  text <- httr::content(results_response, as = "text")
-  print("TEXT")
-  print(text)
-
   results_body <- httr::content(results_response)
 
   expect_identical(httr::status_code(results_response), 200L)

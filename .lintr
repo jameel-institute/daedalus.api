@@ -5,6 +5,7 @@ linters: all_linters(
     absolute_path_linter = NULL, # spurious path errors for routes
     nonportable_path_linter = NULL, # ditto
     object_usage_linter = NULL, # allow expects outside tests
+    todo_comment_linter = NULL,
     undesirable_function_linter = NULL # allow library() calls
     )
 exclusions: list(
