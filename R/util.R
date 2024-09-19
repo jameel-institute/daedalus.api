@@ -46,3 +46,16 @@ aggregate_daedalus_output <- function(daedalus_output) {
   # as a vector ordered by time value
   aggregate(daedalus_output, list(daedalus_output$time, daedalus_output$compartment), FUN=sum)
 }
+
+validate_parameters <- function(parameters, metadata) {
+  # Expect parameters in model run request to include all and only values specified in metadata
+  parameter_names <- names(parameters)
+  required <- lapply(metadata$parameters, function(param) {
+    param$id
+  })
+  pass <- identical(sort(parameter_names), sort(unlist(required)))
+  if (!pass) {
+    required_string <- paste(required, collapse = ", ")
+    stop(paste0("The parameters provided do not match required parameters: ", required_string))
+  }
+}

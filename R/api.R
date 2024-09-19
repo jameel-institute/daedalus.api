@@ -32,6 +32,11 @@ root <- function() {
   lapply(versions, function(v) scalar(as.character(v)))
 }
 
+read_metadata_file <- function(metadata_version = "0.1.0") {
+  metadata_file <- sprintf("metadata_%s.json", metadata_version)
+  read_local_json(metadata_file)
+}
+
 ##' @porcelain GET /metadata => json(metadata)
 metadata <- function() {
   # JIDEA-62: we will use relevant model version - from qs if specified, else
@@ -39,9 +44,8 @@ metadata <- function() {
   model_version <- scalar(as.character(packageVersion("daedalus")))
   # JIDEA-62: we will read in correct metadata version according to requested
   # model_version
-  metadata_version <- "0.1.0"
-  metadata_file <- sprintf("metadata_%s.json", metadata_version)
-  response <- read_local_json(metadata_file)
+  response <- read_metadata_file()
+
   response$modelVersion <- model_version
   # Helper for the options which don't come from the json
   get_option <- function(id, label) {
@@ -99,11 +103,11 @@ metadata <- function() {
 #'   state queue :: queue
 #'   body data :: json(scenarioRunRequest)
 scenario_run <- function(queue, data) {
-  print("REQUEST")
-  print(data)
   data <- jsonlite::parse_json(data)
+  parameters <- data$parameters
+  validate_parameters(parameters, read_metadata_file())
   run_id <- queue$queue_model_run(
-    data$parameters,
+    parameters,
     model_version = data$modelVersion
   )
   list(runId = scalar(run_id))
