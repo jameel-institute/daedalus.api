@@ -1,5 +1,4 @@
 model_run <- function(parameters, model_version) {
-  # TODO: validate parameters in endpoint
   country <- parameters$country
   pathogen <- parameters$pathogen
   response <- parameters$response
