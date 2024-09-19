@@ -75,7 +75,10 @@
       { "id": "business_closures", "label": "Business closures" }
     ],
     "time_series": [
+      { "id": "infect_asymp", "label": "Asymptomatic Infections", "description": "Infections without symptoms" },
+      { "id": "infect_symp", "label": "Symptomatic Infections", "description": "Infections with symptoms" },
       { "id": "hospitalised", "label": "Hospital Occupancy", "description": "Number of hospitalised cases" },
+      { "id": "recovered", "label": "Recovered", "description": "Recovered from infection" },
       { "id": "dead", "label": "Dead", "description": "Cumulative deaths" }
     ]
   }

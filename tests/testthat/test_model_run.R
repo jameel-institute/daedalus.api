@@ -1,11 +1,5 @@
 test_that("can run model and return results", {
-  mock_model_data <- data.frame(
-    time = c(1, 1, 1, 1, 2, 2, 2, 2),
-    age_group = c("0-4", "0-4", "4-19", "4-19", "0-4", "0-4", "4-19", "4-19"),
-    compartment = c("hospitalised", "dead", "hospitalised", "dead", "hospitalised", "dead", "hospitalised", "dead"),
-    econ_sector = c("sector1", "sector1", "sector1", "sector1", "sector1", "sector1", "sector1", "sector1"),
-    value = c(10, 1, 20, 2, 30, 3, 40, 4)
-  )
+  mock_model_data <- read.csv("mock_model_data.csv")
   mock_results <- list(model_data = mock_model_data)
   mock_daedalus <- mockery::mock(mock_results)
   mockery::stub(model_run, "daedalus::daedalus", mock_daedalus)
@@ -32,8 +26,11 @@ test_that("can run model and return results", {
     "interventions",
     "time_series"
   ))
-  expect_named(res$time_series, c("hospitalised", "dead"))
-  expect_identical(res$time_series$hospitalised, c(30, 70))
-  expect_identical(res$time_series$dead, c(3, 7))
+  expect_named(res$time_series, c("infect_asymp", "infect_symp", "hospitalised", "recovered", "dead"))
+  expect_identical(res$time_series$infect_asymp, c(7L, 27L))
+  expect_identical(res$time_series$infect_symp, c(9L, 29L))
+  expect_identical(res$time_series$hospitalised, c(11L, 31L))
+  expect_identical(res$time_series$recovered, c(13L, 33L))
+  expect_identical(res$time_series$dead, c(15L, 35L))
   expect_identical(res$parameters, parameters)
 })

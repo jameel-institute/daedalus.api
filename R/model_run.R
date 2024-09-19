@@ -9,7 +9,8 @@ model_run <- function(parameters, model_version) {
   time_series <- dplyr::group_by(results$model_data, time, compartment) |>
     dplyr::summarise(value = sum(value)) |>
     tidyr::pivot_wider(id_cols = "time", values_from = "value", names_from = "compartment")
-  time_series <- time_series[,c("hospitalised", "dead")]
+  print(summary(time_series))
+  time_series <- time_series[,c("infect_asymp", "infect_symp", "hospitalised", "recovered", "dead")]
   # read all sample data, and replace time series with daedalus results, and parameters with real params
   results <- read_local_json("sample_scenario_results_response.json")
   results$parameters <- list(
