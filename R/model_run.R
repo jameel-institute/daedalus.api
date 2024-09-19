@@ -18,7 +18,7 @@ model_run <- function(parameters, model_version) {
       values_from = "value",
       names_from = "compartment"
     )
-  time_series <- time_series[,c("infect_asymp",
+  time_series <- time_series[, c("infect_asymp",
                                 "infect_symp",
                                 "hospitalised",
                                 "recovered",
