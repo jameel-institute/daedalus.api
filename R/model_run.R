@@ -11,13 +11,12 @@ model_run <- function(parameters, model_version) {
     country,
     pathogen,
     response_strategy = response)
-  time_series <- dplyr::group_by(results$model_data, time, compartment) |>
-    dplyr::summarise(value = sum(value)) |>
-    tidyr::pivot_wider(
-      id_cols = "time",
-      values_from = "value",
-      names_from = "compartment"
-    )
+  time_series <- dplyr::group_by(results$model_data, time, compartment)
+  time_series <- dplyr::summarise(time_series, value = sum(value))
+  time_series <- tidyr::pivot_wider(
+    time_series,
+    id_cols = "time", values_from = "value", names_from = "compartment"
+  )
   time_series <- time_series[, c("infect_asymp",
                                 "infect_symp",
                                 "hospitalised",

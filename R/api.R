@@ -69,10 +69,10 @@ metadata <- function() {
 
   # JIDEA-61: get pathogen information from daedalus, when available
   pathogen_options <- list(
-    get_option("sars_cov_1", "SARS-CoV-1"),
-    get_option("sars_cov_2_pre_alpha", "SARS-CoV-2 pre-alpha (wildtype)"),
-    get_option("sars_cov_2_omicron", "SARS-CoV-2 omicron"),
-    get_option("sars_cov_2_delta", "SARS-CoV-2 delta"),
+    get_option("sars_cov_1", "SARS 2004"),
+    get_option("sars_cov_2_pre_alpha", "Covid-19 wild-type"),
+    get_option("sars_cov_2_omicron", "Covid-19 Omicron"),
+    get_option("sars_cov_2_delta", "Covid-19 Delta"),
     get_option("influenza_2009", "Influenza 2009 (Swine flu)"),
     get_option("influenza_1957", "Influenza 1957"),
     get_option("influenza_1918", "Influenza 1918 (Spanish flu)")
