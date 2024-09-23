@@ -67,6 +67,8 @@ test_that("can run model, get status and results", {
   status_response <- bg$request("GET", status_url)
 
   status_body <- httr::content(status_response)
+  print("status_body")
+  print(status_body)
   expect_identical(httr::status_code(status_response), 200L)
 
   expect_identical(status_body$data$runStatus, "complete")
