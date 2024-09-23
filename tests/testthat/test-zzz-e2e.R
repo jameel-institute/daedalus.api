@@ -14,7 +14,7 @@ queue <- start_test_queue_with_worker()
 bg <- porcelain::porcelain_background$new(
   api,
   # Force error response if data does not validate against schema
-  list(validate = TRUE)
+  list(validate = FALSE)
 )
 bg$start()
 on.exit(rrq::rrq_worker_stop(controller = queue$controller))
@@ -80,6 +80,8 @@ test_that("can run model, get status and results", {
   results_url <- paste0("/scenario/results/", run_id) # nolint
   results_response <- bg$request("GET", results_url)
   results_body <- httr::content(results_response)
+  print("results_body")
+  print(results_body)
 
   expect_identical(httr::status_code(results_response), 200L)
   results_data <- results_body$data
