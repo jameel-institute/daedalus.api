@@ -77,7 +77,6 @@
     "time_series": [
       { "id": "infect", "label": "Infections", "description": "Infections not requiring hospitalisation" },
       { "id": "hospitalised", "label": "Hospitalised", "description": "Infections requiring hospitalisation" },
-      { "id": "recovered", "label": "Recovered", "description": "Recovered from infection" },
       { "id": "dead", "label": "Dead", "description": "Cumulative deaths" }
     ]
   }

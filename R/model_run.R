@@ -20,7 +20,6 @@ model_run <- function(parameters, model_version) {
   time_series$infect <- time_series$infect_asymp + time_series$infect_symp
   time_series <- time_series[, c("infect",
                                 "hospitalised",
-                                "recovered",
                                 "dead")]
   # read sample data, replace time series and parameters with real values
   results <- read_local_json("sample_scenario_results_response.json")
