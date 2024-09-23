@@ -38,7 +38,7 @@ test_that("can run model, get status and results", {
   data <- list(
     modelVersion = "0.0.2",
     parameters = list(
-      country = "Thailand",
+      country = "United Kingdom",
       pathogen = "sars_cov_1",
       response = "economic_closures",
       vaccine = "low",
@@ -67,8 +67,6 @@ test_that("can run model, get status and results", {
   status_response <- bg$request("GET", status_url)
 
   status_body <- httr::content(status_response)
-  print("status_body")
-  print(status_body)
   expect_identical(httr::status_code(status_response), 200L)
 
   expect_identical(status_body$data$runStatus, "complete")
