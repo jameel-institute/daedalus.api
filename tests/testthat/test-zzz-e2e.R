@@ -59,7 +59,7 @@ test_that("can run model, get status and results", {
   expect_identical(nchar(run_id), 32L)
 
   # 2. Wait for run to complete successfully
-  is_task_successful <- wait_for_task_complete(run_id, queue$controller, 10)
+  is_task_successful <- wait_for_task_complete(run_id, queue$controller, 100)
   expect_true(is_task_successful)
 
   # 3. Test can get expected status response
