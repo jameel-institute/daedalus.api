@@ -85,4 +85,17 @@ test_that("can run model, get status and results", {
   expect_gt(length(results_data$capacities), 0)
   expect_gt(length(results_data$interventions), 0)
   expect_gt(length(results_data$time_series), 0)
+
+  # 5. Test nested costs
+  costs_total <- results_data$costs[[1]]
+  expect_identical(costs_total$id, "total")
+
+  gdp_total <- costs_total$children[[1]]
+  expect_identical(gdp_total$id, "gdp")
+
+  education_total <- costs_total$children[[2]]
+  expect_identical(education_total$id, "education")
+
+  life_years_total <- costs_total$children[[3]]
+  expect_identical(life_years_total$id, "life_years")
 })
