@@ -44,7 +44,7 @@
     },
     {
       "id": "hospital_capacity",
-      "label": "Hospital capacity",
+      "label": "Hospital surge capacity",
       "parameterType": "numeric",
       "ordered": false,
       "step": 100,
@@ -75,8 +75,8 @@
       { "id": "business_closures", "label": "Business closures" }
     ],
     "time_series": [
-      { "id": "infect", "label": "Infections", "description": "Infections not requiring hospitalisation" },
-      { "id": "hospitalised", "label": "Hospitalised", "description": "Infections requiring hospitalisation" },
+      { "id": "infect", "label": "Community infections", "description": "Infections not requiring hospitalisation" },
+      { "id": "hospitalised", "label": "Hospital demand", "description": "Infections requiring hospitalisation" },
       { "id": "dead", "label": "Dead", "description": "Cumulative deaths" }
     ]
   }
