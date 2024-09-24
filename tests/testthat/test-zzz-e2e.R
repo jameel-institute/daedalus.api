@@ -104,16 +104,14 @@ test_that("can run model, get status and results", {
   expect_identical(gdp_absences$id, "gdp_absences")
   expect_equal(gdp_total$value,
                sum(gdp_closures$value,
-                   gdp_absences$value),
-               tolerance = 0.1)
+                   gdp_absences$value))
   education_closures <- education_total$children[[1]]
   expect_identical(education_closures$id, "education_closures")
   education_absences <- education_total$children[[2]]
   expect_identical(education_absences$id, "education_absences")
   expect_equal(education_total$value,
                sum(education_closures$value,
-                   education_absences$value),
-               tolerance = 0.1)
+                   education_absences$value))
   lifeyears_infants <- life_years_total$children[[1]]
   expect_identical(lifeyears_infants$id, "life_years_infants")
   lifeyears_adolescents <- life_years_total$children[[2]]
@@ -126,6 +124,5 @@ test_that("can run model, get status and results", {
                sum(lifeyears_infants$value,
                    lifeyears_adolescents$value,
                    lifeyears_working_age$value,
-                   lifeyears_retirement_age$value) + 1,
-               tolerance = 0.1)
+                   lifeyears_retirement_age$value) + 1)
 })
