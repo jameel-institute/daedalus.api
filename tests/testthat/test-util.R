@@ -34,4 +34,5 @@ test_that("can validate invalid parameters", {
 test_that("can get nested costs", {
   raw_costs <- daedalus_mock_costs()
   costs <- get_nested_costs(raw_costs)
+  expect_nested_mock_costs(costs)
 })
