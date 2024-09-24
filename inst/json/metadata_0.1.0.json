@@ -71,8 +71,11 @@
       { "id": "icu_capacity", "label": "ICU capacity", "description": "ICU hospital beds" }
     ],
     "interventions": [
-      { "id": "school_closures", "label": "School closures" },
-      { "id": "business_closures", "label": "Business closures" }
+      {
+        "id": "closures",
+        "label": "Response closures",
+        "description": "School and/or business closures according to selected response strategy."
+      }
     ],
     "time_series": [
       { "id": "infect", "label": "Community infections", "description": "Infections not requiring hospitalisation" },
