@@ -98,4 +98,19 @@ test_that("can run model, get status and results", {
   expect_equal(costs_total$value,
                gdp_total$value + education_total$value + life_years_total$value,
                tolerance = 0.1)
+  gdp_closures <- gdp_total$children[[1]]
+  expect_identical(gdp_closures$id, "gdp_closures")
+  gdp_absences <- gdp_total$children[[2]]
+  expect_identical(gdp_absences$id, "gdp_absences")
+  expect_equal(gdp_total$value,
+               gdp_closures$value + gdp_absences$value,
+               tolerance = 0.1)
+  education_closures <- education_total$children[[1]]
+  expect_identical(education_closures$id, "education_closures")
+  education_absences <- education_total$children[[2]]
+  expect_identical(education_absences$id, "education_absences")
+  expect_equal(education_total$value,
+               education_closures$value + education_absences$value,
+               tolerance = 0.1)
+  #lifeyears
 })
