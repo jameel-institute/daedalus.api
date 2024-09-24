@@ -86,7 +86,7 @@ test_that("can run model, get status and results", {
   expect_gt(length(results_data$interventions), 0)
   expect_gt(length(results_data$time_series), 0)
 
-  # 5. Test nested costs
+  # 5. Test nested costs - values should add up
   costs_total <- results_data$costs[[1]]
   expect_identical(costs_total$id, "total")
 
