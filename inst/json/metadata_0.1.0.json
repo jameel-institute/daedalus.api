@@ -44,7 +44,7 @@
     },
     {
       "id": "hospital_capacity",
-      "label": "Hospital capacity",
+      "label": "Hospital surge capacity",
       "parameterType": "numeric",
       "ordered": false,
       "step": 100,
