@@ -23,7 +23,8 @@ wait_for_task_complete <- function(run_id, controller, n_tries) {
 }
 
 daedalus_mock_costs <- function() {
-  life_years_lost_age <- setNames(c(5, 10, 15, 20), c("0-4", "5-19", "20-65", "65+"))
+  life_years_lost_age <- setNames(c(5, 10, 15, 20),
+                                  c("0-4", "5-19", "20-65", "65+"))
   list(
     total_cost = 100,
     economic_costs = list(
@@ -44,7 +45,7 @@ daedalus_mock_costs <- function() {
 }
 
 expect_nested_mock_costs <- function(costs) {
-  expect_identical(length(costs), 1L)
+  expect_length(costs, 1L)
   total <- costs[[1]]
   expect_identical(total$id, "total")
   expect_identical(total$value, 100)
