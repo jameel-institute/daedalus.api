@@ -1,11 +1,6 @@
 {
-  "runId": "007e5f5453d64850",
-  "parameters": {
-      "country": "Canada",
-      "pathogen": "influenza_1918",
-      "response": "elimination",
-      "vaccine": "low"
-  },
+  "runId": null,
+  "parameters": null,
   "costs": [{
     "id":  "total",
     "value": 27000000,
@@ -86,9 +81,5 @@
       "end": 8
     }
   ],
-  "time_series": {
-    "cases": [0, 1, 3, 10, 45, 120, 312, 253, 134, 76],
-    "vacc": [0, 0, 0, 101, 221, 225, 553, 612, 1023, 621],
-    "hosp_occ": [0, 0, 0, 1, 6, 27, 48, 87, 91, 98]
-  }
+  "time_series": null
 }

@@ -20,8 +20,8 @@ read_local_json <- function(filename) {
   jsonlite::fromJSON(system_file("json", filename), simplifyVector = FALSE)
 }
 
-to_json <- function(data, auto_unbox = FALSE) {
-  jsonlite::toJSON(data, auto_unbox = auto_unbox, null = "null")
+to_json <- function(data, auto_unbox = FALSE, ...) {
+  jsonlite::toJSON(data, auto_unbox = auto_unbox, null = "null", ...)
 }
 
 get_hospital_capacity_for_pop <- function(population, step) {
@@ -39,4 +39,18 @@ get_hospital_capacity_for_pop <- function(population, step) {
     default = value_per_100k_pop_as_absolute(45, population, step),
     max = value_per_100k_pop_as_absolute(130, population, step)
   )
+}
+
+validate_parameters <- function(parameters, metadata) {
+  # Expect parameters in model run request to include all and only values
+  # specified in metadata
+  parameter_names <- names(parameters)
+  required <- lapply(metadata$parameters, function(param) {
+    param$id
+  })
+  pass <- identical(sort(parameter_names), sort(unlist(required)))
+  if (!pass) {
+    stop("The parameters provided do not match required parameters: ",
+         toString(required))
+  }
 }

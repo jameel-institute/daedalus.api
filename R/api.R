@@ -32,6 +32,11 @@ root <- function() {
   lapply(versions, function(v) scalar(as.character(v)))
 }
 
+read_metadata_file <- function(metadata_version = "0.1.0") {
+  metadata_file <- sprintf("metadata_%s.json", metadata_version)
+  read_local_json(metadata_file)
+}
+
 ##' @porcelain GET /metadata => json(metadata)
 metadata <- function() {
   # JIDEA-62: we will use relevant model version - from qs if specified, else
@@ -39,9 +44,8 @@ metadata <- function() {
   model_version <- scalar(as.character(packageVersion("daedalus")))
   # JIDEA-62: we will read in correct metadata version according to requested
   # model_version
-  metadata_version <- "0.1.0"
-  metadata_file <- sprintf("metadata_%s.json", metadata_version)
-  response <- read_local_json(metadata_file)
+  response <- read_metadata_file()
+
   response$modelVersion <- model_version
   # Helper for the options which don't come from the json
   get_option <- function(id, label) {
@@ -65,13 +69,13 @@ metadata <- function() {
 
   # JIDEA-61: get pathogen information from daedalus, when available
   pathogen_options <- list(
-    get_option("sars-cov-1", "SARS-CoV-1"),
-    get_option("sars-cov-2-pre-alpha", "SARS-CoV-2 pre-alpha (wildtype)"),
-    get_option("sars-cov-2-omicron", "SARS-CoV-2 omicron"),
-    get_option("sars-cov-2-delta", "SARS-CoV-2 delta"),
-    get_option("influenza-2009", "Influenza 2009 (Swine flu)"),
-    get_option("influenza-1957", "Influenza 1957"),
-    get_option("influenza-1918", "Influenza 1918 (Spanish flu)")
+    get_option("sars_cov_1", "SARS 2004"),
+    get_option("sars_cov_2_pre_alpha", "Covid-19 wild-type"),
+    get_option("sars_cov_2_omicron", "Covid-19 Omicron"),
+    get_option("sars_cov_2_delta", "Covid-19 Delta"),
+    get_option("influenza_2009", "Influenza 2009 (Swine flu)"),
+    get_option("influenza_1957", "Influenza 1957"),
+    get_option("influenza_1918", "Influenza 1918 (Spanish flu)")
   )
   pathogen_idx <- match("pathogen", param_ids)
   response$parameters[[pathogen_idx]]$options <- pathogen_options
@@ -100,8 +104,10 @@ metadata <- function() {
 #'   body data :: json(scenarioRunRequest)
 scenario_run <- function(queue, data) {
   data <- jsonlite::parse_json(data)
+  parameters <- data$parameters
+  validate_parameters(parameters, read_metadata_file())
   run_id <- queue$queue_model_run(
-    data$parameters,
+    parameters,
     model_version = data$modelVersion
   )
   list(runId = scalar(run_id))
@@ -118,5 +124,7 @@ scenario_status <-  function(queue, run_id) {
 #'   GET /scenario/results/<run_id:string> => json(scenarioResults)
 #'   state queue :: queue
 scenario_results <- function(queue, run_id) {
-  to_json(queue$get_run_results(run_id), auto_unbox = TRUE)
+  results <- queue$get_run_results(run_id)
+  results$runId <- run_id
+  to_json(results, auto_unbox = TRUE, dataframe = "columns")
 }

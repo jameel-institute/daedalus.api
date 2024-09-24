@@ -5,7 +5,7 @@
       "id": "country",
       "label": "Country",
       "parameterType": "globeSelect",
-      "defaultOption": "Thailand",
+      "defaultOption": "United Kingdom",
       "ordered": false,
       "options": null
     },
@@ -20,12 +20,12 @@
       "id": "response",
       "label": "Response",
       "parameterType": "select",
-      "defaultOption": "no_closure",
+      "defaultOption": "none",
       "ordered": true,
       "options": [
-        { "id": "no_closure", "label": "No closures" },
-        { "id": "school_closure", "label": "School closures" },
-        { "id": "business_closure", "label": "Business closures" },
+        { "id": "none", "label": "No closures" },
+        { "id": "school_closures", "label": "School closures" },
+        { "id": "economic_closures", "label": "Business closures" },
         { "id": "elimination", "label": "Elimination" }
       ]
     },
@@ -60,24 +60,24 @@
       { "id": "education", "label": "Education" },
       { "id": "education_closures", "label": "Closures" },
       { "id": "education_absences", "label": "Absences" },
-      { "id": "life_years", "label": "Life Years" },
+      { "id": "life_years", "label": "Life years" },
       { "id": "life_years_infants", "label": "Infants" },
       { "id": "life_years_adolescents", "label": "Adolescents" },
-      { "id": "life_years_working_age", "label": "Working-age Adults" },
-      { "id": "life_years_retirement_age", "label": "Retirement-age Adults" }
+      { "id": "life_years_working_age", "label": "Working-age adults" },
+      { "id": "life_years_retirement_age", "label": "Retirement-age adults" }
     ],
     "capacities": [
-      { "id": "hospital_capacity", "label": "Hospital Capacity", "description": "Total hospital beds" },
-      { "id": "icu_capacity", "label": "ICU Capacity", "description": "ICU hospital beds" }
+      { "id": "hospital_capacity", "label": "Hospital capacity", "description": "Total hospital beds" },
+      { "id": "icu_capacity", "label": "ICU capacity", "description": "ICU hospital beds" }
     ],
     "interventions": [
       { "id": "school_closures", "label": "School closures" },
       { "id": "business_closures", "label": "Business closures" }
     ],
     "time_series": [
-      { "id": "cases", "label": "Cases", "description": "Number of confirmed cases" },
-      { "id": "vacc", "label": "Vaccinated", "description": "Cumulative vaccinations" },
-      { "id": "hosp_occ", "label": "Hospital Occupancy", "description": "Number of hospitalised cases" }
+      { "id": "infect", "label": "Community infections", "description": "Infections not requiring hospitalisation" },
+      { "id": "hospitalised", "label": "Hospital demand", "description": "Infections requiring hospitalisation" },
+      { "id": "dead", "label": "Dead", "description": "Cumulative deaths" }
     ]
   }
 }

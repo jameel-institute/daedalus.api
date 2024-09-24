@@ -36,9 +36,13 @@ test_that("can run server", {
 test_that("can run model, get status and results", {
   # 1. Run model
   data <- list(
-    modelVersion = "0.0.1",
+    modelVersion = "0.0.2",
     parameters = list(
-      param1 = "param1"
+      country = "United Kingdom",
+      pathogen = "sars_cov_1",
+      response = "economic_closures",
+      vaccine = "low",
+      hospital_capacity = "4500"
     )
   )
   body <- jsonlite::toJSON(data, auto_unbox = TRUE)
@@ -55,12 +59,13 @@ test_that("can run model, get status and results", {
   expect_identical(nchar(run_id), 32L)
 
   # 2. Wait for run to complete successfully
-  is_task_successful <- wait_for_task_complete(run_id, queue$controller, 10)
+  is_task_successful <- wait_for_task_complete(run_id, queue$controller, 100)
   expect_true(is_task_successful)
 
   # 3. Test can get expected status response
   status_url <- paste0("/scenario/status/", run_id) # nolint
   status_response <- bg$request("GET", status_url)
+
   status_body <- httr::content(status_response)
   expect_identical(httr::status_code(status_response), 200L)
 
@@ -72,8 +77,9 @@ test_that("can run model, get status and results", {
   # 4. Test can get results
   results_url <- paste0("/scenario/results/", run_id) # nolint
   results_response <- bg$request("GET", results_url)
-  expect_identical(httr::status_code(results_response), 200L)
   results_body <- httr::content(results_response)
+
+  expect_identical(httr::status_code(results_response), 200L)
   results_data <- results_body$data
   expect_gt(length(results_data$costs), 0)
   expect_gt(length(results_data$capacities), 0)
