@@ -4,6 +4,10 @@ test_that("can run model and return results", {
   mock_daedalus <- mockery::mock(mock_results)
   mockery::stub(model_run, "daedalus::daedalus", mock_daedalus)
 
+  mock_costs_data <- daedalus_mock_costs()
+  mock_get_costs <- mockery::mock(mock_costs_data)
+  mockery::stub(model_run, "daedalus::get_costs", mock_get_costs)
+
   parameters <- list(
     country = "Canada",
     pathogen = "influenza_1918",
@@ -33,4 +37,5 @@ test_that("can run model and return results", {
   expect_identical(res$time_series$hospitalised, c(11L, 31L))
   expect_identical(res$time_series$dead, c(15L, 35L))
   expect_identical(res$parameters, parameters)
+  expect_nested_mock_costs(res$costs)
 })
