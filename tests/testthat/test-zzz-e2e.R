@@ -112,5 +112,15 @@ test_that("can run model, get status and results", {
   expect_equal(education_total$value,
                education_closures$value + education_absences$value,
                tolerance = 0.1)
-  #lifeyears
+  lifeyears_infants <- life_years_total$children[[1]]
+  expect_identical(lifeyears_infants$id, "life_years_infants")
+  lifeyears_adolescents <- life_years_total$children[[2]]
+  expect_identical(lifeyears_adolescents$id, "life_years_adolescents")
+  lifeyears_working_age <- life_years_total$children[[3]]
+  expect_identical(lifeyears_working_age$id, "life_years_working_age")
+  lifeyears_retirement_age <- life_years_total$children[[4]]
+  expect_identical(lifeyears_retirement_age$id, "life_years_retirement_age")
+  expect_equal(life_years_total$value,
+               lifeyears_infants$value + lifeyears_adolescents$value + lifeyears_working_age$value + lifeyears_retirement_age$value,
+               tolerance = 0.1)
 })
