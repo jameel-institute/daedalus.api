@@ -89,13 +89,13 @@ test_that("can run model, get status and results", {
   # 5. Test nested costs - values should add up
   costs_total <- results_data$costs[[1]]
   expect_identical(costs_total$id, "total")
-
   gdp_total <- costs_total$children[[1]]
   expect_identical(gdp_total$id, "gdp")
-
   education_total <- costs_total$children[[2]]
   expect_identical(education_total$id, "education")
-
   life_years_total <- costs_total$children[[3]]
   expect_identical(life_years_total$id, "life_years")
+  expect_equal(costs_total$value,
+               gdp_total$value + education_total$value + life_years_total$value,
+               tolerance = 0.1)
 })

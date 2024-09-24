@@ -48,12 +48,12 @@ expect_nested_mock_costs <- function(costs) {
   total <- costs[[1]]
   expect_identical(total$id, "total")
   expect_identical(total$value, 100)
-  expect_identical(length(total$children), 3L)
+  expect_length(total$children, 3L)
 
   gdp <- total$children[[1]]
   expect_identical(gdp$id, "gdp")
   expect_identical(gdp$value, 20)
-  expect_identical(length(gdp$children), 2L)
+  expect_length(gdp$children, 2L)
 
   gdp_closures <- gdp$children[[1]]
   expect_identical(gdp_closures$id, "gdp_closures")
@@ -68,7 +68,7 @@ expect_nested_mock_costs <- function(costs) {
   education <- total$children[[2]]
   expect_identical(education$id, "education")
   expect_identical(education$value, 30)
-  expect_identical(length(education$children), 2L)
+  expect_length(education$children, 2L)
 
   education_closures <- education$children[[1]]
   expect_identical(education_closures$id, "education_closures")
@@ -83,7 +83,7 @@ expect_nested_mock_costs <- function(costs) {
   life_years <- total$children[[3]]
   expect_identical(life_years$id, "life_years")
   expect_identical(life_years$value, 50)
-  expect_identical(length(life_years$children), 4L)
+  expect_length(life_years$children, 4L)
 
   life_years_infants <- life_years$children[[1]]
   expect_identical(life_years_infants$id, "life_years_infants")
