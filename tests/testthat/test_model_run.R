@@ -1,6 +1,15 @@
 test_that("can run model and return results", {
   mock_model_data <- read.csv("mock_model_data.csv")
-  mock_results <- list(model_data = mock_model_data)
+  mock_results <- list(
+    model_data = mock_model_data,
+    response_data = list(
+      implementation_level = "heavy",
+      closure_info = list(
+        closure_time_start = 11,
+        closure_time_end = 79
+      )
+    )
+  )
   mock_daedalus <- mockery::mock(mock_results)
   mockery::stub(model_run, "daedalus::daedalus", mock_daedalus)
 
@@ -11,7 +20,7 @@ test_that("can run model and return results", {
   parameters <- list(
     country = "Canada",
     pathogen = "influenza_1918",
-    response = "none",
+    response = "elimination",
     vaccine = "high",
     hospital_capacity = "4500"
   )
@@ -19,7 +28,7 @@ test_that("can run model and return results", {
 
   expect_identical(
     mockery::mock_args(mock_daedalus)[[1]],
-    list("Canada", "influenza_1918", response_strategy = "none")
+    list("Canada", "influenza_1918", response_strategy = "elimination")
   )
 
   expect_named(res, c(
@@ -38,4 +47,12 @@ test_that("can run model and return results", {
   expect_identical(res$time_series$dead, c(15L, 35L))
   expect_identical(res$parameters, parameters)
   expect_nested_mock_costs(res$costs)
+  expect_identical(res$interventions, list(
+    list(
+      id = "closures",
+      level = "heavy",
+      start = 11,
+      end = 79
+    )
+  ))
 })
