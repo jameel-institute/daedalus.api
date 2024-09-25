@@ -4,13 +4,14 @@ model_run <- function(parameters, model_version) {
   response <- parameters$response
   # TODO: include vaccine in params to daedalus
   vaccine <- parameters$vaccine
-  # TODO: include hospital capacity in params to daedalus
   hospital_capacity <- parameters$hospital_capacity
 
   model_results <- daedalus::daedalus(
     country,
     pathogen,
-    response_strategy = response)
+    response_strategy = response,
+    response_threshold = as.numeric(hospital_capacity)
+  )
   time_series <- dplyr::group_by(model_results$model_data, time, compartment)
   time_series <- dplyr::summarise(time_series, value = sum(value))
   time_series <- tidyr::pivot_wider(
