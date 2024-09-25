@@ -54,3 +54,47 @@ validate_parameters <- function(parameters, metadata) {
          toString(required))
   }
 }
+
+get_nested_costs <- function(raw_costs) {
+  # Reshape raw costs from the package into a nested structure
+  # or display in the web app
+  total <- raw_costs$total_cost
+
+  gdp <- raw_costs$economic_costs$economic_cost_total
+  gdp_closures <- raw_costs$economic_costs$economic_cost_closures
+  gdp_absences <- raw_costs$economic_costs$economic_cost_absences
+
+  education <- raw_costs$education_costs$education_cost_total
+  education_closures <- raw_costs$education_costs$education_cost_closures
+  education_absences <- raw_costs$education_costs$education_cost_absences
+
+  life_years <- raw_costs$life_years_lost$life_years_lost_total
+  life_years_age <- raw_costs$life_years_lost$life_years_lost_age
+
+  cost_item <- function(id, value, children = NULL) {
+    item <- list(id = id, value = value)
+    if (!is.null(children)) {
+      item$children <- children
+    }
+    item
+  }
+
+  list(
+    cost_item("total", total, list(
+      cost_item("gdp", gdp, list(
+        cost_item("gdp_closures", gdp_closures),
+        cost_item("gdp_absences", gdp_absences)
+      )),
+      cost_item("education", education, list(
+        cost_item("education_closures", education_closures),
+        cost_item("education_absences", education_absences)
+      )),
+      cost_item("life_years", life_years, list(
+        cost_item("life_years_infants", life_years_age[["0-4"]]),
+        cost_item("life_years_adolescents", life_years_age[["5-19"]]),
+        cost_item("life_years_working_age", life_years_age[["20-65"]]),
+        cost_item("life_years_retirement_age", life_years_age[["65+"]])
+      ))
+    ))
+  )
+}

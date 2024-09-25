@@ -1,62 +1,7 @@
 {
   "runId": null,
   "parameters": null,
-  "costs": [{
-    "id":  "total",
-    "value": 27000000,
-    "children": [
-      {
-        "id": "gdp",
-        "value": 4000000,
-        "children": [
-          {
-            "id": "gdp_closures",
-            "value": 1000000
-          },
-          {
-            "id": "gdp_absences",
-            "value": 3000000
-          }
-        ]
-      },
-      {
-        "id": "education",
-        "value": 6000000,
-        "children": [
-          {
-            "id": "education_closures",
-            "value": 2000000
-          },
-          {
-            "id": "education_absences",
-            "value": 4000000
-          }
-        ]
-      },
-      {
-        "id": "life_years",
-        "value": 17000000,
-        "children": [
-          {
-            "id": "life_years_infants",
-            "value": 1000000
-          },
-          {
-            "id": "life_years_adolescents",
-            "value": 2000000
-          },
-          {
-            "id": "life_years_working_age",
-            "value": 5000000
-          },
-          {
-            "id": "life_years_retirement_age",
-            "value": 9000000
-          }
-        ]
-      }
-    ]
-  }],
+  "costs": null,
   "capacities": [
     {
       "id": "hospital_capacity",

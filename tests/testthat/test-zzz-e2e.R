@@ -85,4 +85,50 @@ test_that("can run model, get status and results", {
   expect_gt(length(results_data$capacities), 0)
   expect_gt(length(results_data$interventions), 0)
   expect_gt(length(results_data$time_series), 0)
+
+  # 5. Test nested costs - values should add up
+  tolerance <- testthat_tolerance()
+  costs_total <- results_data$costs[[1]]
+  expect_identical(costs_total$id, "total")
+  gdp_total <- costs_total$children[[1]]
+  expect_identical(gdp_total$id, "gdp")
+  education_total <- costs_total$children[[2]]
+  expect_identical(education_total$id, "education")
+  life_years_total <- costs_total$children[[3]]
+  expect_identical(life_years_total$id, "life_years")
+  expect_equal(costs_total$value,
+               sum(gdp_total$value,
+                   education_total$value,
+                   life_years_total$value),
+               tolerance = tolerance)
+  gdp_closures <- gdp_total$children[[1]]
+  expect_identical(gdp_closures$id, "gdp_closures")
+  gdp_absences <- gdp_total$children[[2]]
+  expect_identical(gdp_absences$id, "gdp_absences")
+  expect_equal(gdp_total$value,
+               sum(gdp_closures$value,
+                   gdp_absences$value),
+               tolerance = tolerance)
+  education_closures <- education_total$children[[1]]
+  expect_identical(education_closures$id, "education_closures")
+  education_absences <- education_total$children[[2]]
+  expect_identical(education_absences$id, "education_absences")
+  expect_equal(education_total$value,
+               sum(education_closures$value,
+                   education_absences$value),
+               tolerance = tolerance)
+  lifeyears_infants <- life_years_total$children[[1]]
+  expect_identical(lifeyears_infants$id, "life_years_infants")
+  lifeyears_adolescents <- life_years_total$children[[2]]
+  expect_identical(lifeyears_adolescents$id, "life_years_adolescents")
+  lifeyears_working_age <- life_years_total$children[[3]]
+  expect_identical(lifeyears_working_age$id, "life_years_working_age")
+  lifeyears_retirement_age <- life_years_total$children[[4]]
+  expect_identical(lifeyears_retirement_age$id, "life_years_retirement_age")
+  expect_equal(life_years_total$value,
+               sum(lifeyears_infants$value,
+                   lifeyears_adolescents$value,
+                   lifeyears_working_age$value,
+                   lifeyears_retirement_age$value),
+               tolerance = tolerance)
 })
