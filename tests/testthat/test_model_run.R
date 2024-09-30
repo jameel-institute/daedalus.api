@@ -28,7 +28,11 @@ test_that("can run model and return results", {
 
   expect_identical(
     mockery::mock_args(mock_daedalus)[[1]],
-    list("Canada", "influenza_1918", response_strategy = "elimination")
+    list("Canada",
+         "influenza_1918",
+         response_strategy = "none",
+         response_threshold = 4500
+    )
   )
 
   expect_named(res, c(
