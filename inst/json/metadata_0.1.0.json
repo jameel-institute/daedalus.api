@@ -72,9 +72,9 @@
     ],
     "interventions": [
       {
-        "id": "closures",
-        "label": "Response closures",
-        "description": "School and/or business closures according to selected response strategy."
+        "id": "response",
+        "label": "Pandemic response",
+        "description": "National response to pandemic, including closures and social distancing."
       }
     ],
     "time_series": [

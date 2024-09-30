@@ -53,7 +53,7 @@ test_that("can run model and return results", {
   expect_nested_mock_costs(res$costs)
   expect_identical(res$interventions, list(
     list(
-      id = "closures",
+      id = "response",
       level = "heavy",
       start = 11,
       end = 79
