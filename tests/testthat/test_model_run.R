@@ -30,7 +30,7 @@ test_that("can run model and return results", {
     mockery::mock_args(mock_daedalus)[[1]],
     list("Canada",
          "influenza_1918",
-         response_strategy = "none",
+         response_strategy = "elimination",
          response_threshold = 4500
     )
   )
