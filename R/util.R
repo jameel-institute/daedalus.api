@@ -37,7 +37,7 @@ get_hospital_capacity_range <- function(default_capacity, step) {
   list(
     min = round_value(default_capacity * 0.9, step),
     default = round_value(default_capacity, step),
-    max = roun_value(default_capacity * 1.3, step)
+    max = round_value(default_capacity * 1.3, step)
   )
 }
 
