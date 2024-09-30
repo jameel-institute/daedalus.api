@@ -36,7 +36,7 @@ model_run <- function(parameters, model_version) {
       start = closure_info$closure_time_start,
       end = closure_info$closure_time_end
     )
-    interventions <- append(interventions, closure)
+    interventions <- list(closure)
   }
 
   # read sample data, replace costs, time series, interventions and parameters with real values
