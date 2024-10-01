@@ -8,6 +8,7 @@
                 "label": { "type": "string" },
                 "description": { "type": ["string", "null"] }
             },
+            "additionalProperties": false,
             "required": ["id", "label"]
         }
     },
@@ -102,8 +103,11 @@
           "time_series": {
             "type": "array",
             "items": {
-              "allOf": [{"$ref": "#/$defs/displayInfo"}],
+              "type": "object",
               "properties": {
+                "id": { "type": "string" },
+                "label": { "type": "string" },
+                "description": { "type": ["string", "null"] },
                 "display_capacities": {
                   "type": "array",
                   "items": {"type":  "string"}
@@ -114,7 +118,7 @@
                 }
               },
               "additionalProperties": false,
-              "required": ["display_capacities", "display_interventions"]
+              "required": ["id", "label", "description", "display_capacities", "display_interventions"]
             }
           }
         },
