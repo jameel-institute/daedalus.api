@@ -26,7 +26,20 @@ model_run <- function(parameters, model_version) {
   raw_costs <- daedalus::get_costs(model_results)
   costs <- get_nested_costs(raw_costs)
 
-  # read sample data, replace costs, time series and parameters with real values
+  interventions <- list()
+  if (response != "none") {
+    closure_info <- model_results$response_data$closure_info
+    level <- model_results$response_data$implementation_level
+    closure <- list(
+      id = "response",
+      level = level,
+      start = closure_info$closure_time_start,
+      end = closure_info$closure_time_end
+    )
+    interventions <- list(closure)
+  }
+
+  # read sample data, replace with real values where available
   results <- read_local_json("sample_scenario_results_response.json")
   results$parameters <- list(
     country = country,
@@ -37,5 +50,6 @@ model_run <- function(parameters, model_version) {
   )
   results$costs <- costs
   results$time_series <- time_series
+  results$interventions <- interventions
   results
 }

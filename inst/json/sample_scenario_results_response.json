@@ -12,19 +12,6 @@
       "value": 5000
     }
   ],
-  "interventions": [
-    {
-      "id": "school_closures",
-      "level": "light",
-      "start": 1,
-      "end": 4
-    },
-    {
-      "id": "business_closures",
-      "level": "heavy",
-      "start": 3,
-      "end": 8
-    }
-  ],
+  "interventions": null,
   "time_series": null
 }
