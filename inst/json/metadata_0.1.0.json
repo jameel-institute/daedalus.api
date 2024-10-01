@@ -78,9 +78,27 @@
       }
     ],
     "time_series": [
-      { "id": "infect", "label": "Community infections", "description": "Infections not requiring hospitalisation" },
-      { "id": "hospitalised", "label": "Hospital demand", "description": "Infections requiring hospitalisation" },
-      { "id": "dead", "label": "Dead", "description": "Cumulative deaths" }
+      {
+        "id": "infect",
+        "label": "Community infections",
+        "description": "Infections not requiring hospitalisation",
+        "display_capacities": [],
+        "display_interventions": ["response"]
+      },
+      {
+        "id": "hospitalised",
+        "label": "Hospital demand",
+        "description": "Infections requiring hospitalisation",
+        "display_capacities": ["hospital_capacity"],
+        "display_interventions": ["response"]
+      },
+      {
+        "id": "dead",
+        "label": "Dead",
+        "description": "Cumulative deaths",
+        "display_capacities": [],
+        "display_interventions": []
+      }
     ]
   }
 }

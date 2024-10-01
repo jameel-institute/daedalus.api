@@ -103,7 +103,19 @@
           "time_series": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/displayInfo"
+              "allOf": [{"$ref": "#/$defs/displayInfo"}],
+              "properties": {
+                "display_capacities": {
+                  "type": "array",
+                  "items": {"type":  "string"}
+                },
+                "display_interventions": {
+                  "type": "array",
+                  "items": {"type":  "string"}
+                }
+              },
+              "additionalProperties": false,
+              "required": ["display_capacities", "display_interventions"]
             }
           }
         },
