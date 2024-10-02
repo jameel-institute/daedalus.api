@@ -59,4 +59,7 @@ test_that("can run model and return results", {
       end = 79
     )
   ))
+  expect_length(res$capacities, 1L)
+  expect_identical(res$capacities[[1]]$id, "hospital_capacity")
+  expect_identical(res$capacities[[1]]$value, 4500)
 })

@@ -2,16 +2,7 @@
   "runId": null,
   "parameters": null,
   "costs": null,
-  "capacities": [
-    {
-      "id": "hospital_capacity",
-      "value": 40000
-    },
-    {
-      "id": "icu_capacity",
-      "value": 5000
-    }
-  ],
+  "capacities": null,
   "interventions": null,
   "time_series": null
 }

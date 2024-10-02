@@ -5,12 +5,13 @@ model_run <- function(parameters, model_version) {
   # TODO: include vaccine in params to daedalus
   vaccine <- parameters$vaccine
   hospital_capacity <- parameters$hospital_capacity
+  hospital_capacity_num <- as.numeric(hospital_capacity)
 
   model_results <- daedalus::daedalus(
     country,
     pathogen,
     response_strategy = response,
-    response_threshold = as.numeric(hospital_capacity)
+    response_threshold = hospital_capacity_num
   )
   time_series <- dplyr::group_by(model_results$model_data, time, compartment)
   time_series <- dplyr::summarise(time_series, value = sum(value))
@@ -40,7 +41,8 @@ model_run <- function(parameters, model_version) {
   }
 
   # read sample data, replace with real values where available
-  results <- read_local_json("sample_scenario_results_response.json")
+  #results <- read_local_json("sample_scenario_results_response.json")
+  results <- list()
   results$parameters <- list(
     country = country,
     pathogen = pathogen,
@@ -51,5 +53,11 @@ model_run <- function(parameters, model_version) {
   results$costs <- costs
   results$time_series <- time_series
   results$interventions <- interventions
+  results$capacities <- list(
+    list(
+      id = "hospital_capacity",
+      value = hospital_capacity_num
+    )
+  )
   results
 }

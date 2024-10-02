@@ -86,9 +86,8 @@ metadata <- function() {
   hospital_capacities <- lapply(
     setNames(country_names, country_names),
     function(country) {
-      demography <- daedalus::country_data[[country]]$demography
-      population <- sum(demography)
-      get_hospital_capacity_for_pop(population, step)
+      default <- daedalus::daedalus_country(country)$hospital_capacity
+      get_hospital_capacity_range(default, step)
   })
   response$parameters[[hospital_capacity_idx]]$updateNumericFrom <- list(
     parameterId = "country",

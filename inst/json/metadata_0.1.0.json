@@ -67,8 +67,11 @@
       { "id": "life_years_retirement_age", "label": "Retirement-age adults" }
     ],
     "capacities": [
-      { "id": "hospital_capacity", "label": "Hospital capacity", "description": "Total hospital beds" },
-      { "id": "icu_capacity", "label": "ICU capacity", "description": "ICU hospital beds" }
+      {
+        "id": "hospital_capacity",
+        "label": "Hospital surge capacity",
+        "description": "Number of hospital beds available nationally for pandemic patients"
+      }
     ],
     "interventions": [
       {
