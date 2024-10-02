@@ -20,7 +20,7 @@ COPY docker/Rprofile.site /usr/local/lib/R/etc/Rprofile.site
 RUN install2.r --error \
         --repos=https://mrc-ide.r-universe.dev \
         --repos=https://jameel-institute.r-universe.dev \
-        --repos=https://packagemanager.posit.co/all/__linux__/focal/latest \
+        --repos=https://packagemanager.posit.co/all/__linux__/jammy/latest \
         daedalus \
         docopt \
         jsonlite \
