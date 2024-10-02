@@ -42,4 +42,7 @@ test_that("can run model and return results", {
   expect_identical(res$time_series$dead, c(15L, 35L))
   expect_identical(res$parameters, parameters)
   expect_nested_mock_costs(res$costs)
+  expect_length(res$capacities, 1L)
+  expect_identical(res$capacities[[1]]$id, "hospital_capacity")
+  expect_identical(res$capacities[[1]]$value, 4500)
 })
