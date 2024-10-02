@@ -1,5 +1,4 @@
-# TODO: update version
-FROM rocker/r-ver:4.1
+FROM rocker/r-ver:4.4
 
 RUN apt-get update &&  apt-get install -y --no-install-recommends \
         libcurl4-openssl-dev \
@@ -21,7 +20,7 @@ COPY docker/Rprofile.site /usr/local/lib/R/etc/Rprofile.site
 RUN install2.r --error \
         --repos=https://mrc-ide.r-universe.dev \
         --repos=https://jameel-institute.r-universe.dev \
-        --repos=https://packagemanager.posit.co/all/__linux__/focal/latest \
+        --repos=https://packagemanager.posit.co/all/__linux__/jammy/latest \
         daedalus \
         docopt \
         jsonlite \
