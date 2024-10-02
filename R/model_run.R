@@ -40,9 +40,8 @@ model_run <- function(parameters, model_version) {
     interventions <- list(closure)
   }
 
-  # read sample data, replace with real values where available
-  #results <- read_local_json("sample_scenario_results_response.json")
-  results <- list()
+  results <- list(
+  )
   results$parameters <- list(
     country = country,
     pathogen = pathogen,

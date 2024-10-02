@@ -36,12 +36,11 @@ test_that("can run model and return results", {
   )
 
   expect_named(res, c(
-    "runId",
     "parameters",
     "costs",
-    "capacities",
+    "time_series",
     "interventions",
-    "time_series"
+    "capacities"
   ))
   expect_named(res$time_series, c("infect",
                                   "hospitalised",
