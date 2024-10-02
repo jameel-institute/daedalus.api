@@ -1,8 +1,8 @@
-test_that("can get hospital capacity for population", {
-  result <- get_hospital_capacity_for_pop(1263182, 10)
-  expect_identical(result$min, 380)
-  expect_identical(result$default, 570)
-  expect_identical(result$max, 1640)
+test_that("can get hospital capacity range", {
+  result <- get_hospital_capacity_range(4513, 100)
+  expect_identical(result$min, 4100)
+  expect_identical(result$default, 4500)
+  expect_identical(result$max, 5900)
 })
 
 test_that("can validate valid parameters", {

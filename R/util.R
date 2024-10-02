@@ -24,20 +24,20 @@ to_json <- function(data, auto_unbox = FALSE, ...) {
   jsonlite::toJSON(data, auto_unbox = auto_unbox, null = "null", ...)
 }
 
-get_hospital_capacity_for_pop <- function(population, step) {
-  # This is very likely to change but for now we set hospital capacity values
-  # for a country as:
-  # min: 30 per 100K population
-  # default: 45 per 100K population
-  # max: 130 per 100K population
-  value_per_100k_pop_as_absolute <- function(value, population, step) {
-    unrounded <- (population / 100000) * value
-    round(unrounded / step) * step
+get_hospital_capacity_range <- function(default_capacity, step) {
+  # Given a default hospital capacity from daedalus return a range from
+  # which the user can choose, with min, default and max, all rounded to
+  # the step value.
+  # Range values are:
+  # min: 90% of default
+  # max: 130% of default
+  round_value <- function(value, step) {
+    round(value / step) * step
   }
   list(
-    min = value_per_100k_pop_as_absolute(30, population, step),
-    default = value_per_100k_pop_as_absolute(45, population, step),
-    max = value_per_100k_pop_as_absolute(130, population, step)
+    min = round_value(default_capacity * 0.9, step),
+    default = round_value(default_capacity, step),
+    max = round_value(default_capacity * 1.3, step)
   )
 }
 
