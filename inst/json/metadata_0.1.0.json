@@ -74,8 +74,11 @@
       }
     ],
     "interventions": [
-      { "id": "school_closures", "label": "School closures" },
-      { "id": "business_closures", "label": "Business closures" }
+      {
+        "id": "response",
+        "label": "Pandemic response",
+        "description": "National response to pandemic, including closures and social distancing."
+      }
     ],
     "time_series": [
       { "id": "infect", "label": "Community infections", "description": "Infections not requiring hospitalisation" },
