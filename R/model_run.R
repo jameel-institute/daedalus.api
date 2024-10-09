@@ -19,7 +19,11 @@ model_run <- function(parameters, model_version) {
     time_series,
     id_cols = "time", values_from = "value", names_from = "compartment"
   )
-  time_series$prevalence <- time_series$infect_asymp + time_series$infect_symp + time_series$hospitalised
+  time_series$prevalence <-
+    time_series$infect_asymp +
+    time_series$infect_symp +
+    time_series$hospitalised
+
   time_series <- time_series[, c("prevalence",
                                 "hospitalised",
                                 "dead")]
