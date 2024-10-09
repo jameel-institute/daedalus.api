@@ -2,7 +2,6 @@ model_run <- function(parameters, model_version) {
   country <- parameters$country
   pathogen <- parameters$pathogen
   response <- parameters$response
-  # TODO: include vaccine in params to daedalus
   vaccine <- parameters$vaccine
   hospital_capacity <- parameters$hospital_capacity
   hospital_capacity_num <- as.numeric(hospital_capacity)
@@ -11,7 +10,8 @@ model_run <- function(parameters, model_version) {
     country,
     pathogen,
     response_strategy = response,
-    response_threshold = hospital_capacity_num
+    response_threshold = hospital_capacity_num,
+    vaccine_investment = vaccine
   )
   time_series <- dplyr::group_by(model_results$model_data, time, compartment)
   time_series <- dplyr::summarise(time_series, value = sum(value))
