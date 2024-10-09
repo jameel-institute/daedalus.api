@@ -81,7 +81,10 @@
       }
     ],
     "time_series": [
-      { "id": "infect", "label": "Community infections", "description": "Infections not requiring hospitalisation" },
+      {
+        "id": "prevalence",
+        "label": "Prevalence",
+        "description": "Number of infectious individuals, comprising both symptomatic and asymptomatic infections, including those in need of hospitalisation." },
       { "id": "hospitalised", "label": "Hospital demand", "description": "Infections requiring hospitalisation" },
       { "id": "dead", "label": "Dead", "description": "Cumulative deaths" }
     ]
