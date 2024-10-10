@@ -42,7 +42,7 @@ get_hospital_capacity_range <- function(default_capacity, step) {
 }
 
 get_vaccine_option_description <- function(vaccine_option) {
-  # get vaccination data from the package for a given global vaccine 
+  # get vaccination data from the package for a given global vaccine
   # investment scenario, and generate description (help text) from that
   vax_data <- daedalus::vaccination_scenario_data[[vaccine_option]]
   stringr::str_glue(
