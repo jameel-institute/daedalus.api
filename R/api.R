@@ -89,9 +89,19 @@ metadata <- function() {
       default <- daedalus::daedalus_country(country)$hospital_capacity
       get_hospital_capacity_range(default, step)
   })
+
   response$parameters[[hospital_capacity_idx]]$updateNumericFrom <- list(
     parameterId = "country",
     values = hospital_capacities
+  )
+
+  vaccine_idx <- match("vaccine", param_ids)
+  response$parameters[[vaccine_idx]]$options <- lapply(
+    response$parameters[[vaccine_idx]]$options,
+    function(vaccine_option) {
+      vaccine_option$description <- get_vaccine_option_description(vaccine_option$id)
+      vaccine_option
+    }
   )
 
   to_json(response, auto_unbox = TRUE)
