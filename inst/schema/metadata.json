@@ -25,6 +25,7 @@
           "properties": {
             "id": { "type": "string" },
             "label": { "type": "string" },
+            "description": { "type": "string" },
             "parameterType": {
               "type": "string",
               "enum": ["select", "globeSelect", "numeric"]
@@ -36,20 +37,7 @@
             "options": {
               "type": "array",
               "items": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "label": {
-                    "type": "string"
-                  }
-                },
-                "additionalProperties": false,
-                "required": [
-                  "id",
-                  "label"
-                ]
+                "$ref": "#/$defs/displayInfo"
               }
             },
             "step": { "type": "number" },

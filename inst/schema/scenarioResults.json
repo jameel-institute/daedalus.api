@@ -35,10 +35,6 @@
                 "type": "object",
                 "properties": {
                     "id": { "type":  "string" },
-                    "level": {
-                        "type": "string",
-                        "enum": ["light", "heavy"]
-                    },
                     "start": { "type": "number" },
                     "end": { "type": "number" }
                 },

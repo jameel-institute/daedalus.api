@@ -4,6 +4,7 @@
     {
       "id": "country",
       "label": "Country",
+      "description": "Select a country to set model parameters for country-specific demographic, patterns of social mixing and economic data",
       "parameterType": "globeSelect",
       "defaultOption": "United Kingdom",
       "ordered": false,
@@ -12,6 +13,7 @@
     {
       "id": "pathogen",
       "label": "Disease",
+      "description": "Select a disease to set model parameters for transmissibility, incubation period and severity based on known characteristics of that historical epidemic or epidemic wave",
       "parameterType": "select",
       "ordered": false,
       "options": null
@@ -19,19 +21,36 @@
     {
       "id": "response",
       "label": "Response",
+      "description": "Select a pandemic mitigation strategy, comprising closures and other restrictions",
       "parameterType": "select",
       "defaultOption": "none",
       "ordered": true,
       "options": [
-        { "id": "none", "label": "No closures" },
-        { "id": "school_closures", "label": "School closures" },
-        { "id": "economic_closures", "label": "Business closures" },
-        { "id": "elimination", "label": "Elimination" }
+        { "id": "none",
+          "label": "No closures",
+          "description": "No pandemic mitigation: all sectors are fully open"
+        },
+        {
+          "id": "school_closures",
+          "label": "School closures",
+          "description": "A response strategy of mostly school closures"
+        },
+        {
+          "id": "economic_closures",
+          "label": "Business closures",
+          "description": "A response strategy of mostly economic closures"
+        },
+        {
+          "id": "elimination",
+          "label": "Elimination",
+          "description": "A response strategy aimed at elimination of the disease, including all necessary closures"
+        }
       ]
     },
     {
       "id": "vaccine",
       "label": "Global vaccine investment",
+      "description": "Select a level of advance global vaccine investment, which determines vaccine rollout start date, administration rate and population coverage during the pandemic",
       "parameterType": "select",
       "defaultOption": "none",
       "ordered": true,
@@ -45,6 +64,7 @@
     {
       "id": "hospital_capacity",
       "label": "Hospital surge capacity",
+      "description": "Number of hospital beds available nationally for pandemic patients",
       "parameterType": "numeric",
       "ordered": false,
       "step": 100,
