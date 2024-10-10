@@ -99,7 +99,8 @@ metadata <- function() {
   response$parameters[[vaccine_idx]]$options <- lapply(
     response$parameters[[vaccine_idx]]$options,
     function(vaccine_option) {
-      vaccine_option$description <- get_vaccine_option_description(vaccine_option$id)
+      vaccine_option$description <-
+        get_vaccine_option_description(vaccine_option$id)
       vaccine_option
     }
   )
