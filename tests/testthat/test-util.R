@@ -43,7 +43,7 @@ test_that("can get vaccine option description", {
     "An investment level corresponding to: ",
     "vaccine rollout commencing 200 days after the outbreak starts, ",
     "a vaccine administration rate of 0.43% of population per day, ",
-    "and an upper limit of vaccine coverage of 80% of the general population"
+    "and an upper limit of vaccine coverage of 60% of the general population"
   )
   expect_identical(res, expected)
 })
