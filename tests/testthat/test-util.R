@@ -38,11 +38,11 @@ test_that("can get nested costs", {
 })
 
 test_that("can get vaccine option description", {
-  res <- get_vaccine_option_description("high")
+  res <- get_vaccine_option_description("medium")
   expected <- stringr::str_glue(
     "An investment level corresponding to: ",
-    "vaccine rollout commencing 100 days after the outbreak starts, ",
-    "a vaccine administration rate of 0.5% of population per day, ",
+    "vaccine rollout commencing 200 days after the outbreak starts, ",
+    "a vaccine administration rate of 0.43% of population per day, ",
     "and an upper limit of vaccine coverage of 80% of the general population"
   )
   expect_identical(res, expected)
