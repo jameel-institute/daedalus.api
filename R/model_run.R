@@ -34,10 +34,8 @@ model_run <- function(parameters, model_version) {
   interventions <- list()
   if (response != "none") {
     closure_info <- model_results$response_data$closure_info
-    level <- model_results$response_data$implementation_level
     closure <- list(
       id = "response",
-      level = level,
       start = closure_info$closure_time_start,
       end = closure_info$closure_time_end
     )
