@@ -45,7 +45,7 @@ get_vaccine_option_description <- function(vaccine_option) {
   # get vaccination data from the package for a given global vaccine investment scenario, and
   # generate description (help text) from that
   vax_data <- daedalus::vaccination_scenario_data[[vaccine_option]]
-  res <- stringr::str_glue(
+  stringr::str_glue(
     "An investment level corresponding to: ",
     "vaccine rollout commencing {start} days after the outbreak starts, ",
     "a vaccine administration rate of {rate}% of population per day, ",
@@ -54,9 +54,6 @@ get_vaccine_option_description <- function(vaccine_option) {
     rate = signif(vax_data$nu, 2),
     coverage = vax_data$vax_uptake_limit
   )
-  print("GLUED")
-  print(res)
-  res
 }
 
 validate_parameters <- function(parameters, metadata) {

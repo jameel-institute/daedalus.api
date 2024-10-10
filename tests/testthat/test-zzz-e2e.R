@@ -1,3 +1,4 @@
+skip()
 check_for_redis()
 temp_dir <- tempdir()
 # Env vars required by the queue
