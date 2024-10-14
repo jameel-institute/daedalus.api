@@ -47,3 +47,12 @@ test_that("can get vaccine option description", {
   )
   expect_identical(res, expected)
 })
+
+test_that("Get annual GDP", {
+  expect_no_condition(
+    lapply(daedalus::country_names, get_annual_gdp)
+  )
+  expect_gt(
+    min(vapply(daedalus::country_names, get_annual_gdp, numeric(1L))), 0
+  )
+})
