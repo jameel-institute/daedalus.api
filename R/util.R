@@ -114,3 +114,26 @@ get_nested_costs <- function(raw_costs) {
     ))
   )
 }
+
+#' Get annual GDP from DAEDALUS country data
+#'
+#' @description Convert daily GVA values to annual GDP values.
+#'
+#' @param x A string giving a country name from among `daedalus::country_names`.
+#'
+#' @return A single number value for the annual GDP of a country in terms of
+#' million dollars. Values are in 2018 terms.
+#' @keyword internal
+get_annual_gdp <- function(x) {
+  stopifnot(
+    "`x` must be a string giving a country name from `daedalus::country_names" =
+      is.character(x) && x %in% daedalus::country_names
+  )
+
+  n_days <- 365
+
+  x <- daedalus::daedalus_country(x)
+  x <- daedalus::get_data(x, "gva")
+
+  sum(x * n_days)
+}
