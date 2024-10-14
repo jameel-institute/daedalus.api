@@ -36,3 +36,14 @@ test_that("can get nested costs", {
   costs <- get_nested_costs(raw_costs)
   expect_nested_mock_costs(costs)
 })
+
+test_that("can get vaccine option description", {
+  res <- get_vaccine_option_description("medium")
+  expected <- stringr::str_glue(
+    "An investment level corresponding to: ",
+    "vaccine rollout commencing 200 days after the outbreak starts, ",
+    "a vaccine administration rate of 0.43% of population per day, ",
+    "and an upper limit of vaccine coverage of 60% of the general population"
+  )
+  expect_identical(res, expected)
+})

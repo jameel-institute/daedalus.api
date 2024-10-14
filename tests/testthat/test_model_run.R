@@ -3,7 +3,6 @@ test_that("can run model and return results", {
   mock_results <- list(
     model_data = mock_model_data,
     response_data = list(
-      implementation_level = "heavy",
       closure_info = list(
         closure_time_start = 11,
         closure_time_end = 79
@@ -54,7 +53,6 @@ test_that("can run model and return results", {
   expect_identical(res$interventions, list(
     list(
       id = "response",
-      level = "heavy",
       start = 11,
       end = 79
     )
