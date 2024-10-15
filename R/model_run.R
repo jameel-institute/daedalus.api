@@ -42,6 +42,8 @@ model_run <- function(parameters, model_version) {
     interventions <- list(closure)
   }
 
+  gdp <- get_annual_gdp(country)
+
   results <- list(
   )
   results$parameters <- list(
@@ -60,5 +62,6 @@ model_run <- function(parameters, model_version) {
       value = hospital_capacity_num
     )
   )
+  results$gdp <- gdp
   results
 }

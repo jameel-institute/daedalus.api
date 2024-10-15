@@ -50,8 +50,9 @@
                     "type": "number"
                 }
             }
-        }
+        },
+        "gdp": { "type": "number" }
     },
     "additionalProperties": false,
-    "required": ["runId", "costs", "capacities", "interventions", "time_series"]
+    "required": ["runId", "costs", "capacities", "interventions", "time_series", "gdp"]
 }

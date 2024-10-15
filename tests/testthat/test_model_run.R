@@ -15,6 +15,8 @@ test_that("can run model and return results", {
   mock_costs_data <- daedalus_mock_costs()
   mock_get_costs <- mockery::mock(mock_costs_data)
   mockery::stub(model_run, "daedalus::get_costs", mock_get_costs)
+  mock_get_gdp <- mockery::mock(9999)
+  mockery::stub(model_run, "get_annual_gdp", mock_get_gdp)
 
   parameters <- list(
     country = "Canada",
@@ -40,7 +42,8 @@ test_that("can run model and return results", {
     "costs",
     "time_series",
     "interventions",
-    "capacities"
+    "capacities",
+    "gdp"
   ))
   expect_named(res$time_series, c("prevalence",
                                   "hospitalised",
@@ -60,4 +63,5 @@ test_that("can run model and return results", {
   expect_length(res$capacities, 1L)
   expect_identical(res$capacities[[1]]$id, "hospital_capacity")
   expect_identical(res$capacities[[1]]$value, 4500)
+  expect_identical(res$gdp, 9999)
 })
