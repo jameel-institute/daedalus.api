@@ -29,8 +29,11 @@ model_run <- function(parameters, model_version) {
                                 "hospitalised",
                                 "dead")]
 
-  # group results data by vaccination status rather than compartment to return total vaccinations
-  vax_time_series <- dplyr::group_by(model_results$model_data, time, vaccine_group)
+  # group results data by vaccination group rather than compartment
+  # to return total vaccinations
+  vax_time_series <- dplyr::group_by(
+    model_results$model_data, time, vaccine_group
+  )
   vax_time_series <- dplyr::summarise(vax_time_series, value = sum(value))
   vax_time_series <- tidyr::pivot_wider(
     vax_time_series,

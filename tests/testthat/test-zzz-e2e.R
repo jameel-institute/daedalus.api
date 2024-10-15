@@ -85,7 +85,8 @@ test_that("can run model, get status and results", {
   expect_gt(length(results_data$capacities), 0)
   expect_gt(length(results_data$interventions), 0)
   expect_gt(length(results_data$time_series), 0)
-  expect_gt(length(results_data$vaccinated), 0)
+
+  expect_gt(length(results_data$time_series$vaccinated), 0)
 
   expect_gt(results_data$gdp, 0)
 
