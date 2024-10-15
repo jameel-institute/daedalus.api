@@ -78,8 +78,6 @@ test_that("can run model, get status and results", {
   results_url <- paste0("/scenario/results/", run_id) # nolint
   results_response <- bg$request("GET", results_url)
   results_body <- httr::content(results_response)
-  print("RESULTS")
-  print(results_body)
 
   expect_identical(httr::status_code(results_response), 200L)
   results_data <- results_body$data
@@ -87,6 +85,8 @@ test_that("can run model, get status and results", {
   expect_gt(length(results_data$capacities), 0)
   expect_gt(length(results_data$interventions), 0)
   expect_gt(length(results_data$time_series), 0)
+
+  expect_gt(results_data$gdp, 0)
 
   # 5. Test nested costs - values should add up
   tolerance <- testthat_tolerance()
