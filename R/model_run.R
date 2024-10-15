@@ -19,6 +19,7 @@ model_run <- function(parameters, model_version) {
     time_series,
     id_cols = "time", values_from = "value", names_from = "compartment"
   )
+
   time_series$prevalence <-
     time_series$infect_asymp +
     time_series$infect_symp +
@@ -27,6 +28,15 @@ model_run <- function(parameters, model_version) {
   time_series <- time_series[, c("prevalence",
                                 "hospitalised",
                                 "dead")]
+
+  # group results data by vaccination status rather than compartment to return total vaccinations
+  vax_time_series <- dplyr::group_by(model_results$model_data, time, vaccine_group)
+  vax_time_series <- dplyr::summarise(vax_time_series, value = sum(value))
+  vax_time_series <- tidyr::pivot_wider(
+    vax_time_series,
+    id_cols = "time", values_from = "value", names_from = "vaccine_group"
+  )
+  time_series$vaccinated <- vax_time_series$vaccinated
 
   raw_costs <- daedalus::get_costs(model_results)
   costs <- get_nested_costs(raw_costs)
