@@ -87,12 +87,12 @@ expect_nested_mock_costs <- function(costs) {
   expect_length(life_years$children, 4L)
 
   life_years_pre_school <- life_years$children[[1]]
-  expect_identical(life_years_pre_school$id, "life_years_school_age")
+  expect_identical(life_years_pre_school$id, "life_years_pre_school")
   expect_identical(life_years_pre_school$value, 5)
   expect_false("children" %in% names(life_years_pre_school))
 
   life_years_school_age <- life_years$children[[2]]
-  expect_identical(life_years_school_age$id, "life_years_pre_school")
+  expect_identical(life_years_school_age$id, "life_years_school_age")
   expect_identical(life_years_school_age$value, 10)
   expect_false("children" %in% names(life_years_school_age))
 
