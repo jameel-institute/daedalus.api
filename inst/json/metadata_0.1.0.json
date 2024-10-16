@@ -107,7 +107,7 @@
         "description": "Number of infectious individuals, comprising both symptomatic and asymptomatic infections, including those in need of hospitalisation." },
       { "id": "hospitalised", "label": "Hospital demand", "description": "Infections requiring hospitalisation" },
       { "id": "dead", "label": "Dead", "description": "Total deaths" },
-      { "id": "vaccinated", "label": "Vaccinated", "description": "Total vaccinated" }
+      { "id": "vaccinated", "label": "Vaccinated", "description": "Total number of vaccinations administered" }
     ]
   }
 }
