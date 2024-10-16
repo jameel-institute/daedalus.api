@@ -31,14 +31,15 @@ model_run <- function(parameters, model_version) {
 
   # group results data by vaccination group rather than compartment
   # to return total vaccinations
-  vax_time_series <- dplyr::group_by(
-    model_results$model_data, time, vaccine_group
-  )
-  vax_time_series <- dplyr::summarise(vax_time_series, value = sum(value))
-  vax_time_series <- tidyr::pivot_wider(
-    vax_time_series,
-    id_cols = "time", values_from = "value", names_from = "vaccine_group"
-  )
+model_data <- daedalus::get_data(model_results)
+vax_time_series <- dplyr::filter(
+  model_data,
+  vaccine_group == "vaccinated"
+)
+vax_time_series <- dplyr::summarise(
+  vax_time_series,
+  vaccinated = sum(value), .by = "time"
+)
   time_series$vaccinated <- vax_time_series$vaccinated
 
   raw_costs <- daedalus::get_costs(model_results)
