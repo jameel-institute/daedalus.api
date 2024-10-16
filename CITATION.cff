@@ -8,7 +8,7 @@ message: 'To cite package "daedalus.api" in publications use:'
 type: software
 license: MIT
 title: 'daedalus.api: Serve the ''daedalus'' model via an API'
-version: 0.0.1
+version: 0.0.5
 abstract: API server for the 'daedalus' model, using 'porcelain' and 'plumber'.
 authors:
 - family-names: Gupte
@@ -25,7 +25,8 @@ contact:
 references:
 - type: software
   title: daedalus
-  abstract: 'daedalus: Optimise economic, social and health trade-offs in a pandemic'
+  abstract: 'daedalus: Model health, social, and economic costs of a pandemic using
+    _DAEDALUS_'
   notes: Imports
   url: https://github.com/j-idea/daedalus
   authors:
@@ -34,7 +35,7 @@ references:
     email: p.gupte24@imperial.ac.uk
     orcid: https://orcid.org/0000-0001-5294-7819
   year: '2024'
-  doi: 10.32614/CRAN.package.daedalus
+  version: '>= 0.0.17'
 - type: software
   title: docopt
   abstract: 'docopt: Command-Line Interface Specification Language'
@@ -48,6 +49,31 @@ references:
   year: '2024'
   doi: 10.32614/CRAN.package.docopt
 - type: software
+  title: dplyr
+  abstract: 'dplyr: A Grammar of Data Manipulation'
+  notes: Imports
+  url: https://dplyr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=dplyr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+    orcid: https://orcid.org/0000-0003-4757-117X
+  - family-names: François
+    given-names: Romain
+    orcid: https://orcid.org/0000-0002-2444-4226
+  - family-names: Henry
+    given-names: Lionel
+  - family-names: Müller
+    given-names: Kirill
+    orcid: https://orcid.org/0000-0002-1416-3412
+  - family-names: Vaughan
+    given-names: Davis
+    email: davis@posit.co
+    orcid: https://orcid.org/0000-0003-4777-038X
+  year: '2024'
+  doi: 10.32614/CRAN.package.dplyr
+- type: software
   title: jsonlite
   abstract: 'jsonlite: A Simple and Robust JSON Parser and Generator for R'
   notes: Imports
@@ -56,7 +82,7 @@ references:
   authors:
   - family-names: Ooms
     given-names: Jeroen
-    email: jeroen@berkeley.edu
+    email: jeroenooms@gmail.com
     orcid: https://orcid.org/0000-0002-4035-0289
   year: '2024'
   doi: 10.32614/CRAN.package.jsonlite
@@ -74,6 +100,20 @@ references:
   year: '2024'
   doi: 10.32614/CRAN.package.lgr
 - type: software
+  title: openssl
+  abstract: 'openssl: Toolkit for Encryption, Signatures and Certificates Based on
+    OpenSSL'
+  notes: Imports
+  url: https://jeroen.r-universe.dev/openssl
+  repository: https://CRAN.R-project.org/package=openssl
+  authors:
+  - family-names: Ooms
+    given-names: Jeroen
+    email: jeroenooms@gmail.com
+    orcid: https://orcid.org/0000-0002-4035-0289
+  year: '2024'
+  doi: 10.32614/CRAN.package.openssl
+- type: software
   title: porcelain
   abstract: 'porcelain: Turn a Package into an HTTP API'
   notes: Imports
@@ -83,7 +123,71 @@ references:
     given-names: Rich
     email: rich.fitzjohn@gmail.com
   year: '2024'
-  doi: 10.32614/CRAN.package.porcelain
+- type: software
+  title: R6
+  abstract: 'R6: Encapsulated Classes with Reference Semantics'
+  notes: Imports
+  url: https://r6.r-lib.org
+  repository: https://CRAN.R-project.org/package=R6
+  authors:
+  - family-names: Chang
+    given-names: Winston
+    email: winston@stdout.org
+  year: '2024'
+  doi: 10.32614/CRAN.package.R6
+- type: software
+  title: redux
+  abstract: 'redux: R Bindings to ''hiredis'''
+  notes: Imports
+  url: https://github.com/richfitz/redux
+  repository: https://CRAN.R-project.org/package=redux
+  authors:
+  - family-names: FitzJohn
+    given-names: Rich
+    email: rich.fitzjohn@gmail.com
+  year: '2024'
+  doi: 10.32614/CRAN.package.redux
+- type: software
+  title: rrq
+  abstract: 'rrq: Simple Redis Queue'
+  notes: Imports
+  url: https://mrc-ide.github.io/rrq
+  authors:
+  - family-names: FitzJohn
+    given-names: Rich
+    email: rich.fitzjohn@gmail.com
+  - family-names: Ashton
+    given-names: Robert
+  year: '2024'
+- type: software
+  title: stringr
+  abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
+  notes: Imports
+  url: https://stringr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=stringr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  year: '2024'
+  doi: 10.32614/CRAN.package.stringr
+- type: software
+  title: tidyr
+  abstract: 'tidyr: Tidy Messy Data'
+  notes: Imports
+  url: https://tidyr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=tidyr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  - family-names: Vaughan
+    given-names: Davis
+    email: davis@posit.co
+  - family-names: Girlich
+    given-names: Maximilian
+  year: '2024'
+  doi: 10.32614/CRAN.package.tidyr
 - type: software
   title: httr
   abstract: 'httr: Tools for Working with URLs and HTTP'
@@ -123,7 +227,7 @@ references:
   authors:
   - family-names: Ooms
     given-names: Jeroen
-    email: jeroen@berkeley.edu
+    email: jeroenooms@gmail.com
     orcid: https://orcid.org/0000-0002-4035-0289
   - family-names: Hester
     given-names: Jim
@@ -143,4 +247,45 @@ references:
   year: '2024'
   doi: 10.32614/CRAN.package.testthat
   version: '>= 3.0.0'
+- type: software
+  title: uuid
+  abstract: 'uuid: Tools for Generating and Handling of UUIDs'
+  notes: Suggests
+  url: https://www.rforge.net/uuid
+  repository: https://CRAN.R-project.org/package=uuid
+  authors:
+  - family-names: Urbanek
+    given-names: Simon
+    email: Simon.Urbanek@r-project.org
+    orcid: https://orcid.org/0000-0003-2297-1732
+  - family-names: Ts'o
+    given-names: Theodore
+    email: tytso@thunk.org
+  year: '2024'
+  doi: 10.32614/CRAN.package.uuid
+- type: software
+  title: withr
+  abstract: 'withr: Run Code ''With'' Temporarily Modified Global State'
+  notes: Suggests
+  url: https://withr.r-lib.org
+  repository: https://CRAN.R-project.org/package=withr
+  authors:
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@posit.co
+  - family-names: Müller
+    given-names: Kirill
+    email: krlmlr+r@mailbox.org
+  - family-names: Ushey
+    given-names: Kevin
+    email: kevinushey@gmail.com
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  - family-names: Chang
+    given-names: Winston
+  year: '2024'
+  doi: 10.32614/CRAN.package.withr
 
