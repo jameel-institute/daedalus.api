@@ -30,7 +30,7 @@ model_run <- function(parameters, model_version) {
                                 "dead")]
 
   # get total vaccinations time series
-  model_data <- daedalus::get_data(model_results, "model_data")
+  model_data <- daedalus::get_data(model_results)
   vax_time_series <- dplyr::filter(
     model_data,
     vaccine_group == "vaccinated"

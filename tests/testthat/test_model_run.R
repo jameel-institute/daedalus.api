@@ -12,6 +12,8 @@ test_that("can run model and return results", {
   mock_daedalus <- mockery::mock(mock_results)
   mockery::stub(model_run, "daedalus::daedalus", mock_daedalus)
 
+  mockery::stub(model_run, "daedalus::get_data", mock_model_data)
+
   mock_costs_data <- daedalus_mock_costs()
   mock_get_costs <- mockery::mock(mock_costs_data)
   mockery::stub(model_run, "daedalus::get_costs", mock_get_costs)
