@@ -29,17 +29,16 @@ model_run <- function(parameters, model_version) {
                                 "hospitalised",
                                 "dead")]
 
-  # group results data by vaccination group rather than compartment
-  # to return total vaccinations
-model_data <- daedalus::get_data(model_results)
-vax_time_series <- dplyr::filter(
-  model_data,
-  vaccine_group == "vaccinated"
-)
-vax_time_series <- dplyr::summarise(
-  vax_time_series,
-  vaccinated = sum(value), .by = "time"
-)
+  # get total vaccinations time series
+  model_data <- daedalus::get_data(model_results, "model_data")
+  vax_time_series <- dplyr::filter(
+    model_data,
+    vaccine_group == "vaccinated"
+  )
+  vax_time_series <- dplyr::summarise(
+    vax_time_series,
+    vaccinated = sum(value), .by = "time"
+  )
   time_series$vaccinated <- vax_time_series$vaccinated
 
   raw_costs <- daedalus::get_costs(model_results)
