@@ -6,7 +6,7 @@
       "label": "Country",
       "description": "Select a country to set model parameters for country-specific demographic, patterns of social mixing and economic data",
       "parameterType": "globeSelect",
-      "defaultOption": "United Kingdom",
+      "defaultOption": "Thailand",
       "ordered": false,
       "options": null
     },
@@ -81,8 +81,8 @@
       { "id": "education_closures", "label": "Closures" },
       { "id": "education_absences", "label": "Absences" },
       { "id": "life_years", "label": "Life years" },
-      { "id": "life_years_infants", "label": "Infants" },
-      { "id": "life_years_adolescents", "label": "Adolescents" },
+      { "id": "life_years_pre_school", "label": "Preschool-age children"},
+      { "id": "life_years_school_age", "label": "School-age children" },
       { "id": "life_years_working_age", "label": "Working-age adults" },
       { "id": "life_years_retirement_age", "label": "Retirement-age adults" }
     ],
