@@ -12,6 +12,8 @@ test_that("can run model and return results", {
   mock_daedalus <- mockery::mock(mock_results)
   mockery::stub(model_run, "daedalus::daedalus", mock_daedalus)
 
+  mockery::stub(model_run, "daedalus::get_data", mock_model_data)
+
   mock_costs_data <- daedalus_mock_costs()
   mock_get_costs <- mockery::mock(mock_costs_data)
   mockery::stub(model_run, "daedalus::get_costs", mock_get_costs)
@@ -47,10 +49,12 @@ test_that("can run model and return results", {
   ))
   expect_named(res$time_series, c("prevalence",
                                   "hospitalised",
-                                  "dead"))
-  expect_identical(res$time_series$prevalence, c(27L, 87L))
+                                  "dead",
+                                  "vaccinated"))
+  expect_identical(res$time_series$prevalence, c(28L, 87L))
   expect_identical(res$time_series$hospitalised, c(11L, 31L))
-  expect_identical(res$time_series$dead, c(15L, 35L))
+  expect_identical(res$time_series$dead, c(15L, 37L))
+  expect_identical(res$time_series$vaccinated, c(1L, 5L))
   expect_identical(res$parameters, parameters)
   expect_nested_mock_costs(res$costs)
   expect_identical(res$interventions, list(

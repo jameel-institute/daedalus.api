@@ -86,6 +86,12 @@ test_that("can run model, get status and results", {
   expect_gt(length(results_data$interventions), 0)
   expect_gt(length(results_data$time_series), 0)
 
+  time_series_length <- length(results_data$time_series$vaccinated)
+  expect_gt(time_series_length, 0)
+  expect_length(results_data$time_series$prevalence, time_series_length)
+  expect_length(results_data$time_series$hospitalised, time_series_length)
+  expect_length(results_data$time_series$dead, time_series_length)
+
   expect_gt(results_data$gdp, 0)
 
   # 5. Test nested costs - values should add up

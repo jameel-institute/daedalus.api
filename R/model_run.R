@@ -19,6 +19,7 @@ model_run <- function(parameters, model_version) {
     time_series,
     id_cols = "time", values_from = "value", names_from = "compartment"
   )
+
   time_series$prevalence <-
     time_series$infect_asymp +
     time_series$infect_symp +
@@ -27,6 +28,18 @@ model_run <- function(parameters, model_version) {
   time_series <- time_series[, c("prevalence",
                                 "hospitalised",
                                 "dead")]
+
+  # get total vaccinations time series
+  model_data <- daedalus::get_data(model_results)
+  vax_time_series <- dplyr::filter(
+    model_data,
+    vaccine_group == "vaccinated"
+  )
+  vax_time_series <- dplyr::summarise(
+    vax_time_series,
+    vaccinated = sum(value), .by = "time"
+  )
+  time_series$vaccinated <- vax_time_series$vaccinated
 
   raw_costs <- daedalus::get_costs(model_results)
   costs <- get_nested_costs(raw_costs)
