@@ -53,26 +53,27 @@ test_that("Can get metadata", {
   )
   country_idx <- match("country", expected_parameters)
   country_options <- params[[country_idx]]$options
-  daedalus_countries <- daedalus::country_names
+  daedalus_country_codes <- daedalus::country_codes_iso3c
   # expect country ids to match those from daedalus
   expect_identical(
     vapply(country_options, function(option) {
         option$id
     }, character(1)),
-    daedalus_countries
+    daedalus_country_codes
   )
   # expect country labels to match those from daedalus
+  daedalus_country_names <- daedalus::country_names
   expect_identical(
     vapply(country_options, function(option) {
       option$label
     }, character(1)),
-    daedalus_countries
+    daedalus_country_names
   )
   expect_identical(params[[country_idx]]$defaultOption, "Thailand")
   hosp_cap_idx <- match("hospital_capacity", expected_parameters)
   update_values <- res$data$parameters[[hosp_cap_idx]]$updateNumericFrom$values
-  expect_named(update_values, daedalus_countries)
-  for (country in daedalus_countries) {
+  expect_named(update_values, daedalus_country_codes)
+  for (country in daedalus_country_codes) {
     values <- update_values[[country]]
     expect_identical(values$min %% 100, 0)
     expect_identical(values$default %% 100, 0)
