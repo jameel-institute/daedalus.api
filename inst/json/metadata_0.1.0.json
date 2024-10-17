@@ -6,7 +6,7 @@
       "label": "Country",
       "description": "Select a country to set model parameters for country-specific demographic, patterns of social mixing and economic data",
       "parameterType": "globeSelect",
-      "defaultOption": "Thailand",
+      "defaultOption": "THA",
       "ordered": false,
       "options": null
     },
