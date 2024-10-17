@@ -69,7 +69,7 @@ test_that("Can get metadata", {
     }, character(1)),
     daedalus_country_names
   )
-  expect_identical(params[[country_idx]]$defaultOption, "Thailand")
+  expect_identical(params[[country_idx]]$defaultOption, "THA")
   hosp_cap_idx <- match("hospital_capacity", expected_parameters)
   update_values <- res$data$parameters[[hosp_cap_idx]]$updateNumericFrom$values
   expect_named(update_values, daedalus_country_codes)
