@@ -58,11 +58,11 @@ metadata <- function() {
 
   # Set available countries from daedalus package
   # JIDEA-62: use the right version of daedalus/model
-  # we will get ISO ids from daedalus when available
   country_names <- daedalus::country_names
+  country_codes <- daedalus::country_codes_iso3c
 
-  country_options <- lapply(country_names, function(country) {
-    get_option(country, country)
+  country_options <- lapply(seq_along(country_names), function(idx) {
+    get_option(country_codes[[idx]], country_names[[idx]])
   })
   country_idx <- match("country", param_ids)
   response$parameters[[country_idx]]$options <- country_options
@@ -84,9 +84,10 @@ metadata <- function() {
   step <- response$parameters[[hospital_capacity_idx]]$step
   # setNames to get json object not array
   hospital_capacities <- lapply(
-    setNames(country_names, country_names),
-    function(country) {
-      default <- daedalus::daedalus_country(country)$hospital_capacity
+    setNames(country_names, country_codes),
+    function(country_name) {
+      default <- daedalus::daedalus_country(country_name)$hospital_capacity
+
       get_hospital_capacity_range(default, step)
   })
 
