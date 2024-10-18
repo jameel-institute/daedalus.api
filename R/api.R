@@ -84,11 +84,10 @@ metadata <- function() {
   step <- response$parameters[[hospital_capacity_idx]]$step
   # setNames to get json object not array
   hospital_capacities <- lapply(
-    setNames(country_codes, country_codes),
-    function(country_code) {
-      idx <- match(country_code, country_codes)
-      country_name <- country_names[[idx]]
+    setNames(country_names, country_codes),
+    function(country_name) {
       default <- daedalus::daedalus_country(country_name)$hospital_capacity
+
       get_hospital_capacity_range(default, step)
   })
 
