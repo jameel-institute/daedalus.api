@@ -109,7 +109,7 @@
       { "id": "dead", "label": "Dead", "description": "Total deaths" },
       { "id": "vaccinated", "label": "Vaccinated", "description": "Total number of vaccinations administered" },
       { "id": "new_infected", "label": "New infections", "description": "Number of new infections per day" },
-      { "id": "new_hospitalised", "label": "New hospitalisations", "description": "Number of patients who are hospitalised per day" },
+      { "id": "new_hospitalised", "label": "New hospitalisations", "description": "Number of new patients in need of hospitalisation per day" },
       { "id": "new_dead", "label": "New deaths", "description": "Number of deaths per day" },
       { "id": "new_vaccinated", "label": "New vaccinations", "description": "Number of vaccinations per day" }
     ],
