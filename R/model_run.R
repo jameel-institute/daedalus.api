@@ -46,11 +46,11 @@ model_run <- function(parameters, model_version) {
   incidences <- tidyr::pivot_wider(
     incidences, id_cols = "time", names_from = "measure"
   )
-  time_series$new_infections <- incidences$daily_infections
-  time_series$new_hospitalisations <- incidences$daily_hospitalisations
-  time_series$new_deaths <- incidences$daily_deaths
+  time_series$new_infected <- incidences$daily_infections
+  time_series$new_hospitalised <- incidences$daily_hospitalisations
+  time_series$new_dead <- incidences$daily_deaths
 
-  time_series$new_vaccinations <-
+  time_series$new_vaccinated <-
     daedalus::get_new_vaccinations(model_results)$new_vaccinations
 
   raw_costs <- daedalus::get_costs(model_results)

@@ -69,18 +69,18 @@ test_that("can run model and return results", {
                                   "hospitalised",
                                   "dead",
                                   "vaccinated",
-                                  "new_infections",
-                                  "new_hospitalisations",
-                                  "new_deaths",
-                                  "new_vaccinations"))
+                                  "new_infected",
+                                  "new_hospitalised",
+                                  "new_dead",
+                                  "new_vaccinated"))
   expect_identical(res$time_series$prevalence, c(28L, 87L))
   expect_identical(res$time_series$hospitalised, c(11L, 31L))
   expect_identical(res$time_series$dead, c(15L, 37L))
   expect_identical(res$time_series$vaccinated, c(1L, 5L))
-  expect_identical(res$time_series$new_infections, c(100L, 200L))
-  expect_identical(res$time_series$new_hospitalisations, c(10L, 20L))
-  expect_identical(res$time_series$new_deaths, c(1L, 2L))
-  expect_identical(res$time_series$new_vaccinations,
+  expect_identical(res$time_series$new_infected, c(100L, 200L))
+  expect_identical(res$time_series$new_hospitalised, c(10L, 20L))
+  expect_identical(res$time_series$new_dead, c(1L, 2L))
+  expect_identical(res$time_series$new_vaccinated,
                    mock_new_vaccinations_result$new_vaccinations)
   expect_identical(res$parameters, parameters)
   expect_nested_mock_costs(res$costs)

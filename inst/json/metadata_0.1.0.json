@@ -108,10 +108,10 @@
       { "id": "hospitalised", "label": "Hospital demand", "description": "Infections requiring hospitalisation" },
       { "id": "dead", "label": "Dead", "description": "Total deaths" },
       { "id": "vaccinated", "label": "Vaccinated", "description": "Total number of vaccinations administered" },
-      { "id": "new_infections", "label": "New Infections", "description": "Number of new infections per day" },
-      { "id": "new_hospitalisations", "label": "New Hospitalisations", "description": "Number of patients who are hospitalised per day" },
-      { "id": "new_deaths", "label": "New deaths", "description": "Number of deaths per day" },
-      { "id": "new_vaccinations", "label": "New vaccinations", "description": "Number of vaccinations per day" }
+      { "id": "new_infected", "label": "New infections", "description": "Number of new infections per day" },
+      { "id": "new_hospitalised", "label": "New hospitalisations", "description": "Number of patients who are hospitalised per day" },
+      { "id": "new_dead", "label": "New deaths", "description": "Number of deaths per day" },
+      { "id": "new_vaccinated", "label": "New vaccinations", "description": "Number of vaccinations per day" }
     ],
     "time_series_roles": [
       {"id": "total", "label": "Total"},
@@ -123,7 +123,7 @@
         "label": "Infections",
         "time_series": {
           "total": "prevalence",
-          "daily": "new_infections"
+          "daily": "new_infected"
         }
       },
       {
@@ -131,7 +131,7 @@
         "label": "Hospitalisations",
         "time_series": {
           "total": "hospitalised",
-          "daily": "new_hospitalisations"
+          "daily": "new_hospitalised"
         }
       },
       {
@@ -139,7 +139,7 @@
         "label": "Deaths",
         "time_series": {
           "total": "dead",
-          "daily": "new_deaths"
+          "daily": "new_dead"
         }
       },
       {
@@ -147,7 +147,7 @@
         "label": "Vaccinations",
         "time_series": {
           "total": "vaccinated",
-          "daily": "new_vaccinations"
+          "daily": "new_vaccinated"
         }
       }
     ]
