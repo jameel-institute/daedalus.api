@@ -93,6 +93,25 @@
             "items": {
               "$ref": "#/$defs/displayInfo"
             }
+          },
+          "time_series_roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayInfo"
+            }
+          },
+          "time_series_groups": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "label": { "type": "string" },
+                "time_series": { "type": "object" }
+              },
+              "additionalProperties": false,
+              "required": ["id", "label", "time_series"]
+            }
           }
         },
         "additionalProperties": false,
