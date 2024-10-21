@@ -16,7 +16,7 @@ test_that("can run model and return results", {
 
   mock_incidence_result <- list(value = c(10, 20))
   mock_get_incidence <- mockery::mock(mock_incidence_result,
-                                      cycle=TRUE)
+                                      cycle = TRUE)
   mockery::stub(model_run, "daedalus::get_incidence", mock_get_incidence)
 
   mock_new_vaccinations_result <- list(new_vaccinations = c(100, 200))
