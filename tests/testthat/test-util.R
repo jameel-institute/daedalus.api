@@ -56,3 +56,12 @@ test_that("Get annual GDP", {
     min(vapply(daedalus::country_names, get_annual_gdp, numeric(1L))), 0
   )
 })
+
+test_that("can get average vsl", {
+  expect_no_condition(
+    lapply(daedalus::country_names, get_average_vsl)
+  )
+  expect_gt(
+    min(vapply(daedalus::country_names, get_average_vsl, numeric(1L))), 0
+  )
+})

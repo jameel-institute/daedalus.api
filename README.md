@@ -46,7 +46,7 @@ Redis needs to be running for the e2e tests to pass. Use `./scripts/redis start`
 ## Model versions
 
 The API should be backwards compatible and support running older versions of the model. 
-Some endpoints support providing `modelVersion` as a query string parameter, e.g. to run or get metadata for a particular version of the model. 
+Some endpoints support providing `modelVersion` as part of the body, e.g. to run or get metadata for a particular version of the model. 
 
 Metadata is stored in the `inst/json` folder, in files named `metadata_[VERSION].json` where `[VERSION]` is the first model version where
 that metadata applied. Requesting metadata for a model version will return the metadata which applies to that version, (which may have been 

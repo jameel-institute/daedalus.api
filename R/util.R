@@ -115,25 +115,76 @@ get_nested_costs <- function(raw_costs) {
   )
 }
 
+#' Validate Country
+#'
+#' This function checks if the provided country name is
+#' valid by ensuring it is a character string
+#' and exists within the `daedalus::country_names` list.
+#'
+#' @param country A character string representing
+#'  the name of the country to validate.
+#'
+#' @return This function does not return a value.
+#'  It will stop execution if the validation fails.
+#'
+#' @examples
+#' \dontrun{
+#' validate_country("United States")
+#' validate_country("InvalidCountry") # This will cause an error
+#' }
+#' @keywords internal
+validate_country <- function(country) {
+  stopifnot(
+    "`country` must be a country name from `daedalus::country_names" =
+      is.character(country) && country %in% daedalus::country_names
+  )
+}
+
 #' Get annual GDP from DAEDALUS country data
 #'
 #' @description Convert daily GVA values to annual GDP values.
 #'
-#' @param x A string giving a country name from among `daedalus::country_names`.
+#' @param country A string giving a country name
+#' from among `daedalus::country_names`.
 #'
 #' @return A single number value for the annual GDP of a country in terms of
 #' million dollars. Values are in 2018 terms.
-#' @keyword internal
-get_annual_gdp <- function(x) {
-  stopifnot(
-    "`x` must be a string giving a country name from `daedalus::country_names" =
-      is.character(x) && x %in% daedalus::country_names
-  )
+#' @keywords internal
+get_annual_gdp <- function(country) {
+  validate_country(country)
 
-  n_days <- 365
+  num_days_year <- 365
 
-  x <- daedalus::daedalus_country(x)
-  x <- daedalus::get_data(x, "gva")
+  country_data <- daedalus::daedalus_country(country)
+  gva <- daedalus::get_data(country_data, "gva")
 
-  sum(x * n_days)
+  sum(gva * num_days_year)
+}
+
+#' Get Average Value of Statistical Life (VSL) for a Country
+#'
+#' @description This function calculates the average
+#' Value of Statistical Life (VSL) for a specified country.
+#' It computes the weighted mean of VSL using the demography data as weights.
+#'
+#' @param country A character string representing the name of the country.
+#'
+#' @return A numeric value representing the average
+#' VSL for the specified country.
+#'
+#' @examples
+#' \dontrun{
+#'   avg_vsl <- get_average_vsl("USA")
+#'   print(avg_vsl)
+#' }
+#'
+#' @keywords internal
+get_average_vsl <- function(country) {
+  validate_country(country)
+
+   country_data <- daedalus::daedalus_country(country)
+   vsl <- daedalus::get_data(country_data, "vsl")
+   demography <- daedalus::get_data(country_data, "demography")
+
+   weighted.mean(vsl, demography)
 }
