@@ -146,7 +146,7 @@ get_annual_gdp <- function(country) {
 #' from among `daedalus::country_names` or
 #' an ISO2 code from among `daedalus::country_codes_iso2c` or an ISO3 code
 #' from among `daedalus::country_codes_iso3c`.
-#' 
+#'
 #' @return A numeric value representing the average
 #' VSL for the specified country.
 #'
