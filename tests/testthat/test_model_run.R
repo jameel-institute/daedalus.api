@@ -50,7 +50,14 @@ test_that("can run model and return results", {
     mockery::mock_args(mock_get_incidence)[[1]],
     list(mock_results, "infections")
   )
-  # TODO check other calls
+  expect_identical(
+    mockery::mock_args(mock_get_incidence)[[2]],
+    list(mock_results, "hospitalisations")
+  )
+  expect_identical(
+    mockery::mock_args(mock_get_incidence)[[3]],
+    list(mock_results, "deaths")
+  )
 
   expect_named(res, c(
     "parameters",
