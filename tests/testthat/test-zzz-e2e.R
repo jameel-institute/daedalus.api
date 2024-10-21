@@ -92,7 +92,8 @@ test_that("can run model, get status and results", {
   expect_length(results_data$time_series$hospitalised, time_series_length)
   expect_length(results_data$time_series$dead, time_series_length)
   expect_length(results_data$time_series$new_infections, time_series_length)
-  expect_length(results_data$time_series$new_hospitalisations, time_series_length)
+  expect_length(results_data$time_series$new_hospitalisations,
+                time_series_length)
   expect_length(results_data$time_series$new_deaths, time_series_length)
   expect_length(results_data$time_series$new_vaccinations, time_series_length)
 
