@@ -41,6 +41,12 @@ model_run <- function(parameters, model_version) {
   )
   time_series$vaccinated <- vax_time_series$vaccinated
 
+  # get incidence time series
+  time_series$new_infections <- daedalus::get_incidence(model_results, "infections")$value
+  time_series$new_hospitalised <- daedalus::get_incidence(model_results, "hospitalisations")$value
+  time_series$new_deaths <- daedalus::get_incidence(model_results, "deaths")$value
+  time_series$new_vaccinated <- daedalus::get_new_vaccinations(model_results)$new_vaccinations
+
   raw_costs <- daedalus::get_costs(model_results)
   costs <- get_nested_costs(raw_costs)
 
