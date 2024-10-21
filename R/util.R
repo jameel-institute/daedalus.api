@@ -128,7 +128,7 @@ get_nested_costs <- function(raw_costs) {
 #' million dollars. Values are in 2018 terms.
 #' @keyword internal
 get_annual_gdp <- function(country) {
-  n_days <- 365
+  num_days_year <- 365
 
   country_data <- daedalus::daedalus_country(country)
   gva <- daedalus::get_data(country_data, "gva")
