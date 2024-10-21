@@ -106,8 +106,8 @@ get_nested_costs <- function(raw_costs) {
         cost_item("education_absences", education_absences)
       )),
       cost_item("life_years", life_years, list(
-        cost_item("life_years_infants", life_years_age[["0-4"]]),
-        cost_item("life_years_adolescents", life_years_age[["5-19"]]),
+        cost_item("life_years_pre_school", life_years_age[["0-4"]]),
+        cost_item("life_years_school_age", life_years_age[["5-19"]]),
         cost_item("life_years_working_age", life_years_age[["20-65"]]),
         cost_item("life_years_retirement_age", life_years_age[["65+"]])
       ))

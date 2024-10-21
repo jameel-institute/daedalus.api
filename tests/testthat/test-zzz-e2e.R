@@ -86,6 +86,12 @@ test_that("can run model, get status and results", {
   expect_gt(length(results_data$interventions), 0)
   expect_gt(length(results_data$time_series), 0)
 
+  time_series_length <- length(results_data$time_series$vaccinated)
+  expect_gt(time_series_length, 0)
+  expect_length(results_data$time_series$prevalence, time_series_length)
+  expect_length(results_data$time_series$hospitalised, time_series_length)
+  expect_length(results_data$time_series$dead, time_series_length)
+
   expect_gt(results_data$gdp, 0)
   expect_gt(results_data$average_vsl, 0)
   # 5. Test nested costs - values should add up
@@ -119,17 +125,17 @@ test_that("can run model, get status and results", {
                sum(education_closures$value,
                    education_absences$value),
                tolerance = tolerance)
-  lifeyears_infants <- life_years_total$children[[1]]
-  expect_identical(lifeyears_infants$id, "life_years_infants")
-  lifeyears_adolescents <- life_years_total$children[[2]]
-  expect_identical(lifeyears_adolescents$id, "life_years_adolescents")
+  lifeyears_pre_school <- life_years_total$children[[1]]
+  expect_identical(lifeyears_pre_school$id, "life_years_pre_school")
+  lifeyears_school_age <- life_years_total$children[[2]]
+  expect_identical(lifeyears_school_age$id, "life_years_school_age")
   lifeyears_working_age <- life_years_total$children[[3]]
   expect_identical(lifeyears_working_age$id, "life_years_working_age")
   lifeyears_retirement_age <- life_years_total$children[[4]]
   expect_identical(lifeyears_retirement_age$id, "life_years_retirement_age")
   expect_equal(life_years_total$value,
-               sum(lifeyears_infants$value,
-                   lifeyears_adolescents$value,
+               sum(lifeyears_pre_school$value,
+                   lifeyears_school_age$value,
                    lifeyears_working_age$value,
                    lifeyears_retirement_age$value),
                tolerance = tolerance)
