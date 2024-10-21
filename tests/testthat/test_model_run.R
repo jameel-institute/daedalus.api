@@ -19,7 +19,8 @@ test_that("can run model and return results", {
     measure = c("daily_infections", "daily_infections",
                 "daily_hospitalisations", "daily_hospitalisations",
                 "daily_deaths", "daily_deaths"),
-    value = c(100L, 200L, 10L, 20L, 1L, 2L)
+    value = c(100L, 200L, 10L, 20L, 1L, 2L),
+    stringsAsFactors = FALSE
   )
   mock_get_incidence <- mockery::mock(mock_incidence_result,
                                       cycle = TRUE)
