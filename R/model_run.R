@@ -42,12 +42,14 @@ model_run <- function(parameters, model_version) {
   time_series$vaccinated <- vax_time_series$vaccinated
 
   # get incidence time series
-  time_series$new_infections <-
-    daedalus::get_incidence(model_results, "infections")$value
-  time_series$new_hospitalisations <-
-    daedalus::get_incidence(model_results, "hospitalisations")$value
-  time_series$new_deaths <-
-    daedalus::get_incidence(model_results, "deaths")$value
+  incidences <- daedalus::get_incidence(model_results)
+  incidences <- tidyr::pivot_wider(
+    incidences, id_cols = "time", names_from = "measure"
+  )
+  time_series$new_infections <- incidences$daily_infections
+  time_series$new_hospitalisations <- incidences$daily_hospitalisations
+  time_series$new_deaths <- incidences$daily_deaths
+
   time_series$new_vaccinations <-
     daedalus::get_new_vaccinations(model_results)$new_vaccinations
 

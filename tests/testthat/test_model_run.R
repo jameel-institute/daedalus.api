@@ -14,7 +14,11 @@ test_that("can run model and return results", {
 
   mockery::stub(model_run, "daedalus::get_data", mock_model_data)
 
-  mock_incidence_result <- list(value = c(10, 20))
+  mock_incidence_result <- data.frame(
+    time = c(1, 2, 1, 2, 1, 2),
+    measure = c("daily_infections", "daily_infections", "daily_hospitalisations", "daily_hospitalisations", "daily_deaths", "daily_deaths"),
+    value = c(100L, 200L, 10L, 20L, 1L, 2L)
+  )
   mock_get_incidence <- mockery::mock(mock_incidence_result,
                                       cycle = TRUE)
   mockery::stub(model_run, "daedalus::get_incidence", mock_get_incidence)
@@ -50,15 +54,7 @@ test_that("can run model and return results", {
 
   expect_identical(
     mockery::mock_args(mock_get_incidence)[[1]],
-    list(mock_results, "infections")
-  )
-  expect_identical(
-    mockery::mock_args(mock_get_incidence)[[2]],
-    list(mock_results, "hospitalisations")
-  )
-  expect_identical(
-    mockery::mock_args(mock_get_incidence)[[3]],
-    list(mock_results, "deaths")
+    list(mock_results)
   )
 
   expect_named(res, c(
@@ -81,10 +77,9 @@ test_that("can run model and return results", {
   expect_identical(res$time_series$hospitalised, c(11L, 31L))
   expect_identical(res$time_series$dead, c(15L, 37L))
   expect_identical(res$time_series$vaccinated, c(1L, 5L))
-  expect_identical(res$time_series$new_infections, mock_incidence_result$value)
-  expect_identical(res$time_series$new_hospitalisations,
-                   mock_incidence_result$value)
-  expect_identical(res$time_series$new_deaths, mock_incidence_result$value)
+  expect_identical(res$time_series$new_infections, c(100L, 200L))
+  expect_identical(res$time_series$new_hospitalisations, c(10L, 20L))
+  expect_identical(res$time_series$new_deaths, c(1L, 2L))
   expect_identical(res$time_series$new_vaccinations,
                    mock_new_vaccinations_result$new_vaccinations)
   expect_identical(res$parameters, parameters)
