@@ -111,45 +111,45 @@
       { "id": "new_infections", "label": "New Infections", "description": "Number of new infections per day" },
       { "id": "new_hospitalisations", "label": "New Hospitalisations", "description": "Number of patients who are hospitalised per day" },
       { "id": "new_deaths", "label": "New deaths", "description": "Number of deaths per day" },
-      { "id": "new_vaccinations", "label": "New vaccinations", "descriptions": "Number of vaccinations per day" }
+      { "id": "new_vaccinations", "label": "New vaccinations", "description": "Number of vaccinations per day" }
+    ],
+    "time_series_roles": [
+      {"id": "total", "label": "Total"},
+      {"id":  "daily", "label": "Daily"}
+    ],
+    "time_series_groups": [
+      {
+        "id": "infections",
+        "label": "Infections",
+        "time_series": {
+          "total": "prevalence",
+          "daily": "new_infections"
+        }
+      },
+      {
+        "id": "hospitalisations",
+        "label": "Hospitalisations",
+        "time_series": {
+          "total": "hospitalised",
+          "daily": "new_hospitalisations"
+        }
+      },
+      {
+        "id": "deaths",
+        "label": "Deaths",
+        "time_series": {
+          "total": "dead",
+          "daily": "new_deaths"
+        }
+      },
+      {
+        "id": "vaccinations",
+        "label": "Vaccinations",
+        "time_series": {
+          "total": "vaccinated",
+          "daily": "new_vaccinations"
+        }
+      }
     ]
-  },
-  "time_series_roles": [
-    {"id": "total", "label":  "Total"},
-    {"id":  "daily", "label":  "Daily"}
-  ],
-  "time_series_groups": [
-    {
-      "id": "infections",
-      "label": "Infections",
-      "time_series": {
-        "total": "prevalence",
-        "daily": "new_infections"
-      }
-    },
-    {
-      "id": "hospitalisations",
-      "label": "Hospitalisations",
-      "time_series": {
-        "total": "hospitalised",
-        "daily": "new_hospitalisations"
-      }
-    },
-    {
-      "id": "deaths",
-      "label": "Deaths",
-      "time_series": {
-        "total": "dead",
-        "daily": "new_deaths"
-      }
-    },
-    {
-      "id": "vaccinations",
-      "label": "Vaccinations",
-      "time_series": {
-        "total": "vaccinated",
-        "daily": "new_vaccinations"
-      }
-    }
-  ]
+  }
 }

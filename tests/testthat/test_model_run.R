@@ -15,7 +15,7 @@ test_that("can run model and return results", {
   mockery::stub(model_run, "daedalus::get_data", mock_model_data)
 
   mock_incidence_result <- list(value = c(10, 20))
-  mock_get_incidence <- mockery::mock(mock_incidence_result)
+  mock_get_incidence <- mockery::mock(mock_incidence_result, cycle=TRUE)
   mockery::stub(model_run, "daedalus::get_incidence", mock_get_incidence)
 
   mock_new_vaccinations_result <- list(new_vaccinations = c(100, 200))
@@ -63,7 +63,11 @@ test_that("can run model and return results", {
   expect_named(res$time_series, c("prevalence",
                                   "hospitalised",
                                   "dead",
-                                  "vaccinated"))
+                                  "vaccinated",
+                                  "new_infections",
+                                  "new_hospitalisations",
+                                  "new_deaths",
+                                  "new_vaccinations"))
   expect_identical(res$time_series$prevalence, c(28L, 87L))
   expect_identical(res$time_series$hospitalised, c(11L, 31L))
   expect_identical(res$time_series$dead, c(15L, 37L))
