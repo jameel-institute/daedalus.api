@@ -16,7 +16,9 @@ test_that("can run model and return results", {
 
   mock_incidence_result <- data.frame(
     time = c(1, 2, 1, 2, 1, 2),
-    measure = c("daily_infections", "daily_infections", "daily_hospitalisations", "daily_hospitalisations", "daily_deaths", "daily_deaths"),
+    measure = c("daily_infections", "daily_infections",
+                "daily_hospitalisations", "daily_hospitalisations",
+                "daily_deaths", "daily_deaths"),
     value = c(100L, 200L, 10L, 20L, 1L, 2L)
   )
   mock_get_incidence <- mockery::mock(mock_incidence_result,
