@@ -23,7 +23,7 @@ test_that("can run model and return results", {
   mockery::stub(model_run, "get_average_vsl", mock_get_average_vsl)
 
   parameters <- list(
-    country = "Canada",
+    country = "CAN",
     pathogen = "influenza_1918",
     response = "elimination",
     vaccine = "high",
@@ -33,7 +33,7 @@ test_that("can run model and return results", {
 
   expect_identical(
     mockery::mock_args(mock_daedalus)[[1]],
-    list("Canada",
+    list("CAN",
          "influenza_1918",
          response_strategy = "elimination",
          response_threshold = 4500,

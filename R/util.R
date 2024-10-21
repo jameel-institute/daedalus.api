@@ -145,15 +145,15 @@ validate_country <- function(country) {
 #' @description Convert daily GVA values to annual GDP values.
 #'
 #' @param country A string giving a country name
-#' from among `daedalus::country_names`.
+#' from among `daedalus::country_names` or
+#' an ISO2 code from among `daedalus::country_codes_iso2c` or an ISO3 code
+#' from among `daedalus::country_codes_iso3c`.
 #'
 #' @return A single number value for the annual GDP of a country in terms of
 #' million dollars. Values are in 2018 terms.
-#' @keywords internal
+#' @keyword internal
 get_annual_gdp <- function(country) {
-  validate_country(country)
-
-  num_days_year <- 365
+  n_days <- 365
 
   country_data <- daedalus::daedalus_country(country)
   gva <- daedalus::get_data(country_data, "gva")

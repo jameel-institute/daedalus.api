@@ -38,7 +38,7 @@ test_that("can run model, get status and results", {
   data <- list(
     modelVersion = "0.0.2",
     parameters = list(
-      country = "United Kingdom",
+      country = "GBR",
       pathogen = "sars_cov_1",
       response = "economic_closures",
       vaccine = "low",
