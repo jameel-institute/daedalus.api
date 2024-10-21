@@ -8,7 +8,9 @@ get_annual_gdp(country)
 }
 \arguments{
 \item{country}{A string giving a country name
-from among \code{daedalus::country_names}.}
+from among \code{daedalus::country_names} or
+an ISO2 code from among \code{daedalus::country_codes_iso2c} or an ISO3 code
+from among \code{daedalus::country_codes_iso3c}.}
 }
 \value{
 A single number value for the annual GDP of a country in terms of
@@ -17,4 +19,3 @@ million dollars. Values are in 2018 terms.
 \description{
 Convert daily GVA values to annual GDP values.
 }
-\keyword{internal}
