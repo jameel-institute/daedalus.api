@@ -41,6 +41,18 @@ model_run <- function(parameters, model_version) {
   )
   time_series$vaccinated <- vax_time_series$vaccinated
 
+  # get incidence time series
+  incidences <- daedalus::get_incidence(model_results)
+  incidences <- tidyr::pivot_wider(
+    incidences, id_cols = "time", names_from = "measure"
+  )
+  time_series$new_infected <- incidences$daily_infections
+  time_series$new_hospitalised <- incidences$daily_hospitalisations
+  time_series$new_dead <- incidences$daily_deaths
+
+  time_series$new_vaccinated <-
+    daedalus::get_new_vaccinations(model_results)$new_vaccinations
+
   raw_costs <- daedalus::get_costs(model_results)
   costs <- get_nested_costs(raw_costs)
 

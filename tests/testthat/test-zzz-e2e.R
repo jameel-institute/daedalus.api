@@ -91,6 +91,11 @@ test_that("can run model, get status and results", {
   expect_length(results_data$time_series$prevalence, time_series_length)
   expect_length(results_data$time_series$hospitalised, time_series_length)
   expect_length(results_data$time_series$dead, time_series_length)
+  expect_length(results_data$time_series$new_infected, time_series_length)
+  expect_length(results_data$time_series$new_hospitalised,
+                time_series_length)
+  expect_length(results_data$time_series$new_dead, time_series_length)
+  expect_length(results_data$time_series$new_vaccinated, time_series_length)
 
   expect_gt(results_data$gdp, 0)
   expect_gt(results_data$average_vsl, 0)

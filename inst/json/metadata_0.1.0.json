@@ -107,7 +107,49 @@
         "description": "Number of infectious individuals, comprising both symptomatic and asymptomatic infections, including those in need of hospitalisation." },
       { "id": "hospitalised", "label": "Hospital demand", "description": "Infections requiring hospitalisation" },
       { "id": "dead", "label": "Dead", "description": "Total deaths" },
-      { "id": "vaccinated", "label": "Vaccinated", "description": "Total number of vaccinations administered" }
+      { "id": "vaccinated", "label": "Vaccinated", "description": "Total number of vaccinations administered" },
+      { "id": "new_infected", "label": "New infections", "description": "Number of new infections per day" },
+      { "id": "new_hospitalised", "label": "New hospitalisations", "description": "Number of new patients in need of hospitalisation per day" },
+      { "id": "new_dead", "label": "New deaths", "description": "Number of deaths per day" },
+      { "id": "new_vaccinated", "label": "New vaccinations", "description": "Number of vaccinations per day" }
+    ],
+    "time_series_roles": [
+      {"id": "total", "label": "Total"},
+      {"id":  "daily", "label": "Daily"}
+    ],
+    "time_series_groups": [
+      {
+        "id": "infections",
+        "label": "Infections",
+        "time_series": {
+          "total": "prevalence",
+          "daily": "new_infected"
+        }
+      },
+      {
+        "id": "hospitalisations",
+        "label": "Hospitalisations",
+        "time_series": {
+          "total": "hospitalised",
+          "daily": "new_hospitalised"
+        }
+      },
+      {
+        "id": "deaths",
+        "label": "Deaths",
+        "time_series": {
+          "total": "dead",
+          "daily": "new_dead"
+        }
+      },
+      {
+        "id": "vaccinations",
+        "label": "Vaccinations",
+        "time_series": {
+          "total": "vaccinated",
+          "daily": "new_vaccinated"
+        }
+      }
     ]
   }
 }
