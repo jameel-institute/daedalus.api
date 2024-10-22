@@ -72,9 +72,15 @@ test_that("calculates correct value of weighted mean of vsl", {
     demography = c(0.1, 0.2, 0.3, 0.4)
   )
   mock_get_country_data <- mockery::mock(mock_country_data)
-  mockery::stub(get_average_vsl, "daedalus::daedalus_country", mock_get_country_data)
-  
+  mockery::stub(
+    get_average_vsl,
+    "daedalus::daedalus_country", mock_get_country_data
+  )
+
   res <- get_average_vsl("CAN")
 
-  expect_equal(res, weighted.mean(mock_country_data$vsl, mock_country_data$demography))
+  expect_identical(
+    res,
+    weighted.mean(mock_country_data$vsl, mock_country_data$demography)
+  )
 })
