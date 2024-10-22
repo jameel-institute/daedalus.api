@@ -159,8 +159,5 @@ get_annual_gdp <- function(country) {
 #' @keywords internal
 get_average_vsl <- function(country) {
    country_data <- daedalus::daedalus_country(country)
-   vsl <- daedalus::get_data(country_data, "vsl")
-   demography <- daedalus::get_data(country_data, "demography")
-
-   weighted.mean(vsl, demography)
+   weighted.mean(country_data$vsl, country_data$demography)
 }
