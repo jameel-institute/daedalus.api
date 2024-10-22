@@ -89,7 +89,7 @@
 <div class="section level2">
 <h2 id="model-versions">Model versions<a class="anchor" aria-label="anchor" href="#model-versions"></a>
 </h2>
-<p>The API should be backwards compatible and support running older versions of the model. Some endpoints support providing <code>modelVersion</code> as a query string parameter, e.g. to run or get metadata for a particular version of the model.</p>
+<p>The API should be backwards compatible and support running older versions of the model. Some endpoints support providing <code>modelVersion</code> as part of the body, e.g. to run or get metadata for a particular version of the model.</p>
 <p>Metadata is stored in the <code>inst/json</code> folder, in files named <code>metadata_[VERSION].json</code> where <code>[VERSION]</code> is the first model version where that metadata applied. Requesting metadata for a model version will return the metadata which applies to that version, (which may have been first introduced in an earlier version). The metadata response includes a <code>modelVersion</code> property - this value will be the <code>modelVersion</code> requested in the query string, if provided. If <code>modelVersion</code> was not provided in the query string, the returned model version will be the most recent metadata’s <code>[VERSION]</code>.</p>
 </div>
 <div class="section level2">
