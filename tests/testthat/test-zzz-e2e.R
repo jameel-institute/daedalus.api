@@ -93,7 +93,7 @@ test_that("can run model, get status and results", {
   expect_length(results_data$time_series$dead, time_series_length)
 
   expect_gt(results_data$gdp, 0)
-
+  expect_gt(results_data$average_vsl, 0)
   # 5. Test nested costs - values should add up
   tolerance <- testthat_tolerance()
   costs_total <- results_data$costs[[1]]

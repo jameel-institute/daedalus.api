@@ -56,6 +56,7 @@ model_run <- function(parameters, model_version) {
   }
 
   gdp <- get_annual_gdp(country)
+  average_vsl <- get_average_vsl(country)
 
   results <- list(
   )
@@ -76,5 +77,6 @@ model_run <- function(parameters, model_version) {
     )
   )
   results$gdp <- gdp
+  results$average_vsl <- average_vsl
   results
 }

@@ -4,10 +4,13 @@
 \alias{get_annual_gdp}
 \title{Get annual GDP from DAEDALUS country data}
 \usage{
-get_annual_gdp(x)
+get_annual_gdp(country)
 }
 \arguments{
-\item{x}{A string giving a country name from among \code{daedalus::country_names}.}
+\item{country}{A string giving a country name
+from among \code{daedalus::country_names} or
+an ISO2 code from among \code{daedalus::country_codes_iso2c} or an ISO3 code
+from among \code{daedalus::country_codes_iso3c}.}
 }
 \value{
 A single number value for the annual GDP of a country in terms of

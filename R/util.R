@@ -119,18 +119,45 @@ get_nested_costs <- function(raw_costs) {
 #'
 #' @description Convert daily GVA values to annual GDP values.
 #'
-#' @param x A string giving a country name from among `daedalus::country_names`
-#' or an ISO2 code from among `daedalus::country_codes_iso2c` or an ISO3 code
+#' @param country A string giving a country name
+#' from among `daedalus::country_names` or
+#' an ISO2 code from among `daedalus::country_codes_iso2c` or an ISO3 code
 #' from among `daedalus::country_codes_iso3c`.
 #'
 #' @return A single number value for the annual GDP of a country in terms of
 #' million dollars. Values are in 2018 terms.
 #' @keyword internal
-get_annual_gdp <- function(x) {
-  n_days <- 365
+get_annual_gdp <- function(country) {
+  num_days_year <- 365
 
-  x <- daedalus::daedalus_country(x)
-  x <- daedalus::get_data(x, "gva")
+  country_data <- daedalus::daedalus_country(country)
+  gva <- daedalus::get_data(country_data, "gva")
 
-  sum(x * n_days)
+  sum(gva * num_days_year)
+}
+
+#' Get Average Value of Statistical Life (VSL) for a Country
+#'
+#' @description This function calculates the average
+#' Value of Statistical Life (VSL) for a specified country.
+#' It computes the weighted mean of VSL using the demography data as weights.
+#'
+#' @param country A string giving a country name
+#' from among `daedalus::country_names` or
+#' an ISO2 code from among `daedalus::country_codes_iso2c` or an ISO3 code
+#' from among `daedalus::country_codes_iso3c`.
+#'
+#' @return A numeric value representing the average
+#' VSL for the specified country.
+#'
+#' @examples
+#' \dontrun{
+#'   avg_vsl <- get_average_vsl("USA")
+#'   print(avg_vsl)
+#' }
+#'
+#' @keywords internal
+get_average_vsl <- function(country) {
+   country_data <- daedalus::daedalus_country(country)
+   weighted.mean(country_data$vsl, country_data$demography)
 }

@@ -56,3 +56,31 @@ test_that("Get annual GDP", {
     min(vapply(daedalus::country_names, get_annual_gdp, numeric(1L))), 0
   )
 })
+
+test_that("can get average vsl for countries", {
+  expect_no_condition(
+    lapply(daedalus::country_names, get_average_vsl)
+  )
+  expect_gt(
+    min(vapply(daedalus::country_names, get_average_vsl, numeric(1L))), 0
+  )
+})
+
+test_that("calculates correct value of weighted mean of vsl", {
+  mock_country_data <- list(
+    vsl = c(1000, 2000, 3000, 4000),
+    demography = c(0.1, 0.2, 0.3, 0.4)
+  )
+  mock_get_country_data <- mockery::mock(mock_country_data)
+  mockery::stub(
+    get_average_vsl,
+    "daedalus::daedalus_country", mock_get_country_data
+  )
+
+  res <- get_average_vsl("CAN")
+
+  expect_identical(
+    res,
+    weighted.mean(mock_country_data$vsl, mock_country_data$demography)
+  )
+})
