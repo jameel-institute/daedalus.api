@@ -57,6 +57,27 @@ get_vaccine_option_description <- function(vaccine_option) {
   )
 }
 
+get_pathogen_option_description <-  function(pathogen_id) {
+  # get pathogen information from the package and generate
+  # description including R0 and IFR range (across all countries)
+  # for the pathogen
+
+  infection <- daedalus::daedalus_infection(id)
+  country_ifrs <- lapply(daedalus::country_names, function(country_name) {
+    country <- daedalus::daedalus_country(country_name)
+    weighted.mean(
+      infection$ifr, country$demography
+    )
+  })
+  stringr::str_glue(
+    "A disease with an R0 of { r0 } and an infection fatality ratio of ",
+    "between { ifr_min } and {ifr_max } depending on country",
+    ifr_min = min(country_ifrs),
+    ifr_max = max(country_ifrs),
+    r0 = infection$r0
+  )
+}
+
 validate_parameters <- function(parameters, metadata) {
   # Expect parameters in model run request to include all and only values
   # specified in metadata
