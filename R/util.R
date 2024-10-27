@@ -57,7 +57,7 @@ get_vaccine_option_description <- function(vaccine_option) {
   )
 }
 
-get_pathogen_option_description <-  function(pathogen_id) {
+get_pathogen_description <-  function(pathogen_id) {
   # get pathogen information from the package and generate
   # description including R0 and IFR range (across all countries)
   # for the pathogen
@@ -70,7 +70,7 @@ get_pathogen_option_description <-  function(pathogen_id) {
     )
   })
   stringr::str_glue(
-    "A disease with an R0 of {r0} and an infection fatality ratio of ",
+    "A disease with R0 of {r0} and infection fatality ratio ",
     "between {ifr_min_pc}% and {ifr_max_pc}% depending on country",
     ifr_min_pc = signif(min(country_ifrs) * 100, 2),
     ifr_max_pc = signif(max(country_ifrs) * 100, 2),

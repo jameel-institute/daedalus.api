@@ -81,4 +81,10 @@ test_that("Can get metadata", {
     expect_gte(values$max, values$default)
     expect_gte(values$default, values$min)
   }
+
+  pathogen_idx <- match("pathogen", expected_parameters)
+  pathogen_options <- params[[pathogen_idx]]$options
+  for (option in pathogen_options) {
+    expect_match(option$description, "A disease with R0 of [0-9]")
+  }
 })

@@ -78,7 +78,7 @@ metadata <- function() {
     get_option("influenza_1918", "Influenza 1918 (Spanish flu)")
   )
   pathogen_options <- lapply(pathogen_options, function(option) {
-    option$description <- get_pathogen_option_description(option$id)
+    option$description <- get_pathogen_description(option$id)
     option
   })
   pathogen_idx <- match("pathogen", param_ids)
