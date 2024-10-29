@@ -63,17 +63,15 @@ get_pathogen_description <-  function(pathogen_id) {
   # for the pathogen
 
   infection <- daedalus::daedalus_infection(pathogen_id)
-  country_ifrs <- sapply(daedalus::country_names, function(country_name) {
-    country <- daedalus::daedalus_country(country_name)
-    weighted.mean(
-      infection$ifr, country$demography
-    )
-  })
+  country_ifrs <- vapply(daedalus::country_data, function(country) {
+    weighted.mean(infection$ifr, country$demography)
+  }, 1.0)
+  ifr_range <- range(country_ifrs)
   stringr::str_glue(
     "A disease with R0 of {r0} and infection fatality ratio ",
     "between {ifr_min_pc}% and {ifr_max_pc}% depending on country",
-    ifr_min_pc = signif(min(country_ifrs) * 100, 2),
-    ifr_max_pc = signif(max(country_ifrs) * 100, 2),
+    ifr_min_pc = signif(ifr_range[[1]] * 100, 2),
+    ifr_max_pc = signif(ifr_range[[2]] * 100, 2),
     r0 = signif(infection$r0, 2)
   )
 }
