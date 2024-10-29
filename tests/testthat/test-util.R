@@ -84,3 +84,22 @@ test_that("calculates correct value of weighted mean of vsl", {
     weighted.mean(mock_country_data$vsl, mock_country_data$demography)
   )
 })
+
+test_that("generates expected pathogen description", {
+  ifr <- c(0.1, 0.2, 0.3, 0.4)
+  mock_daedalus_infection <- mockery::mock(list(
+    ifr = ifr,
+    r0 = 1.72165
+  ))
+  mockery::stub(get_pathogen_description,
+                "daedalus::daedalus_infection",
+                mock_daedalus_infection)
+
+  res <- get_pathogen_description("sars_cov_1")
+  mockery::expect_args(mock_daedalus_infection, 1, "sars_cov_1")
+  expected <- stringr::str_glue(
+    "A disease with R0 of 1.7 and infection fatality ratio between 24% ",
+    "and 31% depending on country"
+  )
+  expect_identical(res, expected)
+})
