@@ -5,6 +5,7 @@ HERE=$(dirname $0)
 
 docker build --pull \
        --tag $TAG_SHA \
+       --progress=plain \
        -f docker/Dockerfile \
        .
 
