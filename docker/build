@@ -3,7 +3,7 @@ set -ex
 HERE=$(dirname $0)
 . $HERE/common
 
-docker build --pull \
+docker build --pull --progress=plain \
        --tag $TAG_SHA \
        --progress=plain \
        -f docker/Dockerfile \
