@@ -25,15 +25,8 @@ main <- function(args = commandArgs(TRUE)) {
 main_worker <- function() {
   worker <- rrq::rrq_worker$new(
     get_queue_id(),
+    offload_path = get_results_dir(),
     con = get_redis_connection()
   )
   worker$loop()
-}
-
-main_configure_queue <- function() {
-  queue_id <- get_queue_id()
-  rrq::rrq_configure(queue_id,
-                     store_max_size = 1000L,
-                     offload_path = get_results_dir(),
-                     con = get_redis_connection())
 }
