@@ -21,7 +21,7 @@ Imports:
     porcelain,
     R6,
     redux,
-    rrq (>= 0.7.20),
+    rrq (>= 0.7.21),
     stringr,
     tidyr
 Suggests: 
