@@ -21,7 +21,7 @@ Imports:
     porcelain,
     R6,
     redux,
-    rrq,
+    rrq (>= 0.7.20),
     stringr,
     tidyr
 Suggests: 
@@ -33,7 +33,7 @@ Suggests:
     withr
 Remotes:
     jameel-institute/daedalus,
-    mrc-ide/rrq,
+    mrc-ide/rrq@mrc-5889,
     reside-ic/porcelain
 Config/testthat/edition: 3
 Encoding: UTF-8

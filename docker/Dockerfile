@@ -40,7 +40,6 @@ COPY . /src
 RUN R CMD INSTALL --install-tests /src && \
         cp /src/docker/daedalus.api /usr/local/bin && \
         cp /src/docker/daedalus.api.worker /usr/local/bin && \
-        cp /src/docker/daedalus.api.configure /usr/local/bin && \
         rm -rf /src
 
 # ENTRYPOINT for api is "/usr/local/bin/daedalus.api"
