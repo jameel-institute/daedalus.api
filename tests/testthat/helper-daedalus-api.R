@@ -12,7 +12,8 @@ check_for_redis <- function() {
 
 start_test_queue_with_worker <- function() {
   queue <- Queue$new() # nolint
-  rrq::rrq_worker_spawn(1L, controller = queue$controller)
+  rrq::rrq_worker_spawn(1L, controller = queue$controller,
+                        offload_path = get_results_dir())
   queue
 }
 
