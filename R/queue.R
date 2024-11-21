@@ -13,18 +13,25 @@ Queue <- R6::R6Class("Queue", # nolint
       logs_dir <- get_logs_dir()
       results_dir <- get_results_dir()
 
+      # Configure rrq to store data > 1KB to disk
+      offload_threshold_size <- 1000L
+
       # Connect to Redis
       con <- get_redis_connection()
 
-      # Configure rrq to store data > 1KB to disk
-      queue_id <- get_queue_id()
-      # TODO: Check that the queue is configured, when rrq api is available # nolint
-
       # Create queue
-      self$controller <- rrq::rrq_controller(queue_id, con = con)
+      queue_id <- get_queue_id()
+      self$controller <- rrq::rrq_controller(
+        queue_id,
+        offload_threshold_size = offload_threshold_size,
+        offload_path = results_dir,
+        con = con)
+
       dir.create(logs_dir, showWarnings = FALSE)
       dir.create(results_dir, showWarnings = FALSE)
-      worker_config <- rrq::rrq_worker_config(logdir = logs_dir)
+      worker_config <- rrq::rrq_worker_config(
+        offload_threshold_size = offload_threshold_size,
+        logdir = logs_dir)
       rrq::rrq_worker_config_save("localhost",
                                   worker_config,
                                   controller = self$controller)

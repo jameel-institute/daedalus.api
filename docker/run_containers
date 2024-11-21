@@ -14,13 +14,6 @@ docker run --rm -d \
   --network=$NAME_NETWORK \
   redis
 
-docker run --rm \
-  --network=$NAME_NETWORK \
-  --env=DAEDALUS_QUEUE_ID=$QUEUE_ID \
-  --env=REDIS_CONTAINER_NAME=$NAME_REDIS \
-  --entrypoint="/usr/local/bin/daedalus.api.configure" \
-  $TAG_SHA
-
 docker run --rm -d \
   -p 8001:8001 \
   --name=$NAME_SERVER \
