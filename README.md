@@ -20,18 +20,14 @@ devtools::install_github("jameel-institute/daedalus.api")
 ## Quick start
 
 ```sh
-# the image will be assigned the tag 'latest'
-docker pull mrcide/daedalus.api:latest
-
-# run the container
-# see docker run --help for options
-docker run -d --name daedalus-api --rm -p 8001:8001 mrcide/daedalus.api:latest
+# run the api container with queue worker
+./docker/run_containers
 
 # check root endpoint `GET/`
 curl -s http://localhost:8001 | jq
 
-# stop the service
-docker stop daedalus-api
+# stop the containers
+./docker/clear_containers
 ```
 
 ## Development
