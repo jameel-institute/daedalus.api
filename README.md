@@ -21,6 +21,8 @@ devtools::install_github("jameel-institute/daedalus.api")
 
 ```sh
 # run the api container with queue worker
+# This pulls and runs image for current SHA. If none is pushed to registry you can build and push
+# locally using ./docker/build
 ./docker/run_containers
 
 # check root endpoint `GET/`
