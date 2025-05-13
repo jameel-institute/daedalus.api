@@ -6,18 +6,22 @@ model_run <- function(parameters, model_version) {
   hospital_capacity <- parameters$hospital_capacity
   hospital_capacity_num <- as.numeric(hospital_capacity)
 
+  # manually assign hospital capacity to `country`
+  country$hospital_capacity <- hospital_capacity_num
+
   model_results <- daedalus::daedalus(
     country,
     pathogen,
     response_strategy = response,
-    response_threshold = hospital_capacity_num,
     vaccine_investment = vaccine
   )
   time_series <- dplyr::group_by(model_results$model_data, time, compartment)
   time_series <- dplyr::summarise(time_series, value = sum(value))
   time_series <- tidyr::pivot_wider(
     time_series,
-    id_cols = "time", values_from = "value", names_from = "compartment"
+    id_cols = "time",
+    values_from = "value",
+    names_from = "compartment"
   )
 
   time_series$prevalence <-
@@ -25,9 +29,7 @@ model_run <- function(parameters, model_version) {
     time_series$infect_symp +
     time_series$hospitalised
 
-  time_series <- time_series[, c("prevalence",
-                                "hospitalised",
-                                "dead")]
+  time_series <- time_series[, c("prevalence", "hospitalised", "dead")]
 
   # get total vaccinations time series
   model_data <- daedalus::get_data(model_results)
@@ -37,14 +39,17 @@ model_run <- function(parameters, model_version) {
   )
   vax_time_series <- dplyr::summarise(
     vax_time_series,
-    vaccinated = sum(value), .by = "time"
+    vaccinated = sum(value),
+    .by = "time"
   )
   time_series$vaccinated <- vax_time_series$vaccinated
 
   # get incidence time series
   incidences <- daedalus::get_incidence(model_results)
   incidences <- tidyr::pivot_wider(
-    incidences, id_cols = "time", names_from = "measure"
+    incidences,
+    id_cols = "time",
+    names_from = "measure"
   )
   time_series$new_infected <- incidences$daily_infections
   time_series$new_hospitalised <- incidences$daily_hospitalisations
@@ -70,8 +75,7 @@ model_run <- function(parameters, model_version) {
   gdp <- get_annual_gdp(country)
   average_vsl <- get_average_vsl(country)
 
-  results <- list(
-  )
+  results <- list()
   results$parameters <- list(
     country = country,
     pathogen = pathogen,
