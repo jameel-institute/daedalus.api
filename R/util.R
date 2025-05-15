@@ -56,9 +56,9 @@ get_vaccine_option_description <- function(vaccine_option) {
     "a vaccine administration rate of {rate}% of population per day, ",
     "and an upper limit of vaccine coverage of {coverage}% of the ",
     "general population",
-    start = vax_data$vax_start_time,
-    rate = signif(vax_data$nu, 2),
-    coverage = vax_data$vax_uptake_limit
+    start = vax_data$start_time,
+    rate = signif(vax_data$rate, 2),
+    coverage = vax_data$uptake_limit
   )
 }
 
@@ -71,7 +71,7 @@ get_pathogen_description <- function(pathogen_id) {
   country_ifrs <- vapply(
     daedalus.data::country_data,
     function(country) {
-      weighted.mean(infection$ifr, country$demography)
+      stats::weighted.mean(infection$ifr, country$demography)
     },
     1.0
   )
@@ -198,12 +198,12 @@ get_annual_gdp <- function(country) {
 #'
 #' @examples
 #' \dontrun{
-#'   avg_vsl <- get_average_vsl("USA")
-#'   print(avg_vsl)
+#' avg_vsl <- get_average_vsl("USA")
+#' print(avg_vsl)
 #' }
 #'
 #' @keywords internal
 get_average_vsl <- function(country) {
   country_data <- daedalus::daedalus_country(country)
-  weighted.mean(country_data$vsl, country_data$demography)
+  stats::weighted.mean(country_data$vsl, country_data$demography)
 }

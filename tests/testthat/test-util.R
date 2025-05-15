@@ -76,7 +76,7 @@ test_that("calculates correct value of weighted mean of vsl", {
   mock_get_country_data <- mockery::mock(mock_country_data)
   mockery::stub(
     get_average_vsl,
-    "daedalus.data::daedalus_country",
+    "daedalus::daedalus_country",
     mock_get_country_data
   )
 
@@ -84,7 +84,7 @@ test_that("calculates correct value of weighted mean of vsl", {
 
   expect_identical(
     res,
-    weighted.mean(mock_country_data$vsl, mock_country_data$demography)
+    stats::weighted.mean(mock_country_data$vsl, mock_country_data$demography)
   )
 })
 
@@ -96,7 +96,7 @@ test_that("generates expected pathogen description", {
   ))
   mockery::stub(
     get_pathogen_description,
-    "daedalus.data::daedalus_infection",
+    "daedalus::daedalus_infection",
     mock_daedalus_infection
   )
 
