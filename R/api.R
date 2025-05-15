@@ -58,8 +58,8 @@ metadata <- function() {
 
   # Set available countries from daedalus package
   # JIDEA-62: use the right version of daedalus/model
-  country_names <- daedalus::country_names
-  country_codes <- daedalus::country_codes_iso3c
+  country_names <- daedalus.data::country_names
+  country_codes <- daedalus.data::country_codes_iso3c
 
   country_options <- lapply(seq_along(country_names), function(idx) {
     get_option(country_codes[[idx]], country_names[[idx]])
@@ -93,7 +93,8 @@ metadata <- function() {
       default <- daedalus::daedalus_country(country_name)$hospital_capacity
 
       get_hospital_capacity_range(default, step)
-  })
+    }
+  )
 
   response$parameters[[hospital_capacity_idx]]$updateNumericFrom <- list(
     parameterId = "country",
@@ -131,7 +132,7 @@ scenario_run <- function(queue, data) {
 #' @porcelain
 #'   GET /scenario/status/<run_id:string> => json(scenarioStatus)
 #'   state queue :: queue
-scenario_status <-  function(queue, run_id) {
+scenario_status <- function(queue, run_id) {
   lapply(queue$get_run_status(run_id), scalar)
 }
 
