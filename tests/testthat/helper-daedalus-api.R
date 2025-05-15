@@ -24,8 +24,10 @@ wait_for_task_complete <- function(run_id, controller, n_tries) {
 }
 
 daedalus_mock_costs <- function() {
-  life_years_lost_age <- setNames(c(5, 10, 15, 20),
-                                  c("0-4", "5-19", "20-65", "65+"))
+  life_years_lost_age <- stats::setNames(
+    c(5, 10, 15, 20),
+    c("0-4", "5-19", "20-65", "65+")
+  )
   list(
     total_cost = 100,
     economic_costs = list(

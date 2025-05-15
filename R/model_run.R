@@ -16,6 +16,12 @@ model_run <- function(parameters, model_version) {
     response_strategy = response,
     vaccine_investment = vaccine
   )
+
+  # prevent warnings about global variables
+  compartment <- NULL
+  time <- NULL
+  value <- NULL
+
   time_series <- dplyr::group_by(model_results$model_data, time, compartment)
   time_series <- dplyr::summarise(time_series, value = sum(value))
   time_series <- tidyr::pivot_wider(
@@ -33,6 +39,7 @@ model_run <- function(parameters, model_version) {
   time_series <- time_series[, c("prevalence", "hospitalised", "dead")]
 
   # get total vaccinations time series
+  vaccine_group <- NULL
   model_data <- daedalus::get_data(model_results)
   vax_time_series <- dplyr::filter(
     model_data,

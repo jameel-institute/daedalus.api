@@ -41,7 +41,7 @@ read_metadata_file <- function(metadata_version = "0.1.0") {
 metadata <- function() {
   # JIDEA-62: we will use relevant model version - from qs if specified, else
   # from latest available metadata file. For now get model version from package.
-  model_version <- scalar(as.character(packageVersion("daedalus")))
+  model_version <- scalar(as.character(utils::packageVersion("daedalus")))
   # JIDEA-62: we will read in correct metadata version according to requested
   # model_version
   response <- read_metadata_file()
@@ -88,7 +88,7 @@ metadata <- function() {
   step <- response$parameters[[hospital_capacity_idx]]$step
   # setNames to get json object not array
   hospital_capacities <- lapply(
-    setNames(country_names, country_codes),
+    stats::setNames(country_names, country_codes),
     function(country_name) {
       default <- daedalus::daedalus_country(country_name)$hospital_capacity
 
