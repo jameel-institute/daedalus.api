@@ -7,10 +7,11 @@ model_run <- function(parameters, model_version) {
   hospital_capacity_num <- as.numeric(hospital_capacity)
 
   # manually assign hospital capacity to `country`
-  country$hospital_capacity <- hospital_capacity_num
+  country_obj <- daedalus::daedalus_country(country)
+  country_obj$hospital_capacity <- hospital_capacity_num
 
   model_results <- daedalus::daedalus(
-    country,
+    country_obj,
     pathogen,
     response_strategy = response,
     vaccine_investment = vaccine
