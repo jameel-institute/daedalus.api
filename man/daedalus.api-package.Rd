@@ -19,9 +19,17 @@ Useful links:
 \author{
 \strong{Maintainer}: Pratik Gupte \email{p.gupte24@imperial.ac.uk} (\href{https://orcid.org/0000-0001-5294-7819}{ORCID})
 
+Authors:
+\itemize{
+  \item Emma Russell
+  \item Rich FitzJohn (\href{https://orcid.org/0000-0001-8888-3837}{ORCID})
+  \item David Mears
+}
+
 Other contributors:
 \itemize{
-  \item Imperial College of Science, Technology and Medicine [copyright holder]
+  \item Abdul Latif Jameel Institute for Disease and Emergency Analytics [funder]
+  \item Imperial College of Science, Technology and Medicine [copyright holder, funder]
 }
 
 }
