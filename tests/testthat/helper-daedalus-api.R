@@ -1,6 +1,7 @@
 daedalus_api_endpoint <- function(..., validate = TRUE) {
   porcelain::porcelain_package_endpoint(
-    "daedalus.api", ...,
+    "daedalus.api",
+    ...,
     validate = validate
   )
 }
@@ -12,14 +13,19 @@ check_for_redis <- function() {
 
 start_test_queue_with_worker <- function() {
   queue <- Queue$new() # nolint
-  rrq::rrq_worker_spawn(1L, controller = queue$controller,
-                        offload_path = get_results_dir())
+  rrq::rrq_worker_spawn(
+    1L,
+    controller = queue$controller,
+    offload_path = get_results_dir()
+  )
   queue
 }
 
 wait_for_task_complete <- function(run_id, controller, n_tries) {
   rrq::rrq_task_wait(
-    run_id, controller = controller, timeout = n_tries
+    run_id,
+    controller = controller,
+    timeout = n_tries
   )
 }
 

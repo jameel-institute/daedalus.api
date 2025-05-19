@@ -46,8 +46,8 @@ test_that("can run model and return results", {
   mock_get_average_vsl <- mockery::mock(10000)
   mockery::stub(model_run, "get_average_vsl", mock_get_average_vsl)
 
-  ctx = "CAN"
-  hosp_cap = 4500
+  ctx <- "CAN"
+  hosp_cap <- 4500
   parameters <- list(
     country = ctx,
     pathogen = "influenza_1918",
@@ -58,8 +58,8 @@ test_that("can run model and return results", {
   res <- model_run(parameters, "0.0.1")
 
   # define modified country object
-  country_x = daedalus::daedalus_country(ctx)
-  country_x$hospital_capacity = hosp_cap
+  country_x <- daedalus::daedalus_country(ctx)
+  country_x$hospital_capacity <- hosp_cap
 
   expect_identical(
     mockery::mock_args(mock_daedalus)[[1]],

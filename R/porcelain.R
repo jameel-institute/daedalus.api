@@ -7,7 +7,8 @@
         "/",
         root,
         returning = porcelain::porcelain_returning_json("root"),
-        validate = validate)
+        validate = validate
+      )
     },
     "GET /metadata" = function(state, validate) {
       porcelain::porcelain_endpoint$new(
@@ -15,7 +16,8 @@
         "/metadata",
         metadata,
         returning = porcelain::porcelain_returning_json("metadata"),
-        validate = validate)
+        validate = validate
+      )
     },
     "POST /scenario/run" = function(state, validate) {
       porcelain::porcelain_endpoint$new(
@@ -25,7 +27,8 @@
         porcelain::porcelain_input_body_json("data", "scenarioRunRequest"),
         porcelain::porcelain_state(queue = state$queue),
         returning = porcelain::porcelain_returning_json("scenarioRunResponse"),
-        validate = validate)
+        validate = validate
+      )
     },
     "GET /scenario/status/<run_id:string>" = function(state, validate) {
       porcelain::porcelain_endpoint$new(
@@ -34,7 +37,8 @@
         scenario_status,
         porcelain::porcelain_state(queue = state$queue),
         returning = porcelain::porcelain_returning_json("scenarioStatus"),
-        validate = validate)
+        validate = validate
+      )
     },
     "GET /scenario/results/<run_id:string>" = function(state, validate) {
       porcelain::porcelain_endpoint$new(
@@ -43,6 +47,8 @@
         scenario_results,
         porcelain::porcelain_state(queue = state$queue),
         returning = porcelain::porcelain_returning_json("scenarioResults"),
-        validate = validate)
-    })
+        validate = validate
+      )
+    }
+  )
 }

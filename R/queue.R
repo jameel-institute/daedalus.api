@@ -1,7 +1,8 @@
 #' Class for managing running jobs on the redis queue
 #' #'
 #' @keywords internal
-Queue <- R6::R6Class("Queue", # nolint
+Queue <- R6::R6Class(
+  "Queue", # nolint
   cloneable = FALSE,
   public = list(
     #' @field controller RRQ controller
@@ -25,16 +26,20 @@ Queue <- R6::R6Class("Queue", # nolint
         queue_id,
         offload_threshold_size = offload_threshold_size,
         offload_path = results_dir,
-        con = con)
+        con = con
+      )
 
       dir.create(logs_dir, showWarnings = FALSE)
       dir.create(results_dir, showWarnings = FALSE)
       worker_config <- rrq::rrq_worker_config(
         offload_threshold_size = offload_threshold_size,
-        logdir = logs_dir)
-      rrq::rrq_worker_config_save("localhost",
-                                  worker_config,
-                                  controller = self$controller)
+        logdir = logs_dir
+      )
+      rrq::rrq_worker_config_save(
+        "localhost",
+        worker_config,
+        controller = self$controller
+      )
     },
 
     #' @description
@@ -47,9 +52,12 @@ Queue <- R6::R6Class("Queue", # nolint
         parameters,
         model_version
       )
-      rrq::rrq_task_create_call(model_run, run_args,
-                                separate_process = TRUE,
-                                controller = self$controller)
+      rrq::rrq_task_create_call(
+        model_run,
+        run_args,
+        separate_process = TRUE,
+        controller = self$controller
+      )
     },
 
     #' @description
@@ -57,32 +65,45 @@ Queue <- R6::R6Class("Queue", # nolint
     #'
     #' @param run_id the run id of the model run
     get_run_status = function(run_id) {
-      rrq_status <- rrq::rrq_task_status(c(run_id),
-                                         controller = self$controller)[1L]
-      status <- switch(rrq_status,
-                       PENDING = list(runStatus = "queued",
-                                      runSuccess = NULL,
-                                      done = FALSE,
-                                      runErrors = NULL),
-                       RUNNING = list(runStatus = "running",
-                                      runSuccess = NULL,
-                                      done = FALSE,
-                                      runErrors = NULL),
-                       COMPLETE = list(runStatus = "complete",
-                                       runSuccess = TRUE,
-                                       done = TRUE,
-                                       runErrors = NULL),
-                       list(runStatus = "failed",
-                            runSuccess = FALSE,
-                            done = TRUE,
-                            runErrors = NULL)
+      rrq_status <- rrq::rrq_task_status(
+        c(run_id),
+        controller = self$controller
+      )[1L]
+      status <- switch(
+        rrq_status,
+        PENDING = list(
+          runStatus = "queued",
+          runSuccess = NULL,
+          done = FALSE,
+          runErrors = NULL
+        ),
+        RUNNING = list(
+          runStatus = "running",
+          runSuccess = NULL,
+          done = FALSE,
+          runErrors = NULL
+        ),
+        COMPLETE = list(
+          runStatus = "complete",
+          runSuccess = TRUE,
+          done = TRUE,
+          runErrors = NULL
+        ),
+        list(
+          runStatus = "failed",
+          runSuccess = FALSE,
+          done = TRUE,
+          runErrors = NULL
+        )
       )
       status$runId <- run_id
       # include errors for failed jobs
       if (status$done[1L] && !status$runSuccess[1L]) {
-        se <- rrq::rrq_task_result(run_id,
-                                   controller = self$controller,
-                                   error = FALSE)
+        se <- rrq::rrq_task_result(
+          run_id,
+          controller = self$controller,
+          error = FALSE
+        )
         status$runErrors <- list(
           list(error = "SERVER_TASK_ERROR", detail = conditionMessage(se))
         )
