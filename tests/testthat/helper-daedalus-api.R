@@ -45,7 +45,7 @@ test_worker_blocking <- function(...) {
 daedalus_mock_costs <- function() {
   life_years_lost_age <- stats::setNames(
     c(5, 10, 15, 20),
-    c("0-4", "5-19", "20-65", "65+")
+    c("0-4", "5-19", "20-64", "65+")
   )
   list(
     total_cost = 100,
