@@ -1,7 +1,7 @@
 check_for_redis()
 temp_dir <- tempdir()
 # Env vars required by the queue
-qid <- paste0("daedalus.api.tests.queue-", uuid::UUIDgenerate())
+qid <- test_queue_id()
 withr::local_envvar(
   .new = list(
     DAEDALUS_QUEUE_ID = qid,

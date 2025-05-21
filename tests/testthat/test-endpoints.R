@@ -112,6 +112,7 @@ test_that("Can get metadata", {
 # approach will mean that errors are easier to intercept, and
 # debugging with `browser()` becomes straightforward.
 test_that("can run model, get status and results", {
+  queue_id <- test_queue_id()
   data <- list(
     modelVersion = "0.0.2",
     parameters = list(
@@ -123,12 +124,14 @@ test_that("can run model, get status and results", {
     )
   )
   body <- jsonlite::toJSON(data, auto_unbox = TRUE)
-  endpoint_run <- daedalus_api_endpoint("POST", "/scenario/run")
+  endpoint_run <- daedalus_api_endpoint(
+    "POST", "/scenario/run", queue_id = queue_id
+  )
   endpoint_status <- daedalus_api_endpoint(
-    "GET", "/scenario/status/<run_id:string>"
+    "GET", "/scenario/status/<run_id:string>", queue_id = queue_id
   )
   endpoint_results <- daedalus_api_endpoint(
-    "GET", "/scenario/results/<run_id:string>"
+    "GET", "/scenario/results/<run_id:string>", queue_id = queue_id
   )
 
   # Submit the task, validate that we get back an rrq handle in the
@@ -141,8 +144,10 @@ test_that("can run model, get status and results", {
   # Run the job, in process - errors will still be swallowed by the
   # worker, but there is no need to wait on anything, and the code
   # used is the dev-mode package.
-  worker <- test_worker_blocking()
-  worker$step(immediate = TRUE)
+  suppressMessages({
+    worker <- test_worker_blocking(queue_id)
+    worker$step(immediate = TRUE)
+  })
 
   # Retrieve the status, checking the format of the list of returned
   # data. We also check that the response was validated against the

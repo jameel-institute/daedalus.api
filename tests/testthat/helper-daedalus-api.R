@@ -1,6 +1,11 @@
+test_queue_id <- function() {
+  paste0("daedalus.api.tests.queue-", uuid::UUIDgenerate())
+}
+
 daedalus_api_endpoint <- function(..., validate = TRUE,
+                                  queue_id = NULL,
                                   separate_process = FALSE) {
-  queue <- Queue$new(separate_process = separate_process)
+  queue <- Queue$new(queue_id = queue_id, separate_process = separate_process)
   state <- list(queue = queue)
   porcelain::porcelain_package_endpoint(
     "daedalus.api",
@@ -33,9 +38,9 @@ wait_for_task_complete <- function(run_id, controller, n_tries) {
   )
 }
 
-test_worker_blocking <- function(...) {
+test_worker_blocking <- function(queue_id, ...) {
   rrq::rrq_worker$new(
-    get_queue_id(),
+    queue_id,
     offload_path = get_results_dir(),
     con = get_redis_connection(),
     ...
