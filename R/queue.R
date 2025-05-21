@@ -10,7 +10,7 @@ Queue <- R6::R6Class(
 
     #' @description
     #' Initialise redis connection and rrq.
-    initialize = function() {
+    initialize = function(separate_process = TRUE) {
       logs_dir <- get_logs_dir()
       results_dir <- get_results_dir()
 
@@ -40,6 +40,8 @@ Queue <- R6::R6Class(
         worker_config,
         controller = self$controller
       )
+
+      private$separate_process = separate_process
     },
 
     #' @description
@@ -55,7 +57,7 @@ Queue <- R6::R6Class(
       rrq::rrq_task_create_call(
         model_run,
         run_args,
-        separate_process = TRUE,
+        separate_process = private$separate_process,
         controller = self$controller
       )
     },
@@ -119,6 +121,10 @@ Queue <- R6::R6Class(
     get_run_results = function(run_id) {
       rrq::rrq_task_result(run_id, controller = self$controller, error = TRUE)
     }
+  ),
+
+  private = list(
+    separate_process = NULL
   )
 )
 
