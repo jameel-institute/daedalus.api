@@ -10,7 +10,7 @@ Queue <- R6::R6Class(
 
     #' @description
     #' Initialise redis connection and rrq.
-    initialize = function(separate_process = TRUE) {
+    initialize = function(queue_id = NULL, separate_process = TRUE) {
       logs_dir <- get_logs_dir()
       results_dir <- get_results_dir()
 
@@ -21,7 +21,7 @@ Queue <- R6::R6Class(
       con <- get_redis_connection()
 
       # Create queue
-      queue_id <- get_queue_id()
+      queue_id <- queue_id %||% get_queue_id()
       self$controller <- rrq::rrq_controller(
         queue_id,
         offload_threshold_size = offload_threshold_size,
