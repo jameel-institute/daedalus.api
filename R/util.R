@@ -152,7 +152,7 @@ get_nested_costs <- function(raw_costs) {
           list(
             cost_item("life_years_pre_school", life_years_age[["0-4"]]),
             cost_item("life_years_school_age", life_years_age[["5-19"]]),
-            cost_item("life_years_working_age", life_years_age[["20-65"]]),
+            cost_item("life_years_working_age", life_years_age[["20-64"]]),
             cost_item("life_years_retirement_age", life_years_age[["65+"]])
           )
         )
