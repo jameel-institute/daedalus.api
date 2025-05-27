@@ -125,19 +125,25 @@ test_that("can run model, get status and results", {
   )
   body <- jsonlite::toJSON(data, auto_unbox = TRUE)
   endpoint_run <- daedalus_api_endpoint(
-    "POST", "/scenario/run", queue_id = queue_id
+    "POST",
+    "/scenario/run",
+    queue_id = queue_id
   )
   endpoint_status <- daedalus_api_endpoint(
-    "GET", "/scenario/status/<run_id:string>", queue_id = queue_id
+    "GET",
+    "/scenario/status/<run_id:string>",
+    queue_id = queue_id
   )
   endpoint_results <- daedalus_api_endpoint(
-    "GET", "/scenario/results/<run_id:string>", queue_id = queue_id
+    "GET",
+    "/scenario/results/<run_id:string>",
+    queue_id = queue_id
   )
 
   # Submit the task, validate that we get back an rrq handle in the
   # response:
   res <- endpoint_run$run(data = body)
-  expect_equal(res$status_code, 200)
+  expect_identical(res$status_code, 200L)
   run_id <- res$data$runId
   expect_match(run_id, "^[0-9a-f]{32}$")
 
@@ -153,20 +159,22 @@ test_that("can run model, get status and results", {
   # data. We also check that the response was validated against the
   # schema:
   res <- endpoint_status$run(run_id)
-  expect_equal(res$status_code, 200)
-  expect_mapequal(res$data, list(
-    runStatus = scalar("complete"),
-    runSuccess = scalar(TRUE),
-    done = scalar(TRUE),
-    runErrors = NULL,
-    runId = scalar(run_id)
-  )
+  expect_identical(res$status_code, 200L)
+  expect_mapequal(
+    res$data,
+    list(
+      runStatus = scalar("complete"),
+      runSuccess = scalar(TRUE),
+      done = scalar(TRUE),
+      runErrors = NULL,
+      runId = scalar(run_id)
+    )
   )
   expect_true(res$validated)
 
   # Fetch the result back:
   res <- endpoint_results$run(run_id)
-  expect_equal(res$status_code, 200)
+  expect_identical(res$status_code, 200L)
   expect_true(res$validated)
 
   # Tests copied from the e2e tests, except that because serialisation

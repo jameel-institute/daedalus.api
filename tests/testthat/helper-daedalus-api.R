@@ -2,9 +2,12 @@ test_queue_id <- function() {
   paste0("daedalus.api.tests.queue-", uuid::UUIDgenerate())
 }
 
-daedalus_api_endpoint <- function(..., validate = TRUE,
-                                  queue_id = NULL,
-                                  separate_process = FALSE) {
+daedalus_api_endpoint <- function(
+  ...,
+  validate = TRUE,
+  queue_id = NULL,
+  separate_process = FALSE
+) {
   queue <- Queue$new(queue_id = queue_id, separate_process = separate_process)
   state <- list(queue = queue)
   porcelain::porcelain_package_endpoint(

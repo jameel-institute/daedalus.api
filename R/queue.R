@@ -1,5 +1,7 @@
 #' Class for managing running jobs on the redis queue
-#' #'
+#'
+#' @importFrom R6 R6Class
+#'
 #' @keywords internal
 Queue <- R6::R6Class(
   "Queue", # nolint
@@ -41,7 +43,7 @@ Queue <- R6::R6Class(
         controller = self$controller
       )
 
-      private$separate_process = separate_process
+      private$separate_process <- separate_process
     },
 
     #' @description
@@ -122,7 +124,6 @@ Queue <- R6::R6Class(
       rrq::rrq_task_result(run_id, controller = self$controller, error = TRUE)
     }
   ),
-
   private = list(
     separate_process = NULL
   )
