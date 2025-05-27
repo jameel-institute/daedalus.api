@@ -13,10 +13,13 @@ system_file <- function(...) {
       system.file(..., mustWork = TRUE, package = "daedalus.api")
     },
     error = function(e) {
-      stop(sprintf(
-        "Failed to locate file from args\n%s",
-        paste(list(...), collapse = " ")
-      ))
+      stop(
+        sprintf(
+          "Failed to locate file from args\n%s",
+          paste(list(...), collapse = " ")
+        ),
+        call. = FALSE
+      )
     }
   )
 }
@@ -96,7 +99,8 @@ validate_parameters <- function(parameters, metadata) {
   if (!pass) {
     stop(
       "The parameters provided do not match required parameters: ",
-      toString(required)
+      toString(required),
+      call. = FALSE
     )
   }
 }
@@ -174,7 +178,7 @@ get_nested_costs <- function(raw_costs) {
 #'
 #' @return A single number value for the annual GDP of a country in terms of
 #' million dollars. Values are in 2018 terms.
-#' @keyword internal
+#' @keywords internal
 get_annual_gdp <- function(country) {
   num_days_year <- 365
 

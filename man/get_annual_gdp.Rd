@@ -19,3 +19,4 @@ million dollars. Values are in 2018 terms.
 \description{
 Convert daily GVA values to annual GDP values.
 }
+\keyword{internal}

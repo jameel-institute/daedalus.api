@@ -1,18 +1,20 @@
-##' Create an daedalus.api server, a porcelain object
-##'
-##' @title Create daedalus.api
-##'
-##' @param validate Logical, indicating if validation should be done
-##'   on responses.  This should be `FALSE` in production
-##'   environments.  See [porcelain::porcelain] for details
-##'
-##' @param log_level Logging level to use. Sensible options are "off",
-##'   "info" and "all".
-##'
-##' @return A [porcelain::porcelain] object. Notably this does *not*
-##'   start the server
-##'
-##' @export
+#' Create an daedalus.api server, a porcelain object
+#'
+#' @title Create daedalus.api
+#'
+#' @param validate Logical, indicating if validation should be done
+#'   on responses.  This should be `FALSE` in production
+#'   environments.  See [porcelain::porcelain] for details
+#'
+#' @param log_level Logging level to use. Sensible options are "off",
+#'   "info" and "all".
+#'
+#' @return A [porcelain::porcelain] object. Notably this does *not*
+#'   start the server
+#'
+#' @keywords api
+#'
+#' @export
 api <- function(validate = NULL, log_level = "info") {
   logger <- make_logger(log_level)
   api <- porcelain::porcelain$new(validate = validate, logger = logger)
@@ -37,7 +39,7 @@ read_metadata_file <- function(metadata_version = "0.1.0") {
   read_local_json(metadata_file)
 }
 
-##' @porcelain GET /metadata => json(metadata)
+#' @porcelain GET /metadata => json(metadata)
 metadata <- function() {
   # JIDEA-62: we will use relevant model version - from qs if specified, else
   # from latest available metadata file. For now get model version from package.

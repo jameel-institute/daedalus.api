@@ -2,14 +2,11 @@
 % Please edit documentation in R/queue.R
 \name{Queue}
 \alias{Queue}
-\title{Class for managing running jobs on the redis queue
-#'}
+\title{Class for managing running jobs on the redis queue}
 \description{
 Class for managing running jobs on the redis queue
-#'
 
 Class for managing running jobs on the redis queue
-#'
 }
 \keyword{internal}
 \section{Public fields}{
@@ -34,7 +31,7 @@ Class for managing running jobs on the redis queue
 \subsection{Method \code{new()}}{
 Initialise redis connection and rrq.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Queue$new()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Queue$new(queue_id = NULL, separate_process = TRUE)}\if{html}{\out{</div>}}
 }
 
 }

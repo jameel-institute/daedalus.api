@@ -23,8 +23,8 @@ It computes the weighted mean of VSL using the demography data as weights.
 }
 \examples{
 \dontrun{
-  avg_vsl <- get_average_vsl("USA")
-  print(avg_vsl)
+avg_vsl <- get_average_vsl("USA")
+print(avg_vsl)
 }
 
 }
