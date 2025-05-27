@@ -113,16 +113,17 @@ test_that("can run model, get status and results", {
   expect_identical(education_total$id, "education")
   life_years_total <- costs_total$children[[3]]
   expect_identical(life_years_total$id, "life_years")
-  ## See test-endpoints.R for context
-  ## expect_equal(
-  ##   costs_total$value,
-  ##   sum(
-  ##     gdp_total$value,
-  ##     education_total$value,
-  ##     life_years_total$value
-  ##   ),
-  ##   tolerance = tolerance
-  ## )
+
+  expect_equal(
+    costs_total$value,
+    sum(
+      gdp_total$value,
+      education_total$value,
+      life_years_total$value
+    ),
+    tolerance = tolerance
+  )
+
   gdp_closures <- gdp_total$children[[1]]
   expect_identical(gdp_closures$id, "gdp_closures")
   gdp_absences <- gdp_total$children[[2]]
