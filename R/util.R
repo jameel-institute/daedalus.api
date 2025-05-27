@@ -114,8 +114,10 @@ get_nested_costs <- function(raw_costs) {
   education_closures <- raw_costs$education_costs$education_cost_closures
   education_absences <- raw_costs$education_costs$education_cost_absences
 
-  life_years <- raw_costs$life_years_lost$life_years_lost_total
-  life_years_age <- raw_costs$life_years_lost$life_years_lost_age
+  # NOTE: daedalus returns life years and values separately;
+  # accessing value here but retaining 'years' as var name
+  life_years <- raw_costs$life_value_lost$life_value_lost_total
+  life_years_age <- raw_costs$life_value_lost$life_value_lost_age
 
   cost_item <- function(id, value, children = NULL) {
     item <- list(id = id, value = value)

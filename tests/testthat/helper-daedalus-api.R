@@ -48,7 +48,7 @@ test_worker_blocking <- function(queue_id, ...) {
 }
 
 daedalus_mock_costs <- function() {
-  life_years_lost_age <- stats::setNames(
+  life_value_lost_age <- stats::setNames(
     c(5, 10, 15, 20),
     c("0-4", "5-19", "20-64", "65+")
   )
@@ -64,9 +64,9 @@ daedalus_mock_costs <- function() {
       education_cost_closures = 10,
       education_cost_absences = 20
     ),
-    life_years_lost = list(
-      life_years_lost_total = 50,
-      life_years_lost_age = life_years_lost_age
+    life_value_lost = list(
+      life_value_lost_total = 50,
+      life_value_lost_age = life_value_lost_age
     )
   )
 }
