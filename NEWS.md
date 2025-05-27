@@ -2,4 +2,6 @@
 
 The changelog for this package begins here.
 
-- Minor update to `model_run()` to use new version of `daedalus()` with hospital capacity parameter moved to `daedalus_country` class.
+- Function `model_run()` uses new version of `daedalus()` with hospital capacity parameter moved to `daedalus_country` class;
+
+- Internal costs function `get_nested_costs()` accesses `<daedalus_output>` member `life_value` for health costs.

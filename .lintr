@@ -1,6 +1,6 @@
 linters: all_linters(
     indentation_linter = NULL, # unstable as of lintr 3.1.0
-    extraction_operator_linter = NULL, # allow R6 syntax from {porcelain}
+    object_overwrite_linter = NULL, # allow useful variable names
     implicit_integer_linter = NULL,
     absolute_path_linter = NULL, # spurious path errors for routes
     nonportable_path_linter = NULL, # ditto
@@ -11,6 +11,12 @@ linters: all_linters(
 exclusions: list(
     "tests/testthat.R" = list(
         unused_import_linter = Inf
+    ),
+    "R/queue.R" = list(
+        object_name_linter = Inf # R6 class name
+    ),
+    "tests/testthat/test-zzz-e2e.R" = list(
+        condition_call_linter = Inf # R6 class method confuses lintr?
     ),
     "R/cpp11.R",
     "R/porcelain.R"
