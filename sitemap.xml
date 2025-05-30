@@ -1,14 +1,15 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
-<url><loc>/404.html</loc></url>
-<url><loc>/LICENSE-text.html</loc></url>
-<url><loc>/LICENSE.html</loc></url>
-<url><loc>/authors.html</loc></url>
-<url><loc>/index.html</loc></url>
-<url><loc>/reference/Queue.html</loc></url>
-<url><loc>/reference/api.html</loc></url>
-<url><loc>/reference/daedalus.api-package.html</loc></url>
-<url><loc>/reference/get_annual_gdp.html</loc></url>
-<url><loc>/reference/get_average_vsl.html</loc></url>
-<url><loc>/reference/index.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/404.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/LICENSE-text.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/LICENSE.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/authors.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/index.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/news/index.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/reference/Queue.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/reference/api.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/reference/daedalus.api-package.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/reference/get_annual_gdp.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/reference/get_average_vsl.html</loc></url>
+<url><loc>https://jameel-institute.github.io/daedalus.api/reference/index.html</loc></url>
 </urlset>
 
