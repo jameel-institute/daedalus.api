@@ -24,7 +24,7 @@
       "description": "Select a pandemic mitigation strategy, comprising closures and other restrictions",
       "parameterType": "select",
       "defaultOption": "none",
-      "ordered": true,
+      "ordered": false,
       "options": [
         { "id": "none",
           "label": "No closures",
