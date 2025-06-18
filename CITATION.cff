@@ -8,13 +8,20 @@ message: 'To cite package "daedalus.api" in publications use:'
 type: software
 license: MIT
 title: 'daedalus.api: Serve the ''daedalus'' model via an API'
-version: 0.0.1
+version: 0.1.4
 abstract: API server for the 'daedalus' model, using 'porcelain' and 'plumber'.
 authors:
 - family-names: Gupte
   given-names: Pratik
   email: p.gupte24@imperial.ac.uk
   orcid: https://orcid.org/0000-0001-5294-7819
+- family-names: Russell
+  given-names: Emma
+- family-names: FitzJohn
+  given-names: Rich
+  orcid: https://orcid.org/0000-0001-8888-3837
+- family-names: Mears
+  given-names: David
 repository-code: https://github.com/jameel-institute/daedalus.api
 url: https://github.com/jameel-institute/daedalus.api
 contact:
@@ -25,16 +32,56 @@ contact:
 references:
 - type: software
   title: daedalus
-  abstract: 'daedalus: Optimise economic, social and health trade-offs in a pandemic'
+  abstract: 'daedalus: Model Health, Social, and Economic Costs of a Pandemic'
   notes: Imports
-  url: https://github.com/j-idea/daedalus
+  url: https://jameel-institute.github.io/daedalus/
   authors:
   - family-names: Gupte
     given-names: Pratik
     email: p.gupte24@imperial.ac.uk
     orcid: https://orcid.org/0000-0001-5294-7819
-  year: '2024'
-  doi: 10.32614/CRAN.package.daedalus
+  - family-names: Doohan
+    given-names: Patrick
+    orcid: https://orcid.org/0000-0001-8076-1106
+  - family-names: Johnson
+    given-names: Robert
+    orcid: https://orcid.org/0000-0002-7365-0042
+  - family-names: Perez-Guzman
+    given-names: Pablo
+    orcid: https://orcid.org/0000-0002-5277-5196
+  - family-names: FitzJohn
+    given-names: Rich
+    orcid: https://orcid.org/0000-0001-8888-3837
+  - family-names: Russell
+    given-names: Emma
+  - family-names: Mears
+    given-names: David
+  - family-names: Hauck
+    given-names: Katharina
+    orcid: https://orcid.org/0000-0003-3138-4169
+  year: '2025'
+  version: '>= 0.1.0'
+- type: software
+  title: daedalus.data
+  abstract: 'daedalus.data: DAEDALUS Data'
+  notes: Imports
+  url: https://jameel-institute.github.io/daedalus.data/
+  authors:
+  - family-names: Perez-Guzman
+    given-names: Pablo
+    email: p.perez-guzman@imperial.ac.uk
+    orcid: https://orcid.org/0000-0002-5277-5196
+  - family-names: Gupte
+    given-names: Pratik
+    email: pratik.gupte@lshtm.ac.uk
+    orcid: https://orcid.org/0000-0001-5294-7819
+  - family-names: Doohan
+    given-names: Patrick
+    orcid: https://orcid.org/0000-0001-8076-1106
+  - family-names: Johnson
+    given-names: Robert
+    orcid: https://orcid.org/0000-0002-7365-0042
+  year: '2025'
 - type: software
   title: docopt
   abstract: 'docopt: Command-Line Interface Specification Language'
@@ -45,8 +92,35 @@ references:
   - family-names: Jonge
     given-names: Edwin
     name-particle: de
-  year: '2024'
+    email: edwindjonge@gmail.com
+    orcid: https://orcid.org/0000-0002-6580-4718
+  year: '2025'
   doi: 10.32614/CRAN.package.docopt
+- type: software
+  title: dplyr
+  abstract: 'dplyr: A Grammar of Data Manipulation'
+  notes: Imports
+  url: https://dplyr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=dplyr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+    orcid: https://orcid.org/0000-0003-4757-117X
+  - family-names: François
+    given-names: Romain
+    orcid: https://orcid.org/0000-0002-2444-4226
+  - family-names: Henry
+    given-names: Lionel
+  - family-names: Müller
+    given-names: Kirill
+    orcid: https://orcid.org/0000-0002-1416-3412
+  - family-names: Vaughan
+    given-names: Davis
+    email: davis@posit.co
+    orcid: https://orcid.org/0000-0003-4777-038X
+  year: '2025'
+  doi: 10.32614/CRAN.package.dplyr
 - type: software
   title: jsonlite
   abstract: 'jsonlite: A Simple and Robust JSON Parser and Generator for R'
@@ -56,9 +130,9 @@ references:
   authors:
   - family-names: Ooms
     given-names: Jeroen
-    email: jeroen@berkeley.edu
+    email: jeroenooms@gmail.com
     orcid: https://orcid.org/0000-0002-4035-0289
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.jsonlite
 - type: software
   title: lgr
@@ -71,7 +145,7 @@ references:
     given-names: Stefan
     email: stefan.b.fleck@gmail.com
     orcid: https://orcid.org/0000-0003-3344-9851
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.lgr
 - type: software
   title: porcelain
@@ -82,8 +156,73 @@ references:
   - family-names: FitzJohn
     given-names: Rich
     email: rich.fitzjohn@gmail.com
-  year: '2024'
-  doi: 10.32614/CRAN.package.porcelain
+  year: '2025'
+- type: software
+  title: R6
+  abstract: 'R6: Encapsulated Classes with Reference Semantics'
+  notes: Imports
+  url: https://r6.r-lib.org
+  repository: https://CRAN.R-project.org/package=R6
+  authors:
+  - family-names: Chang
+    given-names: Winston
+    email: winston@posit.co
+  year: '2025'
+  doi: 10.32614/CRAN.package.R6
+- type: software
+  title: redux
+  abstract: 'redux: R Bindings to ''hiredis'''
+  notes: Imports
+  url: https://github.com/richfitz/redux
+  repository: https://CRAN.R-project.org/package=redux
+  authors:
+  - family-names: FitzJohn
+    given-names: Rich
+    email: rich.fitzjohn@gmail.com
+  year: '2025'
+  doi: 10.32614/CRAN.package.redux
+- type: software
+  title: rrq
+  abstract: 'rrq: Simple Redis Queue'
+  notes: Imports
+  url: https://mrc-ide.github.io/rrq
+  authors:
+  - family-names: FitzJohn
+    given-names: Rich
+    email: rich.fitzjohn@gmail.com
+  - family-names: Ashton
+    given-names: Robert
+  year: '2025'
+  version: '>= 0.7.21'
+- type: software
+  title: stringr
+  abstract: 'stringr: Simple, Consistent Wrappers for Common String Operations'
+  notes: Imports
+  url: https://stringr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=stringr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  year: '2025'
+  doi: 10.32614/CRAN.package.stringr
+- type: software
+  title: tidyr
+  abstract: 'tidyr: Tidy Messy Data'
+  notes: Imports
+  url: https://tidyr.tidyverse.org
+  repository: https://CRAN.R-project.org/package=tidyr
+  authors:
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  - family-names: Vaughan
+    given-names: Davis
+    email: davis@posit.co
+  - family-names: Girlich
+    given-names: Maximilian
+  year: '2025'
+  doi: 10.32614/CRAN.package.tidyr
 - type: software
   title: httr
   abstract: 'httr: Tools for Working with URLs and HTTP'
@@ -94,7 +233,7 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.httr
 - type: software
   title: mockery
@@ -112,7 +251,7 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@rstudio.com
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.mockery
 - type: software
   title: spelling
@@ -123,12 +262,12 @@ references:
   authors:
   - family-names: Ooms
     given-names: Jeroen
-    email: jeroen@berkeley.edu
+    email: jeroenooms@gmail.com
     orcid: https://orcid.org/0000-0002-4035-0289
   - family-names: Hester
     given-names: Jim
     email: james.hester@rstudio.com
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.spelling
 - type: software
   title: testthat
@@ -140,7 +279,48 @@ references:
   - family-names: Wickham
     given-names: Hadley
     email: hadley@posit.co
-  year: '2024'
+  year: '2025'
   doi: 10.32614/CRAN.package.testthat
   version: '>= 3.0.0'
+- type: software
+  title: uuid
+  abstract: 'uuid: Tools for Generating and Handling of UUIDs'
+  notes: Suggests
+  url: https://www.rforge.net/uuid
+  repository: https://CRAN.R-project.org/package=uuid
+  authors:
+  - family-names: Urbanek
+    given-names: Simon
+    email: Simon.Urbanek@r-project.org
+    orcid: https://orcid.org/0000-0003-2297-1732
+  - family-names: Ts'o
+    given-names: Theodore
+    email: tytso@thunk.org
+  year: '2025'
+  doi: 10.32614/CRAN.package.uuid
+- type: software
+  title: withr
+  abstract: 'withr: Run Code ''With'' Temporarily Modified Global State'
+  notes: Suggests
+  url: https://withr.r-lib.org
+  repository: https://CRAN.R-project.org/package=withr
+  authors:
+  - family-names: Hester
+    given-names: Jim
+  - family-names: Henry
+    given-names: Lionel
+    email: lionel@posit.co
+  - family-names: Müller
+    given-names: Kirill
+    email: krlmlr+r@mailbox.org
+  - family-names: Ushey
+    given-names: Kevin
+    email: kevinushey@gmail.com
+  - family-names: Wickham
+    given-names: Hadley
+    email: hadley@posit.co
+  - family-names: Chang
+    given-names: Winston
+  year: '2025'
+  doi: 10.32614/CRAN.package.withr
 
