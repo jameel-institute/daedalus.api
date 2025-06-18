@@ -1,10 +1,15 @@
 Package: daedalus.api
 Title: Serve the 'daedalus' model via an API
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(
     person("Pratik", "Gupte", , "p.gupte24@imperial.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5294-7819")),
-    person("Imperial College of Science, Technology and Medicine", role = "cph")
+    person("Emma", "Russell", role = "aut"),
+    person("Rich", "FitzJohn", role = "aut",
+           comment = c(ORCID = "0000-0001-8888-3837")),
+    person("David", "Mears", role = "aut"),
+    person("Abdul Latif Jameel Institute for Disease and Emergency Analytics", role = "fnd"),
+    person("Imperial College of Science, Technology and Medicine", role = c("cph", "fnd"))
   )
 Description: API server for the 'daedalus' model, using 'porcelain' and
     'plumber'.
@@ -13,11 +18,11 @@ URL: https://github.com/jameel-institute/daedalus.api
 BugReports: https://github.com/jameel-institute/daedalus.api/issues
 Imports: 
     daedalus (>= 0.1.0),
+    daedalus.data,
     docopt,
     dplyr,
     jsonlite,
     lgr,
-    openssl,
     porcelain,
     R6,
     redux,
@@ -33,8 +38,10 @@ Suggests:
     withr
 Remotes:
     jameel-institute/daedalus,
+    jameel-institute/daedalus.data,
     mrc-ide/rrq,
     reside-ic/porcelain
+Config/Needs/website: jameel-institute/jameelinst.rpkg.theme
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-GB

@@ -25,3 +25,4 @@
 ^\.Rproj\.user$
 ^_pkgdown\.yml$
 ^CITATION\.cff$
+^air\.toml$

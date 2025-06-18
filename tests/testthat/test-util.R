@@ -50,19 +50,21 @@ test_that("can get vaccine option description", {
 
 test_that("Get annual GDP", {
   expect_no_condition(
-    lapply(daedalus::country_names, get_annual_gdp)
+    lapply(daedalus.data::country_names, get_annual_gdp)
   )
   expect_gt(
-    min(vapply(daedalus::country_names, get_annual_gdp, numeric(1L))), 0
+    min(vapply(daedalus.data::country_names, get_annual_gdp, numeric(1L))),
+    0
   )
 })
 
 test_that("can get average vsl for countries", {
   expect_no_condition(
-    lapply(daedalus::country_names, get_average_vsl)
+    lapply(daedalus.data::country_names, get_average_vsl)
   )
   expect_gt(
-    min(vapply(daedalus::country_names, get_average_vsl, numeric(1L))), 0
+    min(vapply(daedalus.data::country_names, get_average_vsl, numeric(1L))),
+    0
   )
 })
 
@@ -74,14 +76,15 @@ test_that("calculates correct value of weighted mean of vsl", {
   mock_get_country_data <- mockery::mock(mock_country_data)
   mockery::stub(
     get_average_vsl,
-    "daedalus::daedalus_country", mock_get_country_data
+    "daedalus::daedalus_country",
+    mock_get_country_data
   )
 
   res <- get_average_vsl("CAN")
 
   expect_identical(
     res,
-    weighted.mean(mock_country_data$vsl, mock_country_data$demography)
+    stats::weighted.mean(mock_country_data$vsl, mock_country_data$demography)
   )
 })
 
@@ -91,9 +94,11 @@ test_that("generates expected pathogen description", {
     ifr = ifr,
     r0 = 1.72165
   ))
-  mockery::stub(get_pathogen_description,
-                "daedalus::daedalus_infection",
-                mock_daedalus_infection)
+  mockery::stub(
+    get_pathogen_description,
+    "daedalus::daedalus_infection",
+    mock_daedalus_infection
+  )
 
   res <- get_pathogen_description("sars_cov_1")
   mockery::expect_args(mock_daedalus_infection, 1, "sars_cov_1")

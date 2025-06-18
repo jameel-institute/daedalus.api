@@ -1,10 +1,15 @@
-url: ~
+url: https://jameel-institute.github.io/daedalus.api/
 template:
   bootstrap: 5
+  package: jameelinst.rpkg.theme
 development:
   mode: auto
 reference:
-  - title: All package functions
-    desc: All daedalus.api functions
+  - title: Exported functions
+    desc: All exported daedalus.api functions
     contents:
-    - starts_with("*")
+    - has_keyword("api")
+  - title: Internal functions
+    desc: Internal package functions
+    contents:
+    - has_keyword("internal")

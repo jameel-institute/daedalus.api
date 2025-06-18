@@ -8,9 +8,9 @@ get_average_vsl(country)
 }
 \arguments{
 \item{country}{A string giving a country name
-from among \code{daedalus::country_names} or
-an ISO2 code from among \code{daedalus::country_codes_iso2c} or an ISO3 code
-from among \code{daedalus::country_codes_iso3c}.}
+from among \code{daedalus.data::country_names} or
+an ISO2 code from among \code{daedalus.data::country_codes_iso2c} or an ISO3 code
+from among \code{daedalus.data::country_codes_iso3c}.}
 }
 \value{
 A numeric value representing the average
@@ -23,8 +23,8 @@ It computes the weighted mean of VSL using the demography data as weights.
 }
 \examples{
 \dontrun{
-  avg_vsl <- get_average_vsl("USA")
-  print(avg_vsl)
+avg_vsl <- get_average_vsl("USA")
+print(avg_vsl)
 }
 
 }

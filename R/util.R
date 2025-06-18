@@ -8,12 +8,20 @@ package_version_string <- function(name) {
 
 # Overwrite base function with more informative error
 system_file <- function(...) {
-  tryCatch({
-    system.file(..., mustWork = TRUE, package = "daedalus.api")
-  }, error = function(e) {
-    stop(sprintf("Failed to locate file from args\n%s",
-                 paste(list(...), collapse = " ")))
-  })
+  tryCatch(
+    {
+      system.file(..., mustWork = TRUE, package = "daedalus.api")
+    },
+    error = function(e) {
+      stop(
+        sprintf(
+          "Failed to locate file from args\n%s",
+          paste(list(...), collapse = " ")
+        ),
+        call. = FALSE
+      )
+    }
+  )
 }
 
 read_local_json <- function(filename) {
@@ -44,28 +52,32 @@ get_hospital_capacity_range <- function(default_capacity, step) {
 get_vaccine_option_description <- function(vaccine_option) {
   # get vaccination data from the package for a given global vaccine
   # investment scenario, and generate description (help text) from that
-  vax_data <- daedalus::vaccination_scenario_data[[vaccine_option]]
+  vax_data <- daedalus.data::vaccination_scenario_data[[vaccine_option]]
   stringr::str_glue(
     "An investment level corresponding to: ",
     "vaccine rollout commencing {start} days after the outbreak starts, ",
     "a vaccine administration rate of {rate}% of population per day, ",
     "and an upper limit of vaccine coverage of {coverage}% of the ",
     "general population",
-    start = vax_data$vax_start_time,
-    rate = signif(vax_data$nu, 2),
-    coverage = vax_data$vax_uptake_limit
+    start = vax_data$start_time,
+    rate = signif(vax_data$rate, 2),
+    coverage = vax_data$uptake_limit
   )
 }
 
-get_pathogen_description <-  function(pathogen_id) {
+get_pathogen_description <- function(pathogen_id) {
   # get pathogen information from the package and generate
   # description including R0 and IFR range (across all countries)
   # for the pathogen
 
   infection <- daedalus::daedalus_infection(pathogen_id)
-  country_ifrs <- vapply(daedalus::country_data, function(country) {
-    weighted.mean(infection$ifr, country$demography)
-  }, 1.0)
+  country_ifrs <- vapply(
+    daedalus.data::country_data,
+    function(country) {
+      stats::weighted.mean(infection$ifr, country$demography)
+    },
+    1.0
+  )
   ifr_range <- range(country_ifrs)
   stringr::str_glue(
     "A disease with R0 of {r0} and infection fatality ratio ",
@@ -85,8 +97,11 @@ validate_parameters <- function(parameters, metadata) {
   })
   pass <- identical(sort(parameter_names), sort(unlist(required)))
   if (!pass) {
-    stop("The parameters provided do not match required parameters: ",
-         toString(required))
+    stop(
+      "The parameters provided do not match required parameters: ",
+      toString(required),
+      call. = FALSE
+    )
   }
 }
 
@@ -103,8 +118,10 @@ get_nested_costs <- function(raw_costs) {
   education_closures <- raw_costs$education_costs$education_cost_closures
   education_absences <- raw_costs$education_costs$education_cost_absences
 
-  life_years <- raw_costs$life_years_lost$life_years_lost_total
-  life_years_age <- raw_costs$life_years_lost$life_years_lost_age
+  # NOTE: daedalus returns life years and values separately;
+  # accessing value here but retaining 'years' as var name
+  life_years <- raw_costs$life_value_lost$life_value_lost_total
+  life_years_age <- raw_costs$life_value_lost$life_value_lost_age
 
   cost_item <- function(id, value, children = NULL) {
     item <- list(id = id, value = value)
@@ -115,22 +132,38 @@ get_nested_costs <- function(raw_costs) {
   }
 
   list(
-    cost_item("total", total, list(
-      cost_item("gdp", gdp, list(
-        cost_item("gdp_closures", gdp_closures),
-        cost_item("gdp_absences", gdp_absences)
-      )),
-      cost_item("education", education, list(
-        cost_item("education_closures", education_closures),
-        cost_item("education_absences", education_absences)
-      )),
-      cost_item("life_years", life_years, list(
-        cost_item("life_years_pre_school", life_years_age[["0-4"]]),
-        cost_item("life_years_school_age", life_years_age[["5-19"]]),
-        cost_item("life_years_working_age", life_years_age[["20-65"]]),
-        cost_item("life_years_retirement_age", life_years_age[["65+"]])
-      ))
-    ))
+    cost_item(
+      "total",
+      total,
+      list(
+        cost_item(
+          "gdp",
+          gdp,
+          list(
+            cost_item("gdp_closures", gdp_closures),
+            cost_item("gdp_absences", gdp_absences)
+          )
+        ),
+        cost_item(
+          "education",
+          education,
+          list(
+            cost_item("education_closures", education_closures),
+            cost_item("education_absences", education_absences)
+          )
+        ),
+        cost_item(
+          "life_years",
+          life_years,
+          list(
+            cost_item("life_years_pre_school", life_years_age[["0-4"]]),
+            cost_item("life_years_school_age", life_years_age[["5-19"]]),
+            cost_item("life_years_working_age", life_years_age[["20-64"]]),
+            cost_item("life_years_retirement_age", life_years_age[["65+"]])
+          )
+        )
+      )
+    )
   )
 }
 
@@ -139,13 +172,13 @@ get_nested_costs <- function(raw_costs) {
 #' @description Convert daily GVA values to annual GDP values.
 #'
 #' @param country A string giving a country name
-#' from among `daedalus::country_names` or
-#' an ISO2 code from among `daedalus::country_codes_iso2c` or an ISO3 code
-#' from among `daedalus::country_codes_iso3c`.
+#' from among `daedalus.data::country_names` or
+#' an ISO2 code from among `daedalus.data::country_codes_iso2c` or an ISO3 code
+#' from among `daedalus.data::country_codes_iso3c`.
 #'
 #' @return A single number value for the annual GDP of a country in terms of
 #' million dollars. Values are in 2018 terms.
-#' @keyword internal
+#' @keywords internal
 get_annual_gdp <- function(country) {
   num_days_year <- 365
 
@@ -162,21 +195,21 @@ get_annual_gdp <- function(country) {
 #' It computes the weighted mean of VSL using the demography data as weights.
 #'
 #' @param country A string giving a country name
-#' from among `daedalus::country_names` or
-#' an ISO2 code from among `daedalus::country_codes_iso2c` or an ISO3 code
-#' from among `daedalus::country_codes_iso3c`.
+#' from among `daedalus.data::country_names` or
+#' an ISO2 code from among `daedalus.data::country_codes_iso2c` or an ISO3 code
+#' from among `daedalus.data::country_codes_iso3c`.
 #'
 #' @return A numeric value representing the average
 #' VSL for the specified country.
 #'
 #' @examples
 #' \dontrun{
-#'   avg_vsl <- get_average_vsl("USA")
-#'   print(avg_vsl)
+#' avg_vsl <- get_average_vsl("USA")
+#' print(avg_vsl)
 #' }
 #'
 #' @keywords internal
 get_average_vsl <- function(country) {
-   country_data <- daedalus::daedalus_country(country)
-   weighted.mean(country_data$vsl, country_data$demography)
+  country_data <- daedalus::daedalus_country(country)
+  stats::weighted.mean(country_data$vsl, country_data$demography)
 }

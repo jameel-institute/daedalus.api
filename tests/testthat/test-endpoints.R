@@ -46,27 +46,39 @@ test_that("Can get metadata", {
     "hospital_capacity"
   )
   expect_setequal(
-    vapply(params, function(param) {
-      param$id
-    }, character(1L)),
+    vapply(
+      params,
+      function(param) {
+        param$id
+      },
+      character(1L)
+    ),
     expected_parameters
   )
   country_idx <- match("country", expected_parameters)
   country_options <- params[[country_idx]]$options
-  daedalus_country_codes <- daedalus::country_codes_iso3c
+  daedalus_country_codes <- daedalus.data::country_codes_iso3c
   # expect country ids to match those from daedalus
   expect_identical(
-    vapply(country_options, function(option) {
+    vapply(
+      country_options,
+      function(option) {
         option$id
-    }, character(1)),
+      },
+      character(1)
+    ),
     daedalus_country_codes
   )
   # expect country labels to match those from daedalus
-  daedalus_country_names <- daedalus::country_names
+  daedalus_country_names <- daedalus.data::country_names
   expect_identical(
-    vapply(country_options, function(option) {
-      option$label
-    }, character(1)),
+    vapply(
+      country_options,
+      function(option) {
+        option$label
+      },
+      character(1)
+    ),
     daedalus_country_names
   )
   expect_identical(params[[country_idx]]$defaultOption, "THA")
@@ -87,4 +99,171 @@ test_that("Can get metadata", {
   for (option in pathogen_options) {
     expect_match(option$description, "A disease with R0 of [0-9]")
   }
+})
+
+
+# This adadpts the e2e test with the same name; it could be split
+# further.  The strategy here is that we can produce objects with
+# `daedalus_api_endpoint` that can be used to simulate requests to the
+# api without doing any network requests, or by using a separate
+# process for the server. We can apply the same approach to the rrq
+# workers, by using `rrq_worker` directly to create a blocking worker,
+# and by preventing it using a worker process to run the model.  This
+# approach will mean that errors are easier to intercept, and
+# debugging with `browser()` becomes straightforward.
+test_that("can run model, get status and results", {
+  queue_id <- test_queue_id()
+  data <- list(
+    modelVersion = "0.0.2",
+    parameters = list(
+      country = "GBR",
+      pathogen = "sars_cov_1",
+      response = "economic_closures",
+      vaccine = "low",
+      hospital_capacity = "4500"
+    )
+  )
+  body <- jsonlite::toJSON(data, auto_unbox = TRUE)
+  endpoint_run <- daedalus_api_endpoint(
+    "POST",
+    "/scenario/run",
+    queue_id = queue_id
+  )
+  endpoint_status <- daedalus_api_endpoint(
+    "GET",
+    "/scenario/status/<run_id:string>",
+    queue_id = queue_id
+  )
+  endpoint_results <- daedalus_api_endpoint(
+    "GET",
+    "/scenario/results/<run_id:string>",
+    queue_id = queue_id
+  )
+
+  # Submit the task, validate that we get back an rrq handle in the
+  # response:
+  res <- endpoint_run$run(data = body)
+  expect_identical(res$status_code, 200L)
+  run_id <- res$data$runId
+  expect_match(run_id, "^[0-9a-f]{32}$")
+
+  # Run the job, in process - errors will still be swallowed by the
+  # worker, but there is no need to wait on anything, and the code
+  # used is the dev-mode package.
+  suppressMessages({
+    worker <- test_worker_blocking(queue_id)
+    worker$step(immediate = TRUE)
+  })
+
+  # Retrieve the status, checking the format of the list of returned
+  # data. We also check that the response was validated against the
+  # schema:
+  res <- endpoint_status$run(run_id)
+  expect_identical(res$status_code, 200L)
+  expect_mapequal(
+    res$data,
+    list(
+      runStatus = scalar("complete"),
+      runSuccess = scalar(TRUE),
+      done = scalar(TRUE),
+      runErrors = NULL,
+      runId = scalar(run_id)
+    )
+  )
+  expect_true(res$validated)
+
+  # Fetch the result back:
+  res <- endpoint_results$run(run_id)
+  expect_identical(res$status_code, 200L)
+  expect_true(res$validated)
+
+  # Tests copied from the e2e tests, except that because serialisation
+  # has already happened here (the data element is of class json) we
+  # need to manually deserialise, which can cause some roundtrip
+  # errors
+  results_data <- jsonlite::fromJSON(res$data, simplifyVector = FALSE)
+  expect_gt(length(results_data$costs), 0)
+  expect_gt(length(results_data$capacities), 0)
+  expect_gt(length(results_data$interventions), 0)
+  expect_gt(length(results_data$time_series), 0)
+
+  time_series_length <- length(results_data$time_series$vaccinated)
+  expect_gt(time_series_length, 0)
+  expect_length(results_data$time_series$prevalence, time_series_length)
+  expect_length(results_data$time_series$hospitalised, time_series_length)
+  expect_length(results_data$time_series$dead, time_series_length)
+  expect_length(results_data$time_series$new_infected, time_series_length)
+  expect_length(
+    results_data$time_series$new_hospitalised,
+    time_series_length
+  )
+  expect_length(results_data$time_series$new_dead, time_series_length)
+  expect_length(results_data$time_series$new_vaccinated, time_series_length)
+
+  expect_gt(results_data$gdp, 0)
+  expect_gt(results_data$average_vsl, 0)
+
+  # 5. Test nested costs - values should add up
+  tolerance <- testthat_tolerance()
+  costs_total <- results_data$costs[[1]]
+  expect_identical(costs_total$id, "total")
+  gdp_total <- costs_total$children[[1]]
+  expect_identical(gdp_total$id, "gdp")
+  education_total <- costs_total$children[[2]]
+  expect_identical(education_total$id, "education")
+  life_years_total <- costs_total$children[[3]]
+  expect_identical(life_years_total$id, "life_years")
+
+  expect_equal(
+    costs_total$value,
+    sum(
+      gdp_total$value,
+      education_total$value,
+      life_years_total$value
+    ),
+    tolerance = tolerance
+  )
+
+  gdp_closures <- gdp_total$children[[1]]
+  expect_identical(gdp_closures$id, "gdp_closures")
+  gdp_absences <- gdp_total$children[[2]]
+  expect_identical(gdp_absences$id, "gdp_absences")
+  expect_equal(
+    gdp_total$value,
+    sum(
+      gdp_closures$value,
+      gdp_absences$value
+    ),
+    tolerance = tolerance
+  )
+  education_closures <- education_total$children[[1]]
+  expect_identical(education_closures$id, "education_closures")
+  education_absences <- education_total$children[[2]]
+  expect_identical(education_absences$id, "education_absences")
+  expect_equal(
+    education_total$value,
+    sum(
+      education_closures$value,
+      education_absences$value
+    ),
+    tolerance = tolerance
+  )
+  lifeyears_pre_school <- life_years_total$children[[1]]
+  expect_identical(lifeyears_pre_school$id, "life_years_pre_school")
+  lifeyears_school_age <- life_years_total$children[[2]]
+  expect_identical(lifeyears_school_age$id, "life_years_school_age")
+  lifeyears_working_age <- life_years_total$children[[3]]
+  expect_identical(lifeyears_working_age$id, "life_years_working_age")
+  lifeyears_retirement_age <- life_years_total$children[[4]]
+  expect_identical(lifeyears_retirement_age$id, "life_years_retirement_age")
+  expect_equal(
+    life_years_total$value,
+    sum(
+      lifeyears_pre_school$value,
+      lifeyears_school_age$value,
+      lifeyears_working_age$value,
+      lifeyears_retirement_age$value
+    ),
+    tolerance = tolerance
+  )
 })

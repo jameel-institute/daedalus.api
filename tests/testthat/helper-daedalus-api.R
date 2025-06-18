@@ -1,6 +1,19 @@
-daedalus_api_endpoint <- function(..., validate = TRUE) {
+test_queue_id <- function() {
+  paste0("daedalus.api.tests.queue-", uuid::UUIDgenerate())
+}
+
+daedalus_api_endpoint <- function(
+  ...,
+  validate = TRUE,
+  queue_id = NULL,
+  separate_process = FALSE
+) {
+  queue <- Queue$new(queue_id = queue_id, separate_process = separate_process)
+  state <- list(queue = queue)
   porcelain::porcelain_package_endpoint(
-    "daedalus.api", ...,
+    "daedalus.api",
+    ...,
+    state = state,
     validate = validate
   )
 }
@@ -12,20 +25,36 @@ check_for_redis <- function() {
 
 start_test_queue_with_worker <- function() {
   queue <- Queue$new() # nolint
-  rrq::rrq_worker_spawn(1L, controller = queue$controller,
-                        offload_path = get_results_dir())
+  rrq::rrq_worker_spawn(
+    1L,
+    controller = queue$controller,
+    offload_path = get_results_dir()
+  )
   queue
 }
 
 wait_for_task_complete <- function(run_id, controller, n_tries) {
   rrq::rrq_task_wait(
-    run_id, controller = controller, timeout = n_tries
+    run_id,
+    controller = controller,
+    timeout = n_tries
+  )
+}
+
+test_worker_blocking <- function(queue_id, ...) {
+  rrq::rrq_worker$new(
+    queue_id,
+    offload_path = get_results_dir(),
+    con = get_redis_connection(),
+    ...
   )
 }
 
 daedalus_mock_costs <- function() {
-  life_years_lost_age <- setNames(c(5, 10, 15, 20),
-                                  c("0-4", "5-19", "20-65", "65+"))
+  life_value_lost_age <- stats::setNames(
+    c(5, 10, 15, 20),
+    c("0-4", "5-19", "20-64", "65+")
+  )
   list(
     total_cost = 100,
     economic_costs = list(
@@ -38,9 +67,9 @@ daedalus_mock_costs <- function() {
       education_cost_closures = 10,
       education_cost_absences = 20
     ),
-    life_years_lost = list(
-      life_years_lost_total = 50,
-      life_years_lost_age = life_years_lost_age
+    life_value_lost = list(
+      life_value_lost_total = 50,
+      life_value_lost_age = life_value_lost_age
     )
   )
 }

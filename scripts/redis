@@ -10,6 +10,8 @@ elif [ "$1" = "kill" ]; then
 elif [ "$1" = "restart" ]; then
     docker stop $CONTAINER_NAME || true
     docker run --rm -d --name=$CONTAINER_NAME -p 127.0.0.1:6379:6379 redis
+elif [ "$1" = "clear" ]; then
+    docker exec $CONTAINER_NAME redis-cli FLUSHALL
 else
     echo "Usage: redis <start|stop|restart>"
     exit 1

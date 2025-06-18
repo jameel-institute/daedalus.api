@@ -21,3 +21,4 @@ start the server
 \description{
 Create an daedalus.api server, a porcelain object
 }
+\keyword{api}

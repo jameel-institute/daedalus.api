@@ -1,18 +1,20 @@
-##' Create an daedalus.api server, a porcelain object
-##'
-##' @title Create daedalus.api
-##'
-##' @param validate Logical, indicating if validation should be done
-##'   on responses.  This should be `FALSE` in production
-##'   environments.  See [porcelain::porcelain] for details
-##'
-##' @param log_level Logging level to use. Sensible options are "off",
-##'   "info" and "all".
-##'
-##' @return A [porcelain::porcelain] object. Notably this does *not*
-##'   start the server
-##'
-##' @export
+#' Create an daedalus.api server, a porcelain object
+#'
+#' @title Create daedalus.api
+#'
+#' @param validate Logical, indicating if validation should be done
+#'   on responses.  This should be `FALSE` in production
+#'   environments.  See [porcelain::porcelain] for details
+#'
+#' @param log_level Logging level to use. Sensible options are "off",
+#'   "info" and "all".
+#'
+#' @return A [porcelain::porcelain] object. Notably this does *not*
+#'   start the server
+#'
+#' @keywords api
+#'
+#' @export
 api <- function(validate = NULL, log_level = "info") {
   logger <- make_logger(log_level)
   api <- porcelain::porcelain$new(validate = validate, logger = logger)
@@ -37,11 +39,11 @@ read_metadata_file <- function(metadata_version = "0.1.0") {
   read_local_json(metadata_file)
 }
 
-##' @porcelain GET /metadata => json(metadata)
+#' @porcelain GET /metadata => json(metadata)
 metadata <- function() {
   # JIDEA-62: we will use relevant model version - from qs if specified, else
   # from latest available metadata file. For now get model version from package.
-  model_version <- scalar(as.character(packageVersion("daedalus")))
+  model_version <- scalar(as.character(utils::packageVersion("daedalus")))
   # JIDEA-62: we will read in correct metadata version according to requested
   # model_version
   response <- read_metadata_file()
@@ -58,8 +60,8 @@ metadata <- function() {
 
   # Set available countries from daedalus package
   # JIDEA-62: use the right version of daedalus/model
-  country_names <- daedalus::country_names
-  country_codes <- daedalus::country_codes_iso3c
+  country_names <- daedalus.data::country_names
+  country_codes <- daedalus.data::country_codes_iso3c
 
   country_options <- lapply(seq_along(country_names), function(idx) {
     get_option(country_codes[[idx]], country_names[[idx]])
@@ -88,12 +90,13 @@ metadata <- function() {
   step <- response$parameters[[hospital_capacity_idx]]$step
   # setNames to get json object not array
   hospital_capacities <- lapply(
-    setNames(country_names, country_codes),
+    stats::setNames(country_names, country_codes),
     function(country_name) {
       default <- daedalus::daedalus_country(country_name)$hospital_capacity
 
       get_hospital_capacity_range(default, step)
-  })
+    }
+  )
 
   response$parameters[[hospital_capacity_idx]]$updateNumericFrom <- list(
     parameterId = "country",
@@ -131,7 +134,7 @@ scenario_run <- function(queue, data) {
 #' @porcelain
 #'   GET /scenario/status/<run_id:string> => json(scenarioStatus)
 #'   state queue :: queue
-scenario_status <-  function(queue, run_id) {
+scenario_status <- function(queue, run_id) {
   lapply(queue$get_run_status(run_id), scalar)
 }
 
