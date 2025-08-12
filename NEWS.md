@@ -1,3 +1,9 @@
+# daedalus.api 0.1.5
+
+- Update `model_run()` daedalus model runner to error if a country hospital capacity <= 0 is passed as this reportedly causes run errors;
+
+- Update package to work with _daedalus_ `main`; **NOTE**: not yet working with _daedalus.data_ `main` --- this needs _daedalus_ 0.2.25.
+
 # daedalus.api 0.1.4
 
 - Update metadata for policy responses parameter to denote that this parameter's options are not to be considered as ordered.
