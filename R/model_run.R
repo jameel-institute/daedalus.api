@@ -77,12 +77,19 @@ model_run <- function(parameters, model_version) {
   interventions <- list()
   if (response != "none") {
     closure_info <- model_results$response_data$closure_info
-    closure <- list(
-      id = "response",
-      start = closure_info$closure_times_start,
-      end = closure_info$closure_times_end
+    n_closures <- length(closure_info$closure_durations)
+    closure <- Map(
+      closure_info$closure_times_start,
+      closure_info$closure_times_end,
+      f = function(x, y) {
+        list(
+          id = "response",
+          start = closure_info$closure_times_start,
+          end = closure_info$closure_times_end
+        )
+      }
     )
-    interventions <- list(closure)
+    interventions <- closure
   }
 
   gdp <- get_annual_gdp(country)
