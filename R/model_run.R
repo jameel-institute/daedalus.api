@@ -84,8 +84,8 @@ model_run <- function(parameters, model_version) {
       f = function(x, y) {
         list(
           id = "response",
-          start = closure_info$closure_times_start,
-          end = closure_info$closure_times_end
+          start = x,
+          end = y
         )
       }
     )
