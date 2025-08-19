@@ -41,6 +41,21 @@ in `porcelain.R`. See the [porcelain docs](https://reside-ic.github.io/porcelain
 
 Redis needs to be running for the e2e tests to pass. Use `./scripts/redis start`, and tear down with `./scripts/redis kill.`
 
+### Testing integration with the dashboard
+
+To test the integration of this package within the entire system including the [dashboard](https://github.com/jameel-institute/daedalus-web-app/), use the [daedalus-deploy](https://github.com/jameel-institute/daedalus-deploy/) tool to install and run all images locally, following the README. You should alter the common config file (`daedalus.yml`) so that the API image tag value points to the feature branch of this package that you want to test, e.g.:
+
+```yml
+# daedalus.yml
+api:
+  image:
+    repo: mrcide
+    name: daedalus.api
+    tag: jidea-297
+```
+
+Ensure that your start-up command uses the `--pull` option so that the deploy tool requests the latest versions of the images. Then visit `https://localhost/` in your browser to do your manual testing (ignoring warnings from your browser that the site is not secure).
+
 ## Model versions
 
 The API should be backwards compatible and support running older versions of the model. 
