@@ -32,7 +32,6 @@ Imports:
 Suggests: 
     httr,
     mockery,
-    spelling,
     testthat (>= 3.0.0),
     uuid,
     withr
