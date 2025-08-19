@@ -6,6 +6,11 @@ model_run <- function(parameters, model_version) {
   hospital_capacity <- parameters$hospital_capacity
   hospital_capacity_num <- as.numeric(hospital_capacity)
 
+  # NOTE: this will eventually be replaced with a country class setter method
+  stopifnot(
+    "Hospital capacity must be > 0 but it is not!" = hospital_capacity_num > 0.0
+  )
+
   # manually assign hospital capacity to `country`
   country_obj <- daedalus::daedalus_country(country)
   country_obj$hospital_capacity <- hospital_capacity_num
@@ -72,12 +77,19 @@ model_run <- function(parameters, model_version) {
   interventions <- list()
   if (response != "none") {
     closure_info <- model_results$response_data$closure_info
-    closure <- list(
-      id = "response",
-      start = closure_info$closure_time_start,
-      end = closure_info$closure_time_end
+    n_closures <- length(closure_info$closure_durations)
+    closure <- Map(
+      closure_info$closure_times_start,
+      closure_info$closure_times_end,
+      f = function(x, y) {
+        list(
+          id = "response",
+          start = x,
+          end = y
+        )
+      }
     )
-    interventions <- list(closure)
+    interventions <- closure
   }
 
   gdp <- get_annual_gdp(country)

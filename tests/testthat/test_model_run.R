@@ -5,8 +5,8 @@ test_that("can run model and return results", {
     model_data = mock_model_data,
     response_data = list(
       closure_info = list(
-        closure_time_start = 11,
-        closure_time_end = 79
+        closure_times_start = 11,
+        closure_times_end = 79
       )
     )
   )
