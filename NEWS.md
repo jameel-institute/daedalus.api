@@ -4,7 +4,9 @@
 
 - Update `model_run()` to return separate lists for each model NPI;
 
-- Update package to work with _daedalus_ `main` > 0.2.25.
+- Update package to work with _daedalus_ `main` > 0.2.25;
+
+- Removing spelling checks from tests.
 
 # daedalus.api 0.1.4
 
