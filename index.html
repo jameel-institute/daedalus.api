@@ -24,7 +24,7 @@
     <a href="https://www.imperial.ac.uk/jameel-institute/" class="external-link"><img src="https://raw.githubusercontent.com/jameel-institute/jameelinst.rpkg.theme/refs/heads/main/inst/pkgdown/assets/logo_imperial_jameel.svg" id="logo" alt="Abdul Latif Jameel Institute for Disease and Emergency Analytics"></a>
     <a class="navbar-brand me-2" href="index.html">daedalus.api</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,6 +94,18 @@
 <h2 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
 </h2>
 <p>Redis needs to be running for the e2e tests to pass. Use <code>./scripts/redis start</code>, and tear down with <code>./scripts/redis kill.</code></p>
+<div class="section level3">
+<h3 id="testing-integration-with-the-dashboard">Testing integration with the dashboard<a class="anchor" aria-label="anchor" href="#testing-integration-with-the-dashboard"></a>
+</h3>
+<p>To test the integration of this package within the entire system including the <a href="https://github.com/jameel-institute/daedalus-web-app/" class="external-link">dashboard</a>, use the <a href="https://github.com/jameel-institute/daedalus-deploy/" class="external-link">daedalus-deploy</a> tool to install and run all images locally, following the README. You should alter the common config file (<code>daedalus.yml</code>) so that the API image tag value points to the feature branch of this package that you want to test, e.g.:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># daedalus.yml</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">api</span><span class="kw">:</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="at">  </span><span class="fu">image</span><span class="kw">:</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="at">    </span><span class="fu">repo</span><span class="kw">:</span><span class="at"> mrcide</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="at">    </span><span class="fu">name</span><span class="kw">:</span><span class="at"> daedalus.api</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="at">    </span><span class="fu">tag</span><span class="kw">:</span><span class="at"> jidea-297</span></span></code></pre></div>
+<p>Ensure that your start-up command uses the <code>--pull</code> option so that the deploy tool requests the latest versions of the images. Then visit <code>https://localhost/</code> in your browser to do your manual testing (ignoring warnings from your browser that the site is not secure).</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="model-versions">Model versions<a class="anchor" aria-label="anchor" href="#model-versions"></a>
