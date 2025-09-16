@@ -55,7 +55,7 @@ test_that("can run model and return results", {
   mock_life_years_lost_natural <- mockery::mock(150.5)
   mockery::stub(model_run, "get_life_years_lost_natural", mock_life_years_lost_natural)
   
-  mock_education_lost_natural <- mockery::mock(50000)
+  mock_education_lost_natural <- mockery::mock(4824000)  # Updated value with remote education effectiveness
   mockery::stub(model_run, "get_education_lost_natural", mock_education_lost_natural)
 
   ctx <- "CAN"
@@ -148,5 +148,5 @@ test_that("can run model and return results", {
     "0-4" = 8000, "5-19" = 9000, "20-64" = 12000, "65+" = 6000
   ))
   expect_identical(res$life_years_lost_natural, 150.5)
-  expect_identical(res$education_lost_natural, 50000)
+  expect_identical(res$education_lost_natural, 4824000)
 })

@@ -252,11 +252,13 @@ get_life_years_lost_natural <- function(model_results) {
 #' Get education lost in natural units
 #'
 #' @description This function calculates the total education lost
-#' in natural units (days) from a model run.
+#' in natural units (days) from a model run, accounting for the 
+#' effectiveness of remote education during closures.
 #'
 #' @param model_results A daedalus model output object.
 #'
-#' @return A single numeric value representing the total education days lost.
+#' @return A single numeric value representing the total education days lost
+#' (accounting for reduced effectiveness of remote education).
 #'
 #' @keywords internal
 get_education_lost_natural <- function(model_results) {
@@ -278,9 +280,27 @@ get_education_lost_natural <- function(model_results) {
   # In daedalus, the demographic structure is accessed via the country parameters
   n_students <- model_results$country_parameters$demography[2] # index 2 corresponds to 5-19 age group
   
-  # Calculate total education days lost
+  # Get openness data (sector-specific openness during response)
+  openness <- model_results$response_data$openness
+  education_sector_index <- 41  # i_EDUCATION_SECTOR from constants
+  
+  # Calculate total education days lost accounting for remote education effectiveness
+  # During closures, effective education is: openness + (1-openness) * remote_effectiveness
+  # So education lost is: (1 - openness) * (1 - remote_effectiveness)
+  edu_effectiveness_remote <- 0.33  # from daedalus constants
+  
   total_closure_days <- sum(closure_durations, na.rm = TRUE)
-  total_education_days_lost <- n_students * total_closure_days
+  
+  # Education loss factor during closures
+  if (length(openness) >= education_sector_index) {
+    education_openness <- openness[education_sector_index]
+    education_loss_factor <- (1 - education_openness) * (1 - edu_effectiveness_remote)
+  } else {
+    # Fallback: assume full closure if openness data not available
+    education_loss_factor <- (1 - edu_effectiveness_remote)
+  }
+  
+  total_education_days_lost <- n_students * total_closure_days * education_loss_factor
   
   total_education_days_lost
 }

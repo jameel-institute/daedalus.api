@@ -148,7 +148,8 @@ test_that("can get education lost in natural units with closures", {
     response_data = list(
       closure_info = list(
         closure_durations = c(10, 20, 15)
-      )
+      ),
+      openness = rep(0.2, 45)  # 20% openness across all sectors during closures
     ),
     country_parameters = list(
       demography = c(100000, 200000, 500000, 150000)
@@ -157,8 +158,39 @@ test_that("can get education lost in natural units with closures", {
   
   res <- get_education_lost_natural(mock_model_results)
   
-  expected <- 200000 * 45  # n_students * total_closure_days
-  expect_identical(res, expected)
+  # Expected calculation:
+  # n_students = 200000
+  # total_closure_days = 45
+  # education_openness = 0.2 (for education sector, index 41)
+  # edu_effectiveness_remote = 0.33
+  # education_loss_factor = (1 - 0.2) * (1 - 0.33) = 0.8 * 0.67 = 0.536
+  # total_education_days_lost = 200000 * 45 * 0.536 = 4,824,000
+  expected <- 200000 * 45 * 0.536
+  expect_equal(res, expected, tolerance = 1e-6)
+})
+
+test_that("can get education lost in natural units with openness data unavailable", {
+  mock_model_results <- list(
+    response_data = list(
+      closure_info = list(
+        closure_durations = c(10, 20, 15)
+      ),
+      openness = rep(0.2, 10)  # Only 10 sectors, not enough for education sector (index 41)
+    ),
+    country_parameters = list(
+      demography = c(100000, 200000, 500000, 150000)
+    )
+  )
+  
+  res <- get_education_lost_natural(mock_model_results)
+  
+  # Expected calculation (fallback when openness data insufficient):
+  # n_students = 200000
+  # total_closure_days = 45  
+  # education_loss_factor = (1 - 0.33) = 0.67 (full closure assumption)
+  # total_education_days_lost = 200000 * 45 * 0.67 = 6,030,000
+  expected <- 200000 * 45 * 0.67
+  expect_equal(res, expected, tolerance = 1e-6)
 })
 
 test_that("can get education lost in natural units with no closures", {
