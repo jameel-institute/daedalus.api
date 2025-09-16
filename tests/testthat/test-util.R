@@ -193,6 +193,27 @@ test_that("can get education lost in natural units with openness data unavailabl
   expect_equal(res, expected, tolerance = 1e-6)
 })
 
+test_that("can get education lost in natural units with insufficient demographics", {
+  mock_model_results <- list(
+    response_data = list(
+      closure_info = list(
+        closure_durations = c(10)
+      ),
+      openness = rep(0.5, 45)
+    ),
+    country_parameters = list(
+      demography = c(100000)  # Only one age group, insufficient
+    )
+  )
+  
+  # Expect a warning and result of 0
+  expect_warning(
+    result <- get_education_lost_natural(mock_model_results),
+    "Insufficient demographic data"
+  )
+  expect_identical(result, 0)
+})
+
 test_that("can get education lost in natural units with no closures", {
   mock_model_results <- list(
     response_data = list(

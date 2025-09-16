@@ -229,6 +229,13 @@ get_average_vsl <- function(country) {
 #' @keywords internal
 get_vsl_by_age_sector <- function(country) {
   country_data <- daedalus::daedalus_country(country)
+  
+  # Defensive programming: ensure we have VSL data
+  if (is.null(country_data$vsl) || length(country_data$vsl) != 4) {
+    warning("Invalid VSL data structure for country: ", country)
+    return(c("0-4" = NA, "5-19" = NA, "20-64" = NA, "65+" = NA))
+  }
+  
   vsl_by_age <- country_data$vsl
   names(vsl_by_age) <- c("0-4", "5-19", "20-64", "65+")
   vsl_by_age
@@ -278,7 +285,20 @@ get_education_lost_natural <- function(model_results) {
   
   # Get number of students (school age demographic)
   # In daedalus, the demographic structure is accessed via the country parameters
-  n_students <- model_results$country_parameters$demography[2] # index 2 corresponds to 5-19 age group
+  demography <- model_results$country_parameters$demography
+  
+  # Defensive programming: check if we have enough demographic data
+  if (is.null(demography) || length(demography) < 2) {
+    warning("Insufficient demographic data for education calculation")
+    return(0)
+  }
+  
+  n_students <- demography[2] # index 2 corresponds to 5-19 age group
+  
+  # Handle case where n_students might be NA or NULL
+  if (is.na(n_students) || is.null(n_students)) {
+    return(0)
+  }
   
   # Get openness data (sector-specific openness during response)
   openness <- model_results$response_data$openness
@@ -292,7 +312,7 @@ get_education_lost_natural <- function(model_results) {
   total_closure_days <- sum(closure_durations, na.rm = TRUE)
   
   # Education loss factor during closures
-  if (length(openness) >= education_sector_index) {
+  if (!is.null(openness) && length(openness) >= education_sector_index) {
     education_openness <- openness[education_sector_index]
     education_loss_factor <- (1 - education_openness) * (1 - edu_effectiveness_remote)
   } else {
