@@ -45,6 +45,18 @@ test_that("can run model and return results", {
   mockery::stub(model_run, "get_annual_gdp", mock_get_gdp)
   mock_get_average_vsl <- mockery::mock(10000)
   mockery::stub(model_run, "get_average_vsl", mock_get_average_vsl)
+  
+  # Mock the new helper functions
+  mock_vsl_by_age_sector <- mockery::mock(c(
+    "0-4" = 8000, "5-19" = 9000, "20-64" = 12000, "65+" = 6000
+  ))
+  mockery::stub(model_run, "get_vsl_by_age_sector", mock_vsl_by_age_sector)
+  
+  mock_life_years_lost_natural <- mockery::mock(150.5)
+  mockery::stub(model_run, "get_life_years_lost_natural", mock_life_years_lost_natural)
+  
+  mock_education_lost_natural <- mockery::mock(50000)
+  mockery::stub(model_run, "get_education_lost_natural", mock_education_lost_natural)
 
   ctx <- "CAN"
   hosp_cap <- 4500
@@ -85,7 +97,10 @@ test_that("can run model and return results", {
       "interventions",
       "capacities",
       "gdp",
-      "average_vsl"
+      "average_vsl",
+      "vsl_by_age_sector",
+      "life_years_lost_natural",
+      "education_lost_natural"
     )
   )
   expect_named(
@@ -129,4 +144,9 @@ test_that("can run model and return results", {
   expect_identical(res$capacities[[1]]$value, 4500)
   expect_identical(res$gdp, 9999)
   expect_identical(res$average_vsl, 10000)
+  expect_identical(res$vsl_by_age_sector, c(
+    "0-4" = 8000, "5-19" = 9000, "20-64" = 12000, "65+" = 6000
+  ))
+  expect_identical(res$life_years_lost_natural, 150.5)
+  expect_identical(res$education_lost_natural, 50000)
 })

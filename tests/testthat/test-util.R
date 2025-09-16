@@ -108,3 +108,68 @@ test_that("generates expected pathogen description", {
   )
   expect_identical(res, expected)
 })
+
+test_that("can get VSL by age sector", {
+  mock_country_data <- list(
+    vsl = c(8000, 9000, 12000, 6000),
+    demography = c(0.1, 0.2, 0.3, 0.4)
+  )
+  mock_get_country_data <- mockery::mock(mock_country_data)
+  mockery::stub(
+    get_vsl_by_age_sector,
+    "daedalus::daedalus_country",
+    mock_get_country_data
+  )
+
+  res <- get_vsl_by_age_sector("CAN")
+  
+  expected <- c("0-4" = 8000, "5-19" = 9000, "20-64" = 12000, "65+" = 6000)
+  expect_identical(res, expected)
+})
+
+test_that("can get life years lost in natural units", {
+  mock_life_years_data <- list(value = 150.5)
+  mock_get_life_years_lost <- mockery::mock(mock_life_years_data)
+  mockery::stub(
+    get_life_years_lost_natural,
+    "daedalus::get_life_years_lost",
+    mock_get_life_years_lost
+  )
+  
+  mock_model_results <- list()
+  res <- get_life_years_lost_natural(mock_model_results)
+  
+  expect_identical(res, 150.5)
+  mockery::expect_args(mock_get_life_years_lost, 1, mock_model_results, "none")
+})
+
+test_that("can get education lost in natural units with closures", {
+  mock_model_results <- list(
+    response_data = list(
+      closure_info = list(
+        closure_durations = c(10, 20, 15)
+      )
+    ),
+    country_parameters = list(
+      demography = c(100000, 200000, 500000, 150000)
+    )
+  )
+  
+  res <- get_education_lost_natural(mock_model_results)
+  
+  expected <- 200000 * 45  # n_students * total_closure_days
+  expect_identical(res, expected)
+})
+
+test_that("can get education lost in natural units with no closures", {
+  mock_model_results <- list(
+    response_data = list(
+      closure_info = list(
+        closure_durations = NA
+      )
+    )
+  )
+  
+  res <- get_education_lost_natural(mock_model_results)
+  expect_identical(res, 0)
+})

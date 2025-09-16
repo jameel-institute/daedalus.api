@@ -94,6 +94,15 @@ model_run <- function(parameters, model_version) {
 
   gdp <- get_annual_gdp(country)
   average_vsl <- get_average_vsl(country)
+  
+  # Get VSL values for each age sector
+  vsl_by_age_sector <- get_vsl_by_age_sector(country)
+  
+  # Get life years lost in natural units
+  life_years_lost_natural <- get_life_years_lost_natural(model_results)
+  
+  # Get education lost in natural units
+  education_lost_natural <- get_education_lost_natural(model_results)
 
   results <- list()
   results$parameters <- list(
@@ -114,5 +123,8 @@ model_run <- function(parameters, model_version) {
   )
   results$gdp <- gdp
   results$average_vsl <- average_vsl
+  results$vsl_by_age_sector <- vsl_by_age_sector
+  results$life_years_lost_natural <- life_years_lost_natural
+  results$education_lost_natural <- education_lost_natural
   results
 }

@@ -213,3 +213,74 @@ get_average_vsl <- function(country) {
   country_data <- daedalus::daedalus_country(country)
   stats::weighted.mean(country_data$vsl, country_data$demography)
 }
+
+#' Get Value of Statistical Life (VSL) for each age sector
+#'
+#' @description This function calculates the VSL for each age sector
+#' for a specified country.
+#'
+#' @param country A string giving a country name
+#' from among `daedalus.data::country_names` or
+#' an ISO2 code from among `daedalus.data::country_codes_iso2c` or an ISO3 code
+#' from among `daedalus.data::country_codes_iso3c`.
+#'
+#' @return A named numeric vector with VSL values for each age sector.
+#'
+#' @keywords internal
+get_vsl_by_age_sector <- function(country) {
+  country_data <- daedalus::daedalus_country(country)
+  vsl_by_age <- country_data$vsl
+  names(vsl_by_age) <- c("0-4", "5-19", "20-64", "65+")
+  vsl_by_age
+}
+
+#' Get life years lost in natural units
+#'
+#' @description This function calculates the total life years lost
+#' in natural units (actual years) from a model run.
+#'
+#' @param model_results A daedalus model output object.
+#'
+#' @return A single numeric value representing the total life years lost.
+#'
+#' @keywords internal
+get_life_years_lost_natural <- function(model_results) {
+  life_years_lost_data <- daedalus::get_life_years_lost(model_results, "none")
+  life_years_lost_data$value
+}
+
+#' Get education lost in natural units
+#'
+#' @description This function calculates the total education lost
+#' in natural units (days) from a model run.
+#'
+#' @param model_results A daedalus model output object.
+#'
+#' @return A single numeric value representing the total education days lost.
+#'
+#' @keywords internal
+get_education_lost_natural <- function(model_results) {
+  # Check if there were any closures
+  closure_info <- model_results$response_data$closure_info
+  if (is.null(closure_info) || 
+      all(is.na(closure_info$closure_durations)) || 
+      length(closure_info$closure_durations) == 0) {
+    return(0)
+  }
+  
+  # Get education sector closure durations
+  closure_durations <- closure_info$closure_durations
+  if (all(is.na(closure_durations))) {
+    return(0)
+  }
+  
+  # Get number of students (school age demographic)
+  # In daedalus, the demographic structure is accessed via the country parameters
+  n_students <- model_results$country_parameters$demography[2] # index 2 corresponds to 5-19 age group
+  
+  # Calculate total education days lost
+  total_closure_days <- sum(closure_durations, na.rm = TRUE)
+  total_education_days_lost <- n_students * total_closure_days
+  
+  total_education_days_lost
+}
