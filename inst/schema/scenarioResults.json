@@ -52,8 +52,38 @@
             }
         },
         "gdp": { "type": "number" },
-        "average_vsl": { "type": "number" }
+        "average_vsl": { "type": "number" },
+        "vsl_by_age": {
+            "type": "object",
+            "properties": {
+                "0-4": { "type": "number" },
+                "5-19": { "type": "number" },
+                "20-64": { "type": "number" },
+                "65+": { "type": "number" }
+            },
+            "additionalProperties": false,
+            "required": ["0-4", "5-19", "20-64", "65+"]
+        },
+        "life_years_natural": {
+            "type": "object",
+            "properties": {
+                "total": { "type": "number" },
+                "by_age": {
+                    "type": "object",
+                    "properties": {
+                        "0-4": { "type": "number" },
+                        "5-19": { "type": "number" },
+                        "20-64": { "type": "number" },
+                        "65+": { "type": "number" }
+                    },
+                    "additionalProperties": false,
+                    "required": ["0-4", "5-19", "20-64", "65+"]
+                }
+            },
+            "additionalProperties": false,
+            "required": ["total", "by_age"]
+        }
     },
     "additionalProperties": false,
-    "required": ["runId", "costs", "capacities", "interventions", "time_series", "gdp", "average_vsl"]
+    "required": ["runId", "costs", "capacities", "interventions", "time_series", "gdp", "average_vsl", "vsl_by_age", "life_years_natural"]
 }
