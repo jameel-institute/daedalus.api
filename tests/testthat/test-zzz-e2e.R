@@ -116,35 +116,30 @@ test_that("can run model, get status and results", {
     expect_gt(vsl_by_age[[age_group]], 0)
   }
   
-  # Test natural costs structure (following same pattern as costs)
+  # Test natural costs structure (un-nested life_years)
   expect_true("natural_costs" %in% names(results_data))
   natural_costs <- results_data$natural_costs
-  expect_length(natural_costs, 1L)  # Should have one top-level item
+  expect_length(natural_costs, 1L)  # Should have one top-level item (life_years)
   
-  natural_costs_total <- natural_costs[[1]]
-  expect_identical(natural_costs_total$id, "total")
-  expect_gte(natural_costs_total$value, 0)
-  expect_length(natural_costs_total$children, 1L)  # Should have life_years under total
-  
-  natural_life_years_total <- natural_costs_total$children[[1]]
-  expect_identical(natural_life_years_total$id, "life_years")
-  expect_gte(natural_life_years_total$value, 0)
-  expect_length(natural_life_years_total$children, 4L)  # Should have 4 age groups
+  natural_life_years_item <- natural_costs[[1]]
+  expect_identical(natural_life_years_item$id, "life_years")
+  expect_gte(natural_life_years_item$value, 0)
+  expect_length(natural_life_years_item$children, 4L)  # Should have 4 age groups
   
   # Check age group structure
   expected_life_years_groups <- c("life_years_natural_pre_school", "life_years_natural_school_age", 
                                   "life_years_natural_working_age", "life_years_natural_retirement_age")
-  age_group_ids <- vapply(natural_life_years_total$children, function(x) x$id, character(1))
+  age_group_ids <- vapply(natural_life_years_item$children, function(x) x$id, character(1))
   expect_setequal(age_group_ids, expected_life_years_groups)
   
   # Check that all age group values are non-negative
-  for (age_group_item in natural_life_years_total$children) {
+  for (age_group_item in natural_life_years_item$children) {
     expect_gte(age_group_item$value, 0)
   }
   
   # Check that total equals sum of children
-  age_group_sum <- sum(vapply(natural_life_years_total$children, function(x) x$value, numeric(1)))
-  expect_equal(natural_life_years_total$value, age_group_sum, tolerance = testthat_tolerance())
+  age_group_sum <- sum(vapply(natural_life_years_item$children, function(x) x$value, numeric(1)))
+  expect_equal(natural_life_years_item$value, age_group_sum, tolerance = testthat_tolerance())
 
   # 5. Test nested costs - values should add up
   tolerance <- testthat_tolerance()

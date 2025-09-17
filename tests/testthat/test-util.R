@@ -136,15 +136,13 @@ test_that("get_nested_natural_costs returns correct structure", {
   mock_model_results <- list()  # Not used in the mocked function
   res <- get_nested_natural_costs(mock_model_results)
 
-  # Should return an array with one item (total)
+  # Should return an array with one item (life_years, no total wrapper)
   expect_length(res, 1L)
   
-  total_item <- res[[1]]
-  expect_identical(total_item$id, "total")
-  expect_identical(total_item$value, 1000)  # 100 + 200 + 300 + 400
-  expect_length(total_item$children, 1L)
-  
-  life_years_item <- total_item$children[[1]]
+  life_years_item <- res[[1]]
+  expect_identical(life_years_item$id, "life_years")
+  expect_identical(life_years_item$value, 1000)  # 100 + 200 + 300 + 400
+  expect_length(life_years_item$children, 4L)
   expect_identical(life_years_item$id, "life_years")
   expect_identical(life_years_item$value, 1000)
   expect_length(life_years_item$children, 4L)

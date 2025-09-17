@@ -306,22 +306,16 @@ get_nested_natural_costs <- function(model_results) {
     item
   }
   
-  # Structure: array with total cost item containing life_years breakdown
+  # Structure: array with direct life_years cost item (no total wrapper)
   list(
     cost_item(
-      "total",
+      "life_years",
       total_life_years,
       list(
-        cost_item(
-          "life_years",
-          total_life_years,
-          list(
-            cost_item("life_years_natural_pre_school", life_years_by_age[[1]]),
-            cost_item("life_years_natural_school_age", life_years_by_age[[2]]),
-            cost_item("life_years_natural_working_age", life_years_by_age[[3]]),
-            cost_item("life_years_natural_retirement_age", life_years_by_age[[4]])
-          )
-        )
+        cost_item("life_years_natural_pre_school", life_years_by_age[[1]]),
+        cost_item("life_years_natural_school_age", life_years_by_age[[2]]),
+        cost_item("life_years_natural_working_age", life_years_by_age[[3]]),
+        cost_item("life_years_natural_retirement_age", life_years_by_age[[4]])
       )
     )
   )
