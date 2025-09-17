@@ -86,6 +86,14 @@
       { "id": "life_years_working_age", "label": "Working-age adults" },
       { "id": "life_years_retirement_age", "label": "Retirement-age adults" }
     ],
+    "natural_costs": [
+      { "id": "total", "label": "Total", "description": "Total life years lost", "units": "life years" },
+      { "id": "life_years", "label": "Life years", "description": "Life years lost across all age groups", "units": "life years" },
+      { "id": "life_years_natural_pre_school", "label": "Preschool-age children", "description": "Life years lost in preschool-age children", "units": "life years"},
+      { "id": "life_years_natural_school_age", "label": "School-age children", "description": "Life years lost in school-age children", "units": "life years" },
+      { "id": "life_years_natural_working_age", "label": "Working-age adults", "description": "Life years lost in working-age adults", "units": "life years" },
+      { "id": "life_years_natural_retirement_age", "label": "Retirement-age adults", "description": "Life years lost in retirement-age adults", "units": "life years" }
+    ],
     "capacities": [
       {
         "id": "hospital_capacity",
