@@ -213,3 +213,61 @@ get_average_vsl <- function(country) {
   country_data <- daedalus::daedalus_country(country)
   stats::weighted.mean(country_data$vsl, country_data$demography)
 }
+
+#' Get VSL Values by Age Sector for a Country
+#'
+#' @description This function returns the Value of Statistical Life (VSL) 
+#' values for each age sector for a specified country.
+#'
+#' @param country A string giving a country name
+#' from among `daedalus.data::country_names` or
+#' an ISO2 code from among `daedalus.data::country_codes_iso2c` or an ISO3 code
+#' from among `daedalus.data::country_codes_iso3c`.
+#'
+#' @return A named list with VSL values for each age sector:
+#' "0-4", "5-19", "20-64", "65+"
+#'
+#' @examples
+#' \dontrun{
+#' vsl_by_age <- get_vsl_by_age_sector("USA")
+#' print(vsl_by_age)
+#' }
+#'
+#' @keywords internal
+get_vsl_by_age_sector <- function(country) {
+  country_data <- daedalus::daedalus_country(country)
+  stats::setNames(
+    country_data$vsl,
+    c("0-4", "5-19", "20-64", "65+")
+  )
+}
+
+#' Get Life Years Lost in Natural Units from Model Results
+#'
+#' @description This function extracts the life years lost in absolute
+#' (natural) units from daedalus model results.
+#'
+#' @param model_results A daedalus model result object
+#'
+#' @return A named list with total life years lost and by age sector
+#'
+#' @examples
+#' \dontrun{
+#' life_years_natural <- get_life_years_natural(model_results)
+#' print(life_years_natural)
+#' }
+#'
+#' @keywords internal
+get_life_years_natural <- function(model_results) {
+  # Use daedalus::get_life_years_lost to get natural units
+  life_years_lost <- daedalus::get_life_years_lost(model_results)
+  
+  # Return the structure expected by the API
+  list(
+    total = sum(life_years_lost$life_years_lost),
+    by_age = stats::setNames(
+      life_years_lost$life_years_lost,
+      c("0-4", "5-19", "20-64", "65+")
+    )
+  )
+}

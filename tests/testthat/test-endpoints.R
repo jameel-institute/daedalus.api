@@ -203,6 +203,28 @@ test_that("can run model, get status and results", {
   expect_gt(results_data$gdp, 0)
   expect_gt(results_data$average_vsl, 0)
 
+  # Test new fields: VSL by age sector and natural life years
+  expect_true("vsl_by_age" %in% names(results_data))
+  expect_true("life_years_natural" %in% names(results_data))
+  
+  # Test VSL by age sector structure
+  vsl_by_age <- results_data$vsl_by_age
+  expected_age_groups <- c("0-4", "5-19", "20-64", "65+")
+  expect_setequal(names(vsl_by_age), expected_age_groups)
+  for (age_group in expected_age_groups) {
+    expect_gt(vsl_by_age[[age_group]], 0)
+  }
+  
+  # Test natural life years structure
+  life_years_natural <- results_data$life_years_natural
+  expect_true("total" %in% names(life_years_natural))
+  expect_true("by_age" %in% names(life_years_natural))
+  expect_gte(life_years_natural$total, 0)
+  expect_setequal(names(life_years_natural$by_age), expected_age_groups)
+  for (age_group in expected_age_groups) {
+    expect_gte(life_years_natural$by_age[[age_group]], 0)
+  }
+
   # 5. Test nested costs - values should add up
   tolerance <- testthat_tolerance()
   costs_total <- results_data$costs[[1]]

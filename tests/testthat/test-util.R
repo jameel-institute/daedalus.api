@@ -88,6 +88,62 @@ test_that("calculates correct value of weighted mean of vsl", {
   )
 })
 
+test_that("can get vsl by age sector for countries", {
+  expect_no_condition(
+    lapply(daedalus.data::country_names, get_vsl_by_age_sector)
+  )
+  
+  # Test that all countries return positive VSL values for all age sectors
+  vsl_results <- lapply(daedalus.data::country_names, get_vsl_by_age_sector)
+  for (vsl_by_age in vsl_results) {
+    expect_setequal(names(vsl_by_age), c("0-4", "5-19", "20-64", "65+"))
+    expect_true(all(vsl_by_age > 0))
+  }
+})
+
+test_that("vsl by age sector returns correct structure", {
+  mock_country_data <- list(
+    vsl = c(1000, 2000, 3000, 4000),
+    demography = c(0.1, 0.2, 0.3, 0.4)
+  )
+  mock_get_country_data <- mockery::mock(mock_country_data)
+  mockery::stub(
+    get_vsl_by_age_sector,
+    "daedalus::daedalus_country",
+    mock_get_country_data
+  )
+
+  res <- get_vsl_by_age_sector("CAN")
+
+  expected <- stats::setNames(
+    c(1000, 2000, 3000, 4000),
+    c("0-4", "5-19", "20-64", "65+")
+  )
+  expect_identical(res, expected)
+})
+
+test_that("get_life_years_natural returns correct structure", {
+  mock_life_years_lost <- list(
+    life_years_lost = c(100, 200, 300, 400)
+  )
+  mock_get_life_years_lost <- mockery::mock(mock_life_years_lost)
+  mockery::stub(
+    get_life_years_natural,
+    "daedalus::get_life_years_lost",
+    mock_get_life_years_lost
+  )
+
+  mock_model_results <- list()  # Not used in the mocked function
+  res <- get_life_years_natural(mock_model_results)
+
+  expect_identical(res$total, 1000)  # 100 + 200 + 300 + 400
+  expected_by_age <- stats::setNames(
+    c(100, 200, 300, 400),
+    c("0-4", "5-19", "20-64", "65+")
+  )
+  expect_identical(res$by_age, expected_by_age)
+})
+
 test_that("generates expected pathogen description", {
   ifr <- c(0.1, 0.2, 0.3, 0.4)
   mock_daedalus_infection <- mockery::mock(list(
