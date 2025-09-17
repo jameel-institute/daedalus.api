@@ -209,9 +209,9 @@ test_that("can run model, get status and results", {
   
   # Test VSL by age sector structure
   vsl_by_age <- results_data$vsl_by_age
-  expected_age_groups <- c("0-4", "5-19", "20-64", "65+")
-  expect_setequal(names(vsl_by_age), expected_age_groups)
-  for (age_group in expected_age_groups) {
+  expected_vsl_groups <- c("vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age")
+  expect_setequal(names(vsl_by_age), expected_vsl_groups)
+  for (age_group in expected_vsl_groups) {
     expect_gt(vsl_by_age[[age_group]], 0)
   }
   
@@ -220,8 +220,10 @@ test_that("can run model, get status and results", {
   expect_true("total" %in% names(life_years_natural))
   expect_true("by_age" %in% names(life_years_natural))
   expect_gte(life_years_natural$total, 0)
-  expect_setequal(names(life_years_natural$by_age), expected_age_groups)
-  for (age_group in expected_age_groups) {
+  expected_life_years_groups <- c("life_years_natural_pre_school", "life_years_natural_school_age", 
+                                  "life_years_natural_working_age", "life_years_natural_retirement_age")
+  expect_setequal(names(life_years_natural$by_age), expected_life_years_groups)
+  for (age_group in expected_life_years_groups) {
     expect_gte(life_years_natural$by_age[[age_group]], 0)
   }
 

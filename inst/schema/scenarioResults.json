@@ -56,13 +56,13 @@
         "vsl_by_age": {
             "type": "object",
             "properties": {
-                "0-4": { "type": "number" },
-                "5-19": { "type": "number" },
-                "20-64": { "type": "number" },
-                "65+": { "type": "number" }
+                "vsl_pre_school": { "type": "number" },
+                "vsl_school_age": { "type": "number" },
+                "vsl_working_age": { "type": "number" },
+                "vsl_retirement_age": { "type": "number" }
             },
             "additionalProperties": false,
-            "required": ["0-4", "5-19", "20-64", "65+"]
+            "required": ["vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age"]
         },
         "life_years_natural": {
             "type": "object",
@@ -71,13 +71,13 @@
                 "by_age": {
                     "type": "object",
                     "properties": {
-                        "0-4": { "type": "number" },
-                        "5-19": { "type": "number" },
-                        "20-64": { "type": "number" },
-                        "65+": { "type": "number" }
+                        "life_years_natural_pre_school": { "type": "number" },
+                        "life_years_natural_school_age": { "type": "number" },
+                        "life_years_natural_working_age": { "type": "number" },
+                        "life_years_natural_retirement_age": { "type": "number" }
                     },
                     "additionalProperties": false,
-                    "required": ["0-4", "5-19", "20-64", "65+"]
+                    "required": ["life_years_natural_pre_school", "life_years_natural_school_age", "life_years_natural_working_age", "life_years_natural_retirement_age"]
                 }
             },
             "additionalProperties": false,

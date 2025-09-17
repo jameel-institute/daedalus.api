@@ -225,7 +225,7 @@ get_average_vsl <- function(country) {
 #' from among `daedalus.data::country_codes_iso3c`.
 #'
 #' @return A named list with VSL values for each age sector:
-#' "0-4", "5-19", "20-64", "65+"
+#' "vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age"
 #'
 #' @examples
 #' \dontrun{
@@ -238,7 +238,7 @@ get_vsl_by_age_sector <- function(country) {
   country_data <- daedalus::daedalus_country(country)
   stats::setNames(
     country_data$vsl,
-    c("0-4", "5-19", "20-64", "65+")
+    c("vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age")
   )
 }
 
@@ -267,7 +267,8 @@ get_life_years_natural <- function(model_results) {
     total = sum(life_years_lost$life_years_lost),
     by_age = stats::setNames(
       life_years_lost$life_years_lost,
-      c("0-4", "5-19", "20-64", "65+")
+      c("life_years_natural_pre_school", "life_years_natural_school_age", 
+        "life_years_natural_working_age", "life_years_natural_retirement_age")
     )
   )
 }

@@ -96,7 +96,7 @@ test_that("can get vsl by age sector for countries", {
   # Test that all countries return positive VSL values for all age sectors
   vsl_results <- lapply(daedalus.data::country_names, get_vsl_by_age_sector)
   for (vsl_by_age in vsl_results) {
-    expect_setequal(names(vsl_by_age), c("0-4", "5-19", "20-64", "65+"))
+    expect_setequal(names(vsl_by_age), c("vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age"))
     expect_true(all(vsl_by_age > 0))
   }
 })
@@ -117,7 +117,7 @@ test_that("vsl by age sector returns correct structure", {
 
   expected <- stats::setNames(
     c(1000, 2000, 3000, 4000),
-    c("0-4", "5-19", "20-64", "65+")
+    c("vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age")
   )
   expect_identical(res, expected)
 })
@@ -139,7 +139,7 @@ test_that("get_life_years_natural returns correct structure", {
   expect_identical(res$total, 1000)  # 100 + 200 + 300 + 400
   expected_by_age <- stats::setNames(
     c(100, 200, 300, 400),
-    c("0-4", "5-19", "20-64", "65+")
+    c("life_years_natural_pre_school", "life_years_natural_school_age", "life_years_natural_working_age", "life_years_natural_retirement_age")
   )
   expect_identical(res$by_age, expected_by_age)
 })
