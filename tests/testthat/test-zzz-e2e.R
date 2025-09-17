@@ -102,14 +102,16 @@ test_that("can run model, get status and results", {
   expect_length(results_data$time_series$new_vaccinated, time_series_length)
 
   expect_gt(results_data$gdp, 0)
-  expect_gt(results_data$average_vsl, 0)
 
-  # Test new fields: VSL by age sector and natural life years
-  expect_true("vsl_by_age" %in% names(results_data))
-  expect_true("life_years_natural" %in% names(results_data))
+  # Test new nested VSL structure
+  expect_true("vsl" %in% names(results_data))
+  vsl_data <- results_data$vsl
+  expect_true("average" %in% names(vsl_data))
+  expect_true("by_age" %in% names(vsl_data))
+  expect_gt(vsl_data$average, 0)
   
   # Test VSL by age sector structure
-  vsl_by_age <- results_data$vsl_by_age
+  vsl_by_age <- vsl_data$by_age
   expected_vsl_groups <- c("vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age")
   expect_setequal(names(vsl_by_age), expected_vsl_groups)
   for (age_group in expected_vsl_groups) {

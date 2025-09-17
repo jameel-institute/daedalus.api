@@ -58,19 +58,26 @@
             }
         },
         "gdp": { "type": "number" },
-        "average_vsl": { "type": "number" },
-        "vsl_by_age": {
+        "vsl": {
             "type": "object",
             "properties": {
-                "vsl_pre_school": { "type": "number" },
-                "vsl_school_age": { "type": "number" },
-                "vsl_working_age": { "type": "number" },
-                "vsl_retirement_age": { "type": "number" }
+                "average": { "type": "number" },
+                "by_age": {
+                    "type": "object",
+                    "properties": {
+                        "vsl_pre_school": { "type": "number" },
+                        "vsl_school_age": { "type": "number" },
+                        "vsl_working_age": { "type": "number" },
+                        "vsl_retirement_age": { "type": "number" }
+                    },
+                    "additionalProperties": false,
+                    "required": ["vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age"]
+                }
             },
             "additionalProperties": false,
-            "required": ["vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age"]
+            "required": ["average", "by_age"]
         }
     },
     "additionalProperties": false,
-    "required": ["runId", "costs", "natural_costs", "capacities", "interventions", "time_series", "gdp", "average_vsl", "vsl_by_age"]
+    "required": ["runId", "costs", "natural_costs", "capacities", "interventions", "time_series", "gdp", "vsl"]
 }
