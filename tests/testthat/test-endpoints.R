@@ -202,19 +202,17 @@ test_that("can run model, get status and results", {
 
   expect_gt(results_data$gdp, 0)
 
-  # Test new nested VSL structure
+  # Test flattened VSL structure
   expect_true("vsl" %in% names(results_data))
   vsl_data <- results_data$vsl
   expect_true("average" %in% names(vsl_data))
-  expect_true("by_age" %in% names(vsl_data))
   expect_gt(vsl_data$average, 0)
   
-  # Test VSL by age sector structure
-  vsl_by_age <- vsl_data$by_age
+  # Test VSL age sector fields are directly in vsl object
   expected_vsl_groups <- c("pre_school", "school_age", "working_age", "retirement_age")
-  expect_setequal(names(vsl_by_age), expected_vsl_groups)
+  expect_true(all(expected_vsl_groups %in% names(vsl_data)))
   for (age_group in expected_vsl_groups) {
-    expect_gt(vsl_by_age[[age_group]], 0)
+    expect_gt(vsl_data[[age_group]], 0)
   }
   
   # Test natural costs structure (un-nested life_years)

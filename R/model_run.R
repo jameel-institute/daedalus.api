@@ -116,10 +116,9 @@ model_run <- function(parameters, model_version) {
     )
   )
   results$gdp <- gdp
-  results$vsl <- list(
-    average = average_vsl,
-    by_age = vsl_by_age
+  results$vsl <- c(
+    list(average = average_vsl),
+    vsl_by_age
   )
-  results
   results
 }

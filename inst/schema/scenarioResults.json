@@ -62,20 +62,13 @@
             "type": "object",
             "properties": {
                 "average": { "type": "number" },
-                "by_age": {
-                    "type": "object",
-                    "properties": {
-                        "pre_school": { "type": "number" },
-                        "school_age": { "type": "number" },
-                        "working_age": { "type": "number" },
-                        "retirement_age": { "type": "number" }
-                    },
-                    "additionalProperties": false,
-                    "required": ["pre_school", "school_age", "working_age", "retirement_age"]
-                }
+                "pre_school": { "type": "number" },
+                "school_age": { "type": "number" },
+                "working_age": { "type": "number" },
+                "retirement_age": { "type": "number" }
             },
             "additionalProperties": false,
-            "required": ["average", "by_age"]
+            "required": ["average", "pre_school", "school_age", "working_age", "retirement_age"]
         }
     },
     "additionalProperties": false,
