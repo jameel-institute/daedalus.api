@@ -65,13 +65,13 @@
                 "by_age": {
                     "type": "object",
                     "properties": {
-                        "vsl_pre_school": { "type": "number" },
-                        "vsl_school_age": { "type": "number" },
-                        "vsl_working_age": { "type": "number" },
-                        "vsl_retirement_age": { "type": "number" }
+                        "pre_school": { "type": "number" },
+                        "school_age": { "type": "number" },
+                        "working_age": { "type": "number" },
+                        "retirement_age": { "type": "number" }
                     },
                     "additionalProperties": false,
-                    "required": ["vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age"]
+                    "required": ["pre_school", "school_age", "working_age", "retirement_age"]
                 }
             },
             "additionalProperties": false,

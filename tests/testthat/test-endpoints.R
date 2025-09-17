@@ -211,7 +211,7 @@ test_that("can run model, get status and results", {
   
   # Test VSL by age sector structure
   vsl_by_age <- vsl_data$by_age
-  expected_vsl_groups <- c("vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age")
+  expected_vsl_groups <- c("pre_school", "school_age", "working_age", "retirement_age")
   expect_setequal(names(vsl_by_age), expected_vsl_groups)
   for (age_group in expected_vsl_groups) {
     expect_gt(vsl_by_age[[age_group]], 0)

@@ -6,7 +6,8 @@
             "properties": {
                 "id": { "type": "string" },
                 "label": { "type": "string" },
-                "description": { "type": ["string", "null"] }
+                "description": { "type": ["string", "null"] },
+                "units": { "type": "string" }
             },
             "additionalProperties": false,
             "required": ["id", "label"]
@@ -76,6 +77,12 @@
               "$ref": "#/$defs/displayInfo"
             }
           },
+          "natural_costs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayInfo"
+            }
+          },
           "capacities": {
             "type": "array",
             "items": {
@@ -115,7 +122,7 @@
           }
         },
         "additionalProperties": false,
-        "required": ["costs", "capacities", "interventions", "time_series"]
+        "required": ["costs", "natural_costs", "capacities", "interventions", "time_series"]
       }
     },
     "additionalProperties": false,
