@@ -272,3 +272,57 @@ get_life_years_natural <- function(model_results) {
     )
   )
 }
+
+#' Get Natural Costs in Nested Structure
+#'
+#' @description This function creates a nested cost structure for natural
+#' life years lost, following the same format as get_nested_costs.
+#'
+#' @param model_results A daedalus model result object
+#'
+#' @return A list with cost_item structure for natural costs
+#'
+#' @examples
+#' \dontrun{
+#' natural_costs <- get_nested_natural_costs(model_results)
+#' print(natural_costs)
+#' }
+#'
+#' @keywords internal
+get_nested_natural_costs <- function(model_results) {
+  # Get life years lost in natural units
+  life_years_lost <- daedalus::get_life_years_lost(model_results)
+  
+  # Calculate totals
+  total_life_years <- sum(life_years_lost$life_years_lost)
+  life_years_by_age <- life_years_lost$life_years_lost
+  
+  # Helper function to create cost items (same as in get_nested_costs)
+  cost_item <- function(id, value, children = NULL) {
+    item <- list(id = id, value = value)
+    if (!is.null(children)) {
+      item$children <- children
+    }
+    item
+  }
+  
+  # Structure: array with total cost item containing life_years breakdown
+  list(
+    cost_item(
+      "total",
+      total_life_years,
+      list(
+        cost_item(
+          "life_years",
+          total_life_years,
+          list(
+            cost_item("life_years_natural_pre_school", life_years_by_age[[1]]),
+            cost_item("life_years_natural_school_age", life_years_by_age[[2]]),
+            cost_item("life_years_natural_working_age", life_years_by_age[[3]]),
+            cost_item("life_years_natural_retirement_age", life_years_by_age[[4]])
+          )
+        )
+      )
+    )
+  )
+}

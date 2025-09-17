@@ -122,26 +122,41 @@ test_that("vsl by age sector returns correct structure", {
   expect_identical(res, expected)
 })
 
-test_that("get_life_years_natural returns correct structure", {
+test_that("get_nested_natural_costs returns correct structure", {
   mock_life_years_lost <- list(
     life_years_lost = c(100, 200, 300, 400)
   )
   mock_get_life_years_lost <- mockery::mock(mock_life_years_lost)
   mockery::stub(
-    get_life_years_natural,
+    get_nested_natural_costs,
     "daedalus::get_life_years_lost",
     mock_get_life_years_lost
   )
 
   mock_model_results <- list()  # Not used in the mocked function
-  res <- get_life_years_natural(mock_model_results)
+  res <- get_nested_natural_costs(mock_model_results)
 
-  expect_identical(res$total, 1000)  # 100 + 200 + 300 + 400
-  expected_by_age <- stats::setNames(
-    c(100, 200, 300, 400),
-    c("life_years_natural_pre_school", "life_years_natural_school_age", "life_years_natural_working_age", "life_years_natural_retirement_age")
-  )
-  expect_identical(res$by_age, expected_by_age)
+  # Should return an array with one item (total)
+  expect_length(res, 1L)
+  
+  total_item <- res[[1]]
+  expect_identical(total_item$id, "total")
+  expect_identical(total_item$value, 1000)  # 100 + 200 + 300 + 400
+  expect_length(total_item$children, 1L)
+  
+  life_years_item <- total_item$children[[1]]
+  expect_identical(life_years_item$id, "life_years")
+  expect_identical(life_years_item$value, 1000)
+  expect_length(life_years_item$children, 4L)
+  
+  # Check age group items
+  age_group_ids <- vapply(life_years_item$children, function(x) x$id, character(1))
+  expected_ids <- c("life_years_natural_pre_school", "life_years_natural_school_age", 
+                    "life_years_natural_working_age", "life_years_natural_retirement_age")
+  expect_setequal(age_group_ids, expected_ids)
+  
+  age_group_values <- vapply(life_years_item$children, function(x) x$value, numeric(1))
+  expect_equal(age_group_values, c(100, 200, 300, 400))
 })
 
 test_that("generates expected pathogen description", {

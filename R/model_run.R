@@ -95,7 +95,7 @@ model_run <- function(parameters, model_version) {
   gdp <- get_annual_gdp(country)
   average_vsl <- get_average_vsl(country)
   vsl_by_age <- get_vsl_by_age_sector(country)
-  life_years_natural <- get_life_years_natural(model_results)
+  natural_costs <- get_nested_natural_costs(model_results)
 
   results <- list()
   results$parameters <- list(
@@ -106,6 +106,7 @@ model_run <- function(parameters, model_version) {
     hospital_capacity = hospital_capacity
   )
   results$costs <- costs
+  results$natural_costs <- natural_costs
   results$time_series <- time_series
   results$interventions <- interventions
   results$capacities <- list(
@@ -117,6 +118,6 @@ model_run <- function(parameters, model_version) {
   results$gdp <- gdp
   results$average_vsl <- average_vsl
   results$vsl_by_age <- vsl_by_age
-  results$life_years_natural <- life_years_natural
+  results
   results
 }

@@ -17,6 +17,12 @@
                 "$ref": "scenarioCost.json"
             }
         },
+        "natural_costs": {
+            "type": "array",
+            "items": {
+                "$ref": "scenarioCost.json"
+            }
+        },
         "capacities": {
             "type": "array",
             "items": {
@@ -63,27 +69,8 @@
             },
             "additionalProperties": false,
             "required": ["vsl_pre_school", "vsl_school_age", "vsl_working_age", "vsl_retirement_age"]
-        },
-        "life_years_natural": {
-            "type": "object",
-            "properties": {
-                "total": { "type": "number" },
-                "by_age": {
-                    "type": "object",
-                    "properties": {
-                        "life_years_natural_pre_school": { "type": "number" },
-                        "life_years_natural_school_age": { "type": "number" },
-                        "life_years_natural_working_age": { "type": "number" },
-                        "life_years_natural_retirement_age": { "type": "number" }
-                    },
-                    "additionalProperties": false,
-                    "required": ["life_years_natural_pre_school", "life_years_natural_school_age", "life_years_natural_working_age", "life_years_natural_retirement_age"]
-                }
-            },
-            "additionalProperties": false,
-            "required": ["total", "by_age"]
         }
     },
     "additionalProperties": false,
-    "required": ["runId", "costs", "capacities", "interventions", "time_series", "gdp", "average_vsl", "vsl_by_age", "life_years_natural"]
+    "required": ["runId", "costs", "natural_costs", "capacities", "interventions", "time_series", "gdp", "average_vsl", "vsl_by_age"]
 }
