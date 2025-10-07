@@ -213,3 +213,25 @@ get_average_vsl <- function(country) {
   country_data <- daedalus::daedalus_country(country)
   stats::weighted.mean(country_data$vsl, country_data$demography)
 }
+
+#' @name costs_to_display
+#'
+#' @description
+#' `cost_item()` is a helper function that prepares list elements in the format
+#' `"id"`, `"value"`, `"children"`.
+#'
+#' @param id String description of list name.
+#'
+#' @param value List contents.
+#'
+#' @param children Nested lists contained within the top-level list, if any.
+#' Defaults to `NULL`.
+#'
+#' @keywords internal
+cost_item <- function(id, value, children = NULL) {
+  item <- list(id = id, value = value)
+  if (!is.null(children)) {
+    item$children <- children
+  }
+  item
+}
