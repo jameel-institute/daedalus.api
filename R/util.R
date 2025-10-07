@@ -166,6 +166,51 @@ get_nested_costs <- function(raw_costs) {
     )
   )
 }
+
+#' @name costs_to_display
+#'
+#' @inheritParams costs_to_display
+#'
+#' @keywords internal
+get_nested_natural_costs <- function(raw_costs) {
+  # a grand total doesn't make sense as units are incomparable
+  # all totals are for nested elements
+
+  life_years_lost <- get_life_years_lost(raw_costs)
+
+  # this list only has meaningful sub-lists, top level id and value are dummies
+  list(
+    cost_item(
+      "total",
+      NULL,
+      list(
+        cost_item(
+          "life_years",
+          life_years_lost$life_years_lost_total,
+          list(
+            cost_item(
+              "life_years_pre_school",
+              life_years_lost$life_years_age[["0-4"]]
+            ),
+            cost_item(
+              "life_years_school_age",
+              life_years_lost$life_years_age[["5-19"]]
+            ),
+            cost_item(
+              "life_years_working_age",
+              life_years_lost$life_years_age[["20-64"]]
+            ),
+            cost_item(
+              "life_years_retirement_age",
+              life_years_lost$life_years_age[["65+"]]
+            )
+          )
+        )
+      )
+    )
+  )
+}
+
 #' @name costs_to_display
 #'
 #' @keywords internal
