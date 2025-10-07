@@ -105,9 +105,29 @@ validate_parameters <- function(parameters, metadata) {
   }
 }
 
+#' Prepare Daedalus costs output for display
+#'
+#' @description
+#' `get_nested_costs()` and `get_nested_natural_costs()` prepare daedalus costs
+#' outputs for display. `get_natural_costs()` currently only prepares life-years
+#' lost but may include other costs in their natural units in future.
+#'
+#' @name costs_to_display
+#' @rdname costs_to_display
+#'
+#' @param raw_costs A list resulting from a call to `daedalus::get_costs()` on
+#' a `<daedalus_output>` class object.
+#'
+#' @return A recursive nested list with the elements `"id"` and `"value"`
+#' typically with a string and numeric value respectively.
+#' Additionally, a `"children"` list element may be present containing another
+#' list with the same recursive structure.
+#' The lowest level list within `"children"` has no `"children"` element.
+#'
+#' @keywords internal
 get_nested_costs <- function(raw_costs) {
-  # Reshape raw costs from the package into a nested structure
-  # or display in the web app
+  # Reshape raw costs from a call to `daedalus::get_costs()` into a nested
+  # structure for display in the web app
   total <- raw_costs$total_cost
 
   gdp <- raw_costs$economic_costs$economic_cost_total
