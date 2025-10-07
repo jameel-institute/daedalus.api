@@ -166,6 +166,18 @@ get_nested_costs <- function(raw_costs) {
     )
   )
 }
+#' @name costs_to_display
+#'
+#' @keywords internal
+get_life_years_lost <- function(raw_costs) {
+  life_years_age <- raw_costs$life_years_lost$life_years_lost_age
+  total <- sum(life_years_age)
+
+  list(
+    life_years_lost_total = total,
+    life_years_age = life_years_age
+  )
+}
 
 #' Get annual GDP from DAEDALUS country data
 #'
