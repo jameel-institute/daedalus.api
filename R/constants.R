@@ -1,0 +1,31 @@
+#' Output constants
+#'
+#' @name constants
+#' @rdname constants
+#'
+#' @keywords constants
+RESULT_NAMES <- c(
+  "parameters",
+  "costs",
+  "costs_natural",
+  "time_series",
+  "interventions",
+  "capacities",
+  "gdp",
+  "age_vsl",
+  "average_vsl"
+)
+
+#' @name constants
+#'
+#' @keywords constants
+TIMESERIES_NAMES <- c(
+  "prevalence",
+  "hospitalised",
+  "dead",
+  "vaccinated",
+  "new_infected",
+  "new_hospitalised",
+  "new_dead",
+  "new_vaccinated"
+)
