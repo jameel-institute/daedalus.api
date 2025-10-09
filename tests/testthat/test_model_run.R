@@ -78,28 +78,11 @@ test_that("can run model and return results", {
 
   expect_named(
     res,
-    c(
-      "parameters",
-      "costs",
-      "time_series",
-      "interventions",
-      "capacities",
-      "gdp",
-      "average_vsl"
-    )
+    RESULT_NAMES
   )
   expect_named(
     res$time_series,
-    c(
-      "prevalence",
-      "hospitalised",
-      "dead",
-      "vaccinated",
-      "new_infected",
-      "new_hospitalised",
-      "new_dead",
-      "new_vaccinated"
-    )
+    TIMESERIES_NAMES
   )
   expect_identical(res$time_series$prevalence, c(28L, 87L))
   expect_identical(res$time_series$hospitalised, c(11L, 31L))

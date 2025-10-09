@@ -52,6 +52,7 @@
             }
         },
         "gdp": { "type": "number" },
+        "age_vsl": { "type": "array" },
         "average_vsl": { "type": "number" }
     },
     "additionalProperties": false,

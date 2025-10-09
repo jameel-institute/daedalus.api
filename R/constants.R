@@ -7,7 +7,6 @@
 RESULT_NAMES <- c(
   "parameters",
   "costs",
-  "costs_natural",
   "time_series",
   "interventions",
   "capacities",
