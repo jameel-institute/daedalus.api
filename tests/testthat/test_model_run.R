@@ -38,12 +38,19 @@ test_that("can run model and return results", {
     mock_new_vaccinations_result
   )
 
+  # Mock output of `model_run()`
   mock_costs_data <- daedalus_mock_costs()
+
   mock_get_costs <- mockery::mock(mock_costs_data)
   mockery::stub(model_run, "daedalus::get_costs", mock_get_costs)
+
   mock_get_gdp <- mockery::mock(9999)
   mockery::stub(model_run, "get_annual_gdp", mock_get_gdp)
+
   mock_get_average_vsl <- mockery::mock(10000)
+  mockery::stub(model_run, "get_average_vsl", mock_get_average_vsl)
+
+  mock_get_age_vsl <- mockery::mock(c(500, 1000, 1500, 2000))
   mockery::stub(model_run, "get_average_vsl", mock_get_average_vsl)
 
   ctx <- "CAN"
@@ -84,6 +91,7 @@ test_that("can run model and return results", {
     res$time_series,
     TIMESERIES_NAMES
   )
+
   expect_identical(res$time_series$prevalence, c(28L, 87L))
   expect_identical(res$time_series$hospitalised, c(11L, 31L))
   expect_identical(res$time_series$dead, c(15L, 37L))
@@ -96,6 +104,7 @@ test_that("can run model and return results", {
     mock_new_vaccinations_result$new_vaccinations
   )
   expect_identical(res$parameters, parameters)
+
   expect_nested_mock_costs(res$costs)
   expect_identical(
     res$interventions,
