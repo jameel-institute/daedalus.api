@@ -94,7 +94,7 @@ model_run <- function(parameters, model_version) {
 
   # get country information
   gdp <- get_annual_gdp(country)
-  age_vsl <- daedalus::daedalus_country(country)$vsl # VSL by age group
+  age_vsl <- get_age_vsl(country)
   average_vsl <- get_average_vsl(country)
 
   results <- list()

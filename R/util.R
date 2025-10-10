@@ -282,7 +282,19 @@ get_annual_gdp <- function(country) {
 #' @keywords internal
 get_average_vsl <- function(country) {
   country_data <- daedalus::daedalus_country(country)
-  stats::weighted.mean(country_data$vsl, country_data$demography)
+  age_vsl <- daedalus::get_data(country_data, "vsl")
+  demography <- daedalus::get_data(country_data, "demography")
+  
+  stats::weighted.mean(age_vsl, demography)
+}
+
+#' Get age-specific VSL
+#'
+#' @keywords internal
+get_age_vsl <- function(country) {
+  country_data <- daedalus::daedalus_country(country)
+  
+  daedalus::get_data(country_data, "vsl")
 }
 
 #' @name costs_to_display
