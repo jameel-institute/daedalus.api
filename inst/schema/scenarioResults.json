@@ -57,10 +57,10 @@
             "properties": {
                 "average": { "type": "number" },
             },
-            "additionalProperties": { "type": "string" },
+            "additionalProperties": { "type": "number" },
             "required": ["average"]
         }
     },
     "additionalProperties": false,
-    "required": ["runId", "costs", "capacities", "interventions", "time_series", "gdp", "average_vsl"]
+    "required": ["runId", "costs", "capacities", "interventions", "time_series", "gdp", "vsl"]
 }
