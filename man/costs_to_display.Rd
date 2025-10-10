@@ -3,14 +3,11 @@
 \name{costs_to_display}
 \alias{costs_to_display}
 \alias{get_nested_costs}
-\alias{get_nested_natural_costs}
 \alias{get_life_years_lost}
 \alias{cost_item}
 \title{Prepare Daedalus costs output for display}
 \usage{
 get_nested_costs(raw_costs)
-
-get_nested_natural_costs(raw_costs)
 
 get_life_years_lost(raw_costs)
 

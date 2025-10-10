@@ -284,7 +284,7 @@ get_average_vsl <- function(country) {
   country_data <- daedalus::daedalus_country(country)
   age_vsl <- daedalus::get_data(country_data, "vsl")
   demography <- daedalus::get_data(country_data, "demography")
-  
+
   stats::weighted.mean(age_vsl, demography)
 }
 
@@ -293,7 +293,7 @@ get_average_vsl <- function(country) {
 #' @keywords internal
 get_age_vsl <- function(country) {
   country_data <- daedalus::daedalus_country(country)
-  
+
   daedalus::get_data(country_data, "vsl")
 }
 

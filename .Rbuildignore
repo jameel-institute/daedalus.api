@@ -26,3 +26,6 @@
 ^_pkgdown\.yml$
 ^CITATION\.cff$
 ^air\.toml$
+
+^daedalus$
+^scratch\.R$
