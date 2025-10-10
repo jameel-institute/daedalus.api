@@ -52,8 +52,14 @@
             }
         },
         "gdp": { "type": "number" },
-        "age_vsl": { "type": "array" },
-        "average_vsl": { "type": "number" }
+        "vsl": {
+            "type": "object",
+            "properties": {
+                "average": { "type": "number" },
+            },
+            "additionalProperties": { "type": "string" },
+            "required": ["average"]
+        }
     },
     "additionalProperties": false,
     "required": ["runId", "costs", "capacities", "interventions", "time_series", "gdp", "average_vsl"]

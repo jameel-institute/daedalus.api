@@ -77,7 +77,7 @@
               "$ref": "#/$defs/displayInfo"
             }
           },
-          "natural_costs": {
+          "metrics": {
             "type": "array",
             "items": {
               "$ref": "#/$defs/displayInfo"
@@ -122,7 +122,7 @@
           }
         },
         "additionalProperties": false,
-        "required": ["costs", "natural_costs", "capacities", "interventions", "time_series"]
+        "required": ["costs", "metrics", "capacities", "interventions", "time_series"]
       }
     },
     "additionalProperties": false,
