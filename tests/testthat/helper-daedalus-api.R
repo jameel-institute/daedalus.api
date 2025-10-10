@@ -50,11 +50,15 @@ test_worker_blocking <- function(queue_id, ...) {
   )
 }
 
+# Helper function that provides dummy output whose form matches a call
+# to `daedalus::get_costs(<daedalus_output>)`
 daedalus_mock_costs <- function() {
   life_value_lost_age <- stats::setNames(
     c(5, 10, 15, 20),
     c("0-4", "5-19", "20-64", "65+")
   )
+  life_years_lost_age <- life_value_lost_age * 100
+
   list(
     total_cost = 100,
     economic_costs = list(
@@ -70,6 +74,10 @@ daedalus_mock_costs <- function() {
     life_value_lost = list(
       life_value_lost_total = 50,
       life_value_lost_age = life_value_lost_age
+    ),
+    life_years_lost = list(
+      life_value_lost_total = 5000,
+      life_years_lost_age = life_years_lost_age
     )
   )
 }
