@@ -4,6 +4,8 @@
 
 - Updates to results schema `scenarioResults.json` to return the age-specific VSL for countries.
 
+- Updates to metadata schema to return metric and value for costs with multiple units.
+
 - Added results list names and time-series names as package constants.
 
 - Moved `cost_item()` function from inline helper to internal package function.

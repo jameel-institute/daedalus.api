@@ -51,7 +51,7 @@ test_that("can run model and return results", {
   mockery::stub(model_run, "get_average_vsl", mock_get_average_vsl)
 
   mock_get_age_vsl <- mockery::mock(c(500, 1000, 1500, 2000))
-  mockery::stub(model_run, "get_average_vsl", mock_get_average_vsl)
+  mockery::stub(model_run, "get_age_vsl", mock_get_age_vsl)
 
   ctx <- "CAN"
   hosp_cap <- 4500
@@ -120,5 +120,14 @@ test_that("can run model and return results", {
   expect_identical(res$capacities[[1]]$id, "hospital_capacity")
   expect_identical(res$capacities[[1]]$value, 4500)
   expect_identical(res$gdp, 9999)
-  expect_identical(res$average_vsl, 10000)
+  expect_identical(
+    res$vsl,
+    list(
+      average = 10000,
+      pre_school = 500,
+      school_age = 1000,
+      working_age = 1500,
+      retirement_age = 2000
+    )
+  )
 })

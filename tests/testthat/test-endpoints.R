@@ -201,7 +201,11 @@ test_that("can run model, get status and results", {
   expect_length(results_data$time_series$new_vaccinated, time_series_length)
 
   expect_gt(results_data$gdp, 0)
-  expect_gt(results_data$average_vsl, 0)
+  expect_true(
+    all(
+      vapply(results_data$vsl, `>`, logical(1), 0)
+    )
+  )
 
   # 5. Test nested costs - values should add up
   tolerance <- testthat_tolerance()
