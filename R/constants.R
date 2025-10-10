@@ -11,8 +11,7 @@ RESULT_NAMES <- c(
   "interventions",
   "capacities",
   "gdp",
-  "age_vsl",
-  "average_vsl"
+  "vsl"
 )
 
 #' @name constants
