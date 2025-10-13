@@ -115,112 +115,38 @@ test_that("can run model, get status and results", {
   # 5. Test nested costs - values should add up
   tolerance <- testthat_tolerance()
   costs_total <- results_data$costs[[1]]
+
   expect_identical(costs_total$id, "total")
+  expect_nested_names(
+    costs_total,
+    c("gdp", "education", "life_years")
+  )
+  expect_nested_value_sum(costs_total)
+
   gdp_total <- costs_total$children[[1]]
-  expect_identical(gdp_total$id, "gdp")
+  expect_nested_names(
+    gdp_total,
+    c("gdp_closures", "gdp_absences")
+  )
+  expect_nested_value_sum(gdp_total)
+
   education_total <- costs_total$children[[2]]
-  expect_identical(education_total$id, "education")
+  expect_nested_names(
+    education_total,
+    c("education_closures", "education_absences")
+  )
+  expect_nested_value_sum(education_total)
+
   life_years_total <- costs_total$children[[3]]
-  expect_identical(life_years_total$id, "life_years")
-
-  # NOTE: costs need to be calculated manually as values are more deeply nested
-  total_costs_manual <- list(
-    gdp_total$values,
-    education_total$values,
-    life_years_total$values
-  )
-  total_costs_manual <- sum(
-    vapply(
-      total_costs_manual,
-      function(x) x[[1]][["value"]],
-      numeric(1)
+  expect_nested_value_sum(life_years_total, 1)
+  expect_nested_value_sum(life_years_total, 2) # check sum in life years
+  expect_nested_names(
+    life_years_total,
+    c(
+      "life_years_pre_school",
+      "life_years_school_age",
+      "life_years_working_age",
+      "life_years_retirement_age"
     )
-  )
-
-  expect_equal(
-    costs_total$values[[1]]$value,
-    total_costs_manual,
-    tolerance = tolerance
-  )
-
-  gdp_closures <- gdp_total$children[[1]]
-  expect_identical(gdp_closures$id, "gdp_closures")
-  gdp_absences <- gdp_total$children[[2]]
-  expect_identical(gdp_absences$id, "gdp_absences")
-
-  total_gdp_manual <- list(
-    gdp_closures$values,
-    gdp_absences$values
-  )
-  total_gdp_manual <- sum(
-    vapply(
-      total_gdp_manual,
-      function(x) x[[1]][["value"]],
-      numeric(1)
-    )
-  )
-  expect_equal(
-    gdp_total$values[[1]]$value,
-    total_gdp_manual,
-    tolerance = tolerance
-  )
-
-  education_closures <- education_total$children[[1]]
-  expect_identical(education_closures$id, "education_closures")
-  education_absences <- education_total$children[[2]]
-  expect_identical(education_absences$id, "education_absences")
-
-  total_education_manual <- list(
-    education_closures$values,
-    education_absences$values
-  )
-  total_education_manual <- sum(
-    vapply(
-      total_education_manual,
-      function(x) x[[1]][["value"]],
-      numeric(1)
-    )
-  )
-  expect_equal(
-    education_total$value[[1]]$value,
-    total_education_manual,
-    tolerance = tolerance
-  )
-
-  lifeyears_pre_school <- life_years_total$children[[1]]
-  expect_identical(lifeyears_pre_school$id, "life_years_pre_school")
-  lifeyears_school_age <- life_years_total$children[[2]]
-  expect_identical(lifeyears_school_age$id, "life_years_school_age")
-  lifeyears_working_age <- life_years_total$children[[3]]
-  expect_identical(lifeyears_working_age$id, "life_years_working_age")
-  lifeyears_retirement_age <- life_years_total$children[[4]]
-  expect_identical(lifeyears_retirement_age$id, "life_years_retirement_age")
-
-  # Prepare values in different units; [[1]] USD, [[2]] life years
-  life_years <- list(
-    lifeyears_pre_school$value,
-    lifeyears_school_age$value,
-    lifeyears_working_age$value,
-    lifeyears_retirement_age$value
-  )
-  life_years <- purrr::list_transpose(
-    purrr::map_depth(
-      life_years,
-      2,
-      `[[`,
-      "value"
-    )
-  )
-  life_years <- purrr::map_dbl(life_years, sum)
-
-  expect_equal(
-    life_years_total$value[[1]]$value,
-    life_years[[1]],
-    tolerance = tolerance
-  )
-  expect_equal(
-    life_years_total$value[[2]]$value,
-    life_years[[2]],
-    tolerance = tolerance
   )
 })

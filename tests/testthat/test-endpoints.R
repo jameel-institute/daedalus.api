@@ -281,40 +281,16 @@ test_that("can run model, get status and results", {
     tolerance = tolerance
   )
 
-  lifeyears_pre_school <- life_years_total$children[[1]]
-  expect_identical(lifeyears_pre_school$id, "life_years_pre_school")
-  lifeyears_school_age <- life_years_total$children[[2]]
-  expect_identical(lifeyears_school_age$id, "life_years_school_age")
-  lifeyears_working_age <- life_years_total$children[[3]]
-  expect_identical(lifeyears_working_age$id, "life_years_working_age")
-  lifeyears_retirement_age <- life_years_total$children[[4]]
-  expect_identical(lifeyears_retirement_age$id, "life_years_retirement_age")
-
-  # Prepare values in different units; [[1]] USD, [[2]] life years
-  life_years <- list(
-    lifeyears_pre_school$value,
-    lifeyears_school_age$value,
-    lifeyears_working_age$value,
-    lifeyears_retirement_age$value
-  )
-  life_years <- purrr::list_transpose(
-    purrr::map_depth(
-      life_years,
-      2,
-      `[[`,
-      "value"
+  # See internal package tests in "R/tests.R"
+  expect_nested_value_sum(life_years_total, 1)
+  expect_nested_value_sum(life_years_total, 2)
+  expect_nested_names(
+    life_years_total,
+    c(
+      "life_years_pre_school",
+      "life_years_school_age",
+      "life_years_working_age",
+      "life_years_retirement_age"
     )
-  )
-  life_years <- purrr::map_dbl(life_years, sum)
-
-  expect_equal(
-    life_years_total$value[[1]]$value,
-    life_years[[1]],
-    tolerance = tolerance
-  )
-  expect_equal(
-    life_years_total$value[[2]]$value,
-    life_years[[2]],
-    tolerance = tolerance
   )
 })

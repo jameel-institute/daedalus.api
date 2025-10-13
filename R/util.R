@@ -148,8 +148,8 @@ get_nested_costs <- function(raw_costs) {
   life_years_age <- life_years_data$life_years_age
 
   # NOTE: the direct output of this function does not validate against
-  # inst/scenarioCosts.json; the exact reason for returning a list rather than a
-  # cost_item() output is unknown.
+  # inst/scenarioCosts.json; this fn returns a list rather than a
+  # cost_item() output to leave open the option of multiple top-level costs
   list(
     cost_item(
       "total",
