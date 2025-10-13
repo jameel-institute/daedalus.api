@@ -153,68 +153,71 @@ get_nested_costs <- function(raw_costs) {
   list(
     cost_item(
       "total",
-      list(list(metric = "usd", value = total)),
+      list(list(metric = "usd_millions", value = total)),
       list(
         cost_item(
           "gdp",
-          list(list(metric = "usd", value = gdp)),
+          list(list(metric = "usd_millions", value = gdp)),
           list(
             cost_item(
               "gdp_closures",
-              list(list(metric = "usd", value = gdp_closures))
+              list(list(metric = "usd_millions", value = gdp_closures))
             ),
             cost_item(
               "gdp_absences",
-              list(list(metric = "usd", value = gdp_absences))
+              list(list(metric = "usd_millions", value = gdp_absences))
             )
           )
         ),
         cost_item(
           "education",
-          list(list(metric = "usd", value = education)),
+          list(list(metric = "usd_millions", value = education)),
           list(
             cost_item(
               "education_closures",
-              list(list(metric = "usd", value = education_closures))
+              list(list(metric = "usd_millions", value = education_closures))
             ),
             cost_item(
               "education_absences",
-              list(list(metric = "usd", value = education_absences))
+              list(list(metric = "usd_millions", value = education_absences))
             )
           )
         ),
         cost_item(
           "life_years",
           list(
-            list(metric = "usd", value = life_value_total),
+            list(metric = "usd_millions", value = life_value_total),
             list(metric = "life_years", value = life_years_total)
           ),
           list(
             cost_item(
               "life_years_pre_school",
               list(
-                list(metric = "usd", value = life_value_age[["0-4"]]),
+                list(metric = "usd_millions", value = life_value_age[["0-4"]]),
                 list(metric = "life_years", value = life_years_age[["0-4"]])
               )
             ),
             cost_item(
               "life_years_school_age",
               list(
-                list(metric = "usd", value = life_value_age[["5-19"]]),
+                list(metric = "usd_millions", value = life_value_age[["5-19"]]),
                 list(metric = "life_years", value = life_years_age[["5-19"]])
               )
             ),
             cost_item(
               "life_years_working_age",
               list(
-                list(metric = "usd", value = life_value_age[["20-64"]]),
+                list(
+                  metric = "usd_millions",
+                  value = life_value_age[["20-64"]]
+                ),
                 list(metric = "life_years", value = life_years_age[["20-64"]])
               )
             ),
             cost_item(
               "life_years_retirement_age",
               list(
-                list(metric = "usd", value = life_value_age[["65+"]]),
+                list(metric = "usd_millions", value = life_value_age[["65+"]]),
                 list(metric = "life_years", value = life_years_age[["65+"]])
               )
             )
@@ -305,7 +308,7 @@ get_age_vsl <- function(country) {
 #'
 #' @param id String description of list name.
 #'
-#' @param value List contents.
+#' @param values List contents.
 #'
 #' @param children Nested lists contained within the top-level list, if any.
 #' Defaults to `NULL`.

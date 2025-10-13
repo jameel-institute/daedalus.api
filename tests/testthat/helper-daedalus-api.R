@@ -90,35 +90,44 @@ expect_nested_mock_costs <- function(costs) {
   expect_identical(total$id, "total")
   expect_identical(
     total$value,
-    list(list(metric = "usd", value = 100))
+    list(list(metric = "usd_millions", value = 100))
   )
   expect_length(total$children, 3L)
 
   gdp <- total$children[[1]]
   expect_identical(gdp$id, "gdp")
-  expect_identical(gdp$value, list(list(metric = "usd", value = 20)))
+  expect_identical(gdp$value, list(list(metric = "usd_millions", value = 20)))
   expect_length(gdp$children, 2L)
 
   gdp_closures <- gdp$children[[1]]
   expect_identical(gdp_closures$id, "gdp_closures")
-  expect_identical(gdp_closures$value, list(list(metric = "usd", value = 5)))
+  expect_identical(
+    gdp_closures$value,
+    list(list(metric = "usd_millions", value = 5))
+  )
   expect_false("children" %in% names(gdp_closures))
 
   gdp_absences <- gdp$children[[2]]
   expect_identical(gdp_absences$id, "gdp_absences")
-  expect_identical(gdp_absences$value, list(list(metric = "usd", value = 15)))
+  expect_identical(
+    gdp_absences$value,
+    list(list(metric = "usd_millions", value = 15))
+  )
   expect_false("children" %in% names(gdp_absences))
 
   education <- total$children[[2]]
   expect_identical(education$id, "education")
-  expect_identical(education$value, list(list(metric = "usd", value = 30)))
+  expect_identical(
+    education$value,
+    list(list(metric = "usd_millions", value = 30))
+  )
   expect_length(education$children, 2L)
 
   education_closures <- education$children[[1]]
   expect_identical(education_closures$id, "education_closures")
   expect_identical(
     education_closures$value,
-    list(list(metric = "usd", value = 10))
+    list(list(metric = "usd_millions", value = 10))
   )
   expect_false("children" %in% names(education_closures))
 
@@ -126,7 +135,7 @@ expect_nested_mock_costs <- function(costs) {
   expect_identical(education_absences$id, "education_absences")
   expect_identical(
     education_absences$value,
-    list(list(metric = "usd", value = 20))
+    list(list(metric = "usd_millions", value = 20))
   )
   expect_false("children" %in% names(education_absences))
 
@@ -135,7 +144,7 @@ expect_nested_mock_costs <- function(costs) {
   expect_identical(
     life_years$value,
     list(
-      list(metric = "usd", value = 50),
+      list(metric = "usd_millions", value = 50),
       list(metric = "life_years", value = 5000)
     )
   )
@@ -146,7 +155,7 @@ expect_nested_mock_costs <- function(costs) {
   expect_identical(
     life_years_pre_school$value,
     list(
-      list(metric = "usd", value = 5),
+      list(metric = "usd_millions", value = 5),
       list(metric = "life_years", value = 500)
     )
   )
@@ -157,7 +166,7 @@ expect_nested_mock_costs <- function(costs) {
   expect_identical(
     life_years_school_age$value,
     list(
-      list(metric = "usd", value = 10),
+      list(metric = "usd_millions", value = 10),
       list(metric = "life_years", value = 1000)
     )
   )
@@ -168,7 +177,7 @@ expect_nested_mock_costs <- function(costs) {
   expect_identical(
     life_years_working_age$value,
     list(
-      list(metric = "usd", value = 15),
+      list(metric = "usd_millions", value = 15),
       list(metric = "life_years", value = 1500)
     )
   )
@@ -179,7 +188,7 @@ expect_nested_mock_costs <- function(costs) {
   expect_identical(
     life_years_retirement_age$value,
     list(
-      list(metric = "usd", value = 20),
+      list(metric = "usd_millions", value = 20),
       list(metric = "life_years", value = 2000)
     )
   )

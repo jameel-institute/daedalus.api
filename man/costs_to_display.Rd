@@ -19,10 +19,10 @@ a \verb{<daedalus_output>} class object.}
 
 \item{id}{String description of list name.}
 
+\item{values}{List contents.}
+
 \item{children}{Nested lists contained within the top-level list, if any.
 Defaults to \code{NULL}.}
-
-\item{value}{List contents.}
 }
 \value{
 A recursive nested list with the elements \code{"id"} and \code{"value"}

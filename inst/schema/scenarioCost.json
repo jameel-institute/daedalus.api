@@ -13,7 +13,7 @@
                     "metric": {
                         "type": "string",
                         "enum": [
-                            "usd",
+                            "usd_millions",
                             "life_years"
                         ]
                     },
