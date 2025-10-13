@@ -87,7 +87,7 @@
       { "id": "life_years_retirement_age", "label": "Retirement-age adults" }
     ],
     "metrics": [
-      { "id": "usd", "label": "USD" },
+      { "id": "usd_millions", "label": "USD" },
       { "id": "life_years", "label": "life years" }
     ],
     "capacities": [

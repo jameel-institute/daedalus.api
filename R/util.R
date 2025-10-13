@@ -119,7 +119,7 @@ validate_parameters <- function(parameters, metadata) {
 #' a `<daedalus_output>` class object.
 #'
 #' @return A recursive nested list with the elements `"id"` and `"value"`
-#' typically with a string and numeric value respectively.
+#' with a string and numeric value respectively.
 #' Additionally, a `"children"` list element may be present containing another
 #' list with the same recursive structure.
 #' The lowest level list within `"children"` has no `"children"` element.
@@ -311,8 +311,8 @@ get_age_vsl <- function(country) {
 #' Defaults to `NULL`.
 #'
 #' @keywords internal
-cost_item <- function(id, value, children = NULL) {
-  item <- list(id = id, values = value)
+cost_item <- function(id, values, children = NULL) {
+  item <- list(id = id, values = values)
   if (!is.null(children)) {
     item$children <- children
   }
