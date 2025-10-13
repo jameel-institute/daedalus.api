@@ -11,7 +11,7 @@ get_nested_costs(raw_costs)
 
 get_life_years_lost(raw_costs)
 
-cost_item(id, value, children = NULL)
+cost_item(id, values, children = NULL)
 }
 \arguments{
 \item{raw_costs}{A list resulting from a call to \code{daedalus::get_costs()} on
@@ -19,14 +19,14 @@ a \verb{<daedalus_output>} class object.}
 
 \item{id}{String description of list name.}
 
-\item{value}{List contents.}
-
 \item{children}{Nested lists contained within the top-level list, if any.
 Defaults to \code{NULL}.}
+
+\item{value}{List contents.}
 }
 \value{
 A recursive nested list with the elements \code{"id"} and \code{"value"}
-typically with a string and numeric value respectively.
+with a string and numeric value respectively.
 Additionally, a \code{"children"} list element may be present containing another
 list with the same recursive structure.
 The lowest level list within \code{"children"} has no \code{"children"} element.
