@@ -6,7 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Serve the daedalus model via an API • daedalus.api</title>
-<script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- mathjax math --><script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script><script>
+  window.MathJax = {
+    chtml: {
+      fontURL: "https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/output/chtml/fonts/woff-v2"
+    }
+  };
+</script><script src="lightswitch.js"></script><script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/Inter-0.4.10/font.css" rel="stylesheet">
 <link href="deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
@@ -24,7 +30,7 @@
     <a href="https://www.imperial.ac.uk/jameel-institute/" class="external-link"><img src="https://raw.githubusercontent.com/jameel-institute/jameelinst.rpkg.theme/refs/heads/main/inst/pkgdown/assets/logo_imperial_jameel.svg" id="logo" alt="Abdul Latif Jameel Institute for Disease and Emergency Analytics"></a>
     <a class="navbar-brand me-2" href="index.html">daedalus.api</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.5</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,7 +99,10 @@
 <div class="section level2">
 <h2 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a>
 </h2>
-<p>Redis needs to be running for the e2e tests to pass. Use <code>./scripts/redis start</code>, and tear down with <code>./scripts/redis kill.</code></p>
+<ul>
+<li><p>Redis needs to be running for the e2e tests to pass. Use <code>./scripts/redis start</code>, and tear down with <code>./scripts/redis kill.</code></p></li>
+<li><p>Some tests run using the <em>installed</em> version of the package. If e2e tests consistently fail, especially on JSON validation, install the local (changed or development) version of the package and try running the tests again.</p></li>
+</ul>
 <div class="section level3">
 <h3 id="testing-integration-with-the-dashboard">Testing integration with the dashboard<a class="anchor" aria-label="anchor" href="#testing-integration-with-the-dashboard"></a>
 </h3>
