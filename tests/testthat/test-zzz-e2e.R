@@ -1,3 +1,7 @@
+# NOTE: Tests run on the INSTALLED version of the package;
+# If tests consistently fail, especially on JSON validation, install the local
+# (changed) version of the package before running these tests.
+
 check_for_redis()
 temp_dir <- tempdir()
 # Env vars required by the queue
@@ -102,68 +106,47 @@ test_that("can run model, get status and results", {
   expect_length(results_data$time_series$new_vaccinated, time_series_length)
 
   expect_gt(results_data$gdp, 0)
-  expect_gt(results_data$average_vsl, 0)
+  expect_true(
+    all(
+      vapply(results_data$vsl, `>`, logical(1), 0)
+    )
+  )
+
   # 5. Test nested costs - values should add up
   tolerance <- testthat_tolerance()
   costs_total <- results_data$costs[[1]]
+
   expect_identical(costs_total$id, "total")
+  expect_nested_names(
+    costs_total,
+    c("gdp", "education", "life_years")
+  )
+  expect_nested_value_sum(costs_total)
+
   gdp_total <- costs_total$children[[1]]
-  expect_identical(gdp_total$id, "gdp")
+  expect_nested_names(
+    gdp_total,
+    c("gdp_closures", "gdp_absences")
+  )
+  expect_nested_value_sum(gdp_total)
+
   education_total <- costs_total$children[[2]]
-  expect_identical(education_total$id, "education")
+  expect_nested_names(
+    education_total,
+    c("education_closures", "education_absences")
+  )
+  expect_nested_value_sum(education_total)
+
   life_years_total <- costs_total$children[[3]]
-  expect_identical(life_years_total$id, "life_years")
-
-  expect_equal(
-    costs_total$value,
-    sum(
-      gdp_total$value,
-      education_total$value,
-      life_years_total$value
-    ),
-    tolerance = tolerance
-  )
-
-  gdp_closures <- gdp_total$children[[1]]
-  expect_identical(gdp_closures$id, "gdp_closures")
-  gdp_absences <- gdp_total$children[[2]]
-  expect_identical(gdp_absences$id, "gdp_absences")
-  expect_equal(
-    gdp_total$value,
-    sum(
-      gdp_closures$value,
-      gdp_absences$value
-    ),
-    tolerance = tolerance
-  )
-  education_closures <- education_total$children[[1]]
-  expect_identical(education_closures$id, "education_closures")
-  education_absences <- education_total$children[[2]]
-  expect_identical(education_absences$id, "education_absences")
-  expect_equal(
-    education_total$value,
-    sum(
-      education_closures$value,
-      education_absences$value
-    ),
-    tolerance = tolerance
-  )
-  lifeyears_pre_school <- life_years_total$children[[1]]
-  expect_identical(lifeyears_pre_school$id, "life_years_pre_school")
-  lifeyears_school_age <- life_years_total$children[[2]]
-  expect_identical(lifeyears_school_age$id, "life_years_school_age")
-  lifeyears_working_age <- life_years_total$children[[3]]
-  expect_identical(lifeyears_working_age$id, "life_years_working_age")
-  lifeyears_retirement_age <- life_years_total$children[[4]]
-  expect_identical(lifeyears_retirement_age$id, "life_years_retirement_age")
-  expect_equal(
-    life_years_total$value,
-    sum(
-      lifeyears_pre_school$value,
-      lifeyears_school_age$value,
-      lifeyears_working_age$value,
-      lifeyears_retirement_age$value
-    ),
-    tolerance = tolerance
+  expect_nested_value_sum(life_years_total, 1)
+  expect_nested_value_sum(life_years_total, 2) # check sum in life years
+  expect_nested_names(
+    life_years_total,
+    c(
+      "life_years_pre_school",
+      "life_years_school_age",
+      "life_years_working_age",
+      "life_years_retirement_age"
+    )
   )
 })

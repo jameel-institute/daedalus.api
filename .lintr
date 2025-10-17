@@ -15,6 +15,9 @@ exclusions: list(
     "R/queue.R" = list(
         object_name_linter = Inf # R6 class name
     ),
+    "R/constants.R" = list(
+        object_name_linter = Inf # all caps constants names
+    ),
     "tests/testthat/test-zzz-e2e.R" = list(
         condition_call_linter = Inf # R6 class method confuses lintr?
     ),

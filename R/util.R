@@ -105,9 +105,29 @@ validate_parameters <- function(parameters, metadata) {
   }
 }
 
+#' Prepare Daedalus costs output for display
+#'
+#' @description
+#' `get_nested_costs()` and `get_nested_natural_costs()` prepare daedalus costs
+#' outputs for display. `get_natural_costs()` currently only prepares life-years
+#' lost but may include other costs in their natural units in future.
+#'
+#' @name costs_to_display
+#' @rdname costs_to_display
+#'
+#' @param raw_costs A list resulting from a call to `daedalus::get_costs()` on
+#' a `<daedalus_output>` class object.
+#'
+#' @return A recursive nested list with the elements `"id"` and `"value"`
+#' with a string and numeric value respectively.
+#' Additionally, a `"children"` list element may be present containing another
+#' list with the same recursive structure.
+#' The lowest level list within `"children"` has no `"children"` element.
+#'
+#' @keywords internal
 get_nested_costs <- function(raw_costs) {
-  # Reshape raw costs from the package into a nested structure
-  # or display in the web app
+  # Reshape raw costs from a call to `daedalus::get_costs()` into a nested
+  # structure for display in the web app
   total <- raw_costs$total_cost
 
   gdp <- raw_costs$economic_costs$economic_cost_total
@@ -120,50 +140,104 @@ get_nested_costs <- function(raw_costs) {
 
   # NOTE: daedalus returns life years and values separately;
   # accessing value here but retaining 'years' as var name
-  life_years <- raw_costs$life_value_lost$life_value_lost_total
-  life_years_age <- raw_costs$life_value_lost$life_value_lost_age
+  life_value_total <- raw_costs$life_value_lost$life_value_lost_total
+  life_value_age <- raw_costs$life_value_lost$life_value_lost_age
 
-  cost_item <- function(id, value, children = NULL) {
-    item <- list(id = id, value = value)
-    if (!is.null(children)) {
-      item$children <- children
-    }
-    item
-  }
+  life_years_data <- get_life_years_lost(raw_costs)
+  life_years_total <- life_years_data$life_years_lost_total
+  life_years_age <- life_years_data$life_years_age
 
+  # NOTE: the direct output of this function does not validate against
+  # inst/scenarioCosts.json; this fn returns a list rather than a
+  # cost_item() output to leave open the option of multiple top-level costs
   list(
     cost_item(
       "total",
-      total,
+      list(list(metric = "usd_millions", value = total)),
       list(
         cost_item(
           "gdp",
-          gdp,
+          list(list(metric = "usd_millions", value = gdp)),
           list(
-            cost_item("gdp_closures", gdp_closures),
-            cost_item("gdp_absences", gdp_absences)
+            cost_item(
+              "gdp_closures",
+              list(list(metric = "usd_millions", value = gdp_closures))
+            ),
+            cost_item(
+              "gdp_absences",
+              list(list(metric = "usd_millions", value = gdp_absences))
+            )
           )
         ),
         cost_item(
           "education",
-          education,
+          list(list(metric = "usd_millions", value = education)),
           list(
-            cost_item("education_closures", education_closures),
-            cost_item("education_absences", education_absences)
+            cost_item(
+              "education_closures",
+              list(list(metric = "usd_millions", value = education_closures))
+            ),
+            cost_item(
+              "education_absences",
+              list(list(metric = "usd_millions", value = education_absences))
+            )
           )
         ),
         cost_item(
           "life_years",
-          life_years,
           list(
-            cost_item("life_years_pre_school", life_years_age[["0-4"]]),
-            cost_item("life_years_school_age", life_years_age[["5-19"]]),
-            cost_item("life_years_working_age", life_years_age[["20-64"]]),
-            cost_item("life_years_retirement_age", life_years_age[["65+"]])
+            list(metric = "usd_millions", value = life_value_total),
+            list(metric = "life_years", value = life_years_total)
+          ),
+          list(
+            cost_item(
+              "life_years_pre_school",
+              list(
+                list(metric = "usd_millions", value = life_value_age[["0-4"]]),
+                list(metric = "life_years", value = life_years_age[["0-4"]])
+              )
+            ),
+            cost_item(
+              "life_years_school_age",
+              list(
+                list(metric = "usd_millions", value = life_value_age[["5-19"]]),
+                list(metric = "life_years", value = life_years_age[["5-19"]])
+              )
+            ),
+            cost_item(
+              "life_years_working_age",
+              list(
+                list(
+                  metric = "usd_millions",
+                  value = life_value_age[["20-64"]]
+                ),
+                list(metric = "life_years", value = life_years_age[["20-64"]])
+              )
+            ),
+            cost_item(
+              "life_years_retirement_age",
+              list(
+                list(metric = "usd_millions", value = life_value_age[["65+"]]),
+                list(metric = "life_years", value = life_years_age[["65+"]])
+              )
+            )
           )
         )
       )
     )
+  )
+}
+
+#' @name costs_to_display
+#'
+#' @keywords internal
+get_life_years_lost <- function(raw_costs) {
+  life_years_age <- raw_costs$life_years_lost$life_years_lost_age
+  total <- sum(life_years_age)
+
+  list(
+    life_years_lost_total = total,
+    life_years_age = life_years_age
   )
 }
 
@@ -211,5 +285,39 @@ get_annual_gdp <- function(country) {
 #' @keywords internal
 get_average_vsl <- function(country) {
   country_data <- daedalus::daedalus_country(country)
-  stats::weighted.mean(country_data$vsl, country_data$demography)
+  age_vsl <- daedalus::get_data(country_data, "vsl")
+  demography <- daedalus::get_data(country_data, "demography")
+
+  stats::weighted.mean(age_vsl, demography)
+}
+
+#' Get age-specific VSL
+#'
+#' @keywords internal
+get_age_vsl <- function(country) {
+  country_data <- daedalus::daedalus_country(country)
+
+  daedalus::get_data(country_data, "vsl")
+}
+
+#' @name costs_to_display
+#'
+#' @description
+#' `cost_item()` is a helper function that prepares list elements in the format
+#' `"id"`, `"value"`, `"children"`.
+#'
+#' @param id String description of list name.
+#'
+#' @param values List contents.
+#'
+#' @param children Nested lists contained within the top-level list, if any.
+#' Defaults to `NULL`.
+#'
+#' @keywords internal
+cost_item <- function(id, values, children = NULL) {
+  item <- list(id = id, values = values)
+  if (!is.null(children)) {
+    item$children <- children
+  }
+  item
 }

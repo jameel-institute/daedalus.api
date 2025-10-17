@@ -39,7 +39,9 @@ in `porcelain.R`. See the [porcelain docs](https://reside-ic.github.io/porcelain
 
 ## Testing
 
-Redis needs to be running for the e2e tests to pass. Use `./scripts/redis start`, and tear down with `./scripts/redis kill.`
+ - Redis needs to be running for the e2e tests to pass. Use `./scripts/redis start`, and tear down with `./scripts/redis kill.`
+
+ - Some tests run using the _installed_ version of the package. If e2e tests consistently fail, especially on JSON validation, install the local (changed or development) version of the package and try running the tests again.
 
 ### Testing integration with the dashboard
 

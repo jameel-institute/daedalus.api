@@ -69,10 +69,9 @@ test_that("can get average vsl for countries", {
 })
 
 test_that("calculates correct value of weighted mean of vsl", {
-  mock_country_data <- list(
-    vsl = c(1000, 2000, 3000, 4000),
-    demography = c(0.1, 0.2, 0.3, 0.4)
-  )
+  # Passing a real daedalus_country here as internal fns rely on daedalus
+  # class methods; does not really need to match L. 82
+  mock_country_data <- daedalus::daedalus_country("CAN")
   mock_get_country_data <- mockery::mock(mock_country_data)
   mockery::stub(
     get_average_vsl,

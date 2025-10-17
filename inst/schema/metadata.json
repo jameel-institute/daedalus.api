@@ -2,15 +2,15 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "$defs": {
         "displayInfo": {
-            "type": "object",
-            "properties": {
-                "id": { "type": "string" },
-                "label": { "type": "string" },
-                "description": { "type": ["string", "null"] }
-            },
-            "additionalProperties": false,
-            "required": ["id", "label"]
-        }
+          "type": "object",
+          "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "description": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false,
+          "required": ["id", "label"]
+      }
     },
     "type": "object",
     "properties": {
@@ -76,6 +76,12 @@
               "$ref": "#/$defs/displayInfo"
             }
           },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/displayInfo"
+            }
+          },
           "capacities": {
             "type": "array",
             "items": {
@@ -115,7 +121,7 @@
           }
         },
         "additionalProperties": false,
-        "required": ["costs", "capacities", "interventions", "time_series"]
+        "required": ["costs", "metrics", "capacities", "interventions", "time_series"]
       }
     },
     "additionalProperties": false,

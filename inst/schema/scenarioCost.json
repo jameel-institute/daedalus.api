@@ -2,13 +2,42 @@
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",
     "properties": {
-        "id": { "type": "string" },
-        "value": { "type": "number" },
+        "id": {
+            "type": "string"
+        },
+        "values": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "type": "string",
+                        "enum": [
+                            "usd_millions",
+                            "life_years"
+                        ]
+                    },
+                    "value": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": false,
+                "required": [
+                    "metric",
+                    "value"
+                ]
+            }
+        },
         "children": {
             "type": "array",
-            "items": { "$ref": "#" }
+            "items": {
+                "$ref": "#"
+            }
         }
     },
     "additionalProperties": false,
-    "required": ["id", "value"]
+    "required": [
+        "id",
+        "values"
+    ]
 }

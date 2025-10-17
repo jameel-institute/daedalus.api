@@ -92,7 +92,9 @@ model_run <- function(parameters, model_version) {
     interventions <- closure
   }
 
+  # get country information
   gdp <- get_annual_gdp(country)
+  age_vsl <- get_age_vsl(country)
   average_vsl <- get_average_vsl(country)
 
   results <- list()
@@ -113,6 +115,13 @@ model_run <- function(parameters, model_version) {
     )
   )
   results$gdp <- gdp
-  results$average_vsl <- average_vsl
+  results$vsl <- list(
+    average = average_vsl,
+    pre_school = age_vsl[1],
+    school_age = age_vsl[2],
+    working_age = age_vsl[3],
+    retirement_age = age_vsl[4]
+  )
+
   results
 }

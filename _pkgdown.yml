@@ -13,3 +13,7 @@ reference:
     desc: Internal package functions
     contents:
     - has_keyword("internal")
+  - title: Package constants
+    desc: Internal package constants
+    contents:
+    - has_keyword("constants")
