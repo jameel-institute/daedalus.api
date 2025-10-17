@@ -1,3 +1,7 @@
+# daedalus.api 0.1.7
+
+- Updated the default option for the country parameter from Thailand to United Kingdom.
+
 # daedalus.api 0.1.6
 
 This patch version updates cost and results outputs (PR #47).
