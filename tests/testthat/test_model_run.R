@@ -4,9 +4,9 @@ test_that("can run model and return results", {
   mock_results <- list(
     model_data = mock_model_data,
     response_data = list(
-      closure_info = list(
-        closure_times_start = 11,
-        closure_times_end = 79
+      npi_info = list(
+        npi_times_start = 11,
+        npi_times_end = 79
       )
     )
   )
@@ -60,7 +60,8 @@ test_that("can run model and return results", {
     pathogen = "influenza_1918",
     response = "elimination",
     vaccine = "high",
-    hospital_capacity = as.character(hosp_cap)
+    hospital_capacity = as.character(hosp_cap),
+    behaviour = "none"
   )
   res <- model_run(parameters, "0.0.1")
 
@@ -74,7 +75,8 @@ test_that("can run model and return results", {
       country_x,
       "influenza_1918",
       response_strategy = "elimination",
-      vaccine_investment = "high"
+      vaccine_investment = "high",
+      behaviour = NULL
     )
   )
 

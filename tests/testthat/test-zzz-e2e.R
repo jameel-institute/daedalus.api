@@ -47,6 +47,7 @@ test_that("can run model, get status and results", {
       pathogen = "sars_cov_1",
       response = "economic_closures",
       vaccine = "low",
+      behaviour = "none",
       hospital_capacity = "4500"
     )
   )

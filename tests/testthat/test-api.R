@@ -6,6 +6,7 @@ test_that("can run scenario", {
       pathogen = "influenza_1918",
       response = "none",
       vaccine = "high",
+      behaviour = "none",
       hospital_capacity = "9000"
     )
   )
