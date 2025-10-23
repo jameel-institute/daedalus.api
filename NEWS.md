@@ -1,3 +1,15 @@
+# daedalus.api 0.1.8
+
+This patch version introduces a choice of behavioural model.
+
+- Updated `model_run.R` to pass a user-specified behavioural response choice to `daedalus::daedalus()`; this uses the 'new' behavioural model via `daedalus::daedalus_new_behaviour()`;
+
+- Adds a small exported function to help process the behavioural response choice;
+
+- Updates the API to return behaviour choice descriptions (added via internal function), and updates the metadata display file to show options;
+
+- Updates some tests and `model_run.R` for changes coming in _daedalus_ v0.2.36 and above.
+
 # daedalus.api 0.1.7
 
 - Updated the default option for the country parameter from Thailand to United Kingdom.
