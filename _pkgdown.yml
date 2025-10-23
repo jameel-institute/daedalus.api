@@ -9,6 +9,7 @@ reference:
     desc: All exported daedalus.api functions
     contents:
     - has_keyword("api")
+    - process_behaviour_choice
   - title: Internal functions
     desc: Internal package functions
     contents:

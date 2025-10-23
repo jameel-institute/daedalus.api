@@ -9,3 +9,4 @@ read_metadata_file(metadata_version = "0.1.0")
 \description{
 Read local metadata file
 }
+\keyword{internal}
