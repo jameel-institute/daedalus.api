@@ -69,6 +69,20 @@
       "ordered": false,
       "step": 100,
       "updateNumericFrom": null
+    },
+    {
+      "id": "behaviour",
+      "label": "SOME BEHAVIOURAL LABEL",
+      "description": "SOME BEHAVIOURAL CHOICE DESCRIPTION",
+      "parameterType": "select",
+      "defaultOption": "none",
+      "ordered": true,
+      "options": [
+        { "id": "none", "label": "None" },
+        { "id": "low", "label": "Low" },
+        { "id": "medium", "label": "Medium" },
+        { "id": "high", "label": "High" }
+      ]
     }
   ],
   "results": {
