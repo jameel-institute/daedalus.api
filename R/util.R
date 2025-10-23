@@ -53,12 +53,11 @@ get_vaccine_option_description <- function(vaccine_option) {
   # get vaccination data from the package for a given global vaccine
   # investment scenario, and generate description (help text) from that
   vax_data <- daedalus.data::vaccination_scenario_data[[vaccine_option]]
-  stringr::str_glue(
-    "An investment level corresponding to: ",
-    "vaccine rollout commencing {start} days after the outbreak starts, ",
-    "a vaccine administration rate of {rate}% of population per day, ",
-    "and an upper limit of vaccine coverage of {coverage}% of the ",
-    "general population",
+  glue::glue(
+    "An investment level corresponding to: vaccine rollout commencing {start} \\
+    days after the outbreak starts, a vaccine administration rate of {rate}% \\
+    of population per day, and an upper limit of vaccine coverage of \\
+    {coverage}% of the general population",
     start = vax_data$start_time,
     rate = signif(vax_data$rate, 2),
     coverage = vax_data$uptake_limit
@@ -79,9 +78,9 @@ get_pathogen_description <- function(pathogen_id) {
     1.0
   )
   ifr_range <- range(country_ifrs)
-  stringr::str_glue(
-    "A disease with R0 of {r0} and infection fatality ratio ",
-    "between {ifr_min_pc}% and {ifr_max_pc}% depending on country",
+  glue::glue(
+    "A disease with R0 of {r0} and infection fatality ratio \\
+    between {ifr_min_pc}% and {ifr_max_pc}% depending on country",
     ifr_min_pc = signif(ifr_range[[1]] * 100, 2),
     ifr_max_pc = signif(ifr_range[[2]] * 100, 2),
     r0 = signif(infection$r0, 2)
