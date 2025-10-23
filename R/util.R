@@ -88,6 +88,22 @@ get_pathogen_description <- function(pathogen_id) {
   )
 }
 
+get_behaviour_description <- function(behaviour_option) {
+  # get vaccination data from the package for a given global vaccine
+  # investment scenario, and generate description (help text) from that
+  if (behaviour_option == "none") {
+    "No population-level behavioural change is modelled."
+  } else {
+    optimism <- switch(behaviour_option, low = 0.25, medium = 0.5, high = 0.75)
+    glue::glue(
+      "Modelling population behaviour with a baseline \\
+      level of optimism about the outbreak of {optimism}, along a scale of \\
+      [0.0, 1.0]. Higher levels of optimism result in fewer individuals \\
+      adopting protective behaviour."
+    )
+  }
+}
+
 validate_parameters <- function(parameters, metadata) {
   # Expect parameters in model run request to include all and only values
   # specified in metadata
