@@ -6,6 +6,14 @@ model_run <- function(parameters, model_version) {
   hospital_capacity <- parameters$hospital_capacity
   hospital_capacity_num <- as.numeric(hospital_capacity)
 
+  # TODO: `behaviour` is likely to be a string that encodes a
+  # `daedalus_new_behaviour()` with some specific parameters
+  behav_choice_string <- parameters$behaviour
+  behaviour <- daedalus.api::process_behaviour_choice(
+    behav_choice_string,
+    hospital_capacity_num
+  )
+
   # NOTE: this will eventually be replaced with a country class setter method
   stopifnot(
     "Hospital capacity must be > 0 but it is not!" = hospital_capacity_num > 0.0
@@ -19,7 +27,8 @@ model_run <- function(parameters, model_version) {
     country_obj,
     pathogen,
     response_strategy = response,
-    vaccine_investment = vaccine
+    vaccine_investment = vaccine,
+    behaviour = behaviour
   )
 
   # prevent warnings about global variables
@@ -76,11 +85,11 @@ model_run <- function(parameters, model_version) {
 
   interventions <- list()
   if (response != "none") {
-    closure_info <- model_results$response_data$closure_info
-    n_closures <- length(closure_info$closure_durations)
+    npi_info <- model_results$response_data$npi_info
+    n_closures <- length(npi_info$npi_durations)
     closure <- Map(
-      closure_info$closure_times_start,
-      closure_info$closure_times_end,
+      npi_info$npi_times_start,
+      npi_info$npi_times_end,
       f = function(x, y) {
         list(
           id = "response",
@@ -103,7 +112,8 @@ model_run <- function(parameters, model_version) {
     pathogen = pathogen,
     response = response,
     vaccine = vaccine,
-    hospital_capacity = hospital_capacity
+    hospital_capacity = hospital_capacity,
+    behaviour = behav_choice_string
   )
   results$costs <- costs
   results$time_series <- time_series
