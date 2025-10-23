@@ -35,6 +35,8 @@ root <- function() {
 }
 
 #' Read local metadata file
+#'
+#' @keywords internal
 read_metadata_file <- function(metadata_version = "0.1.0") {
   metadata_file <- sprintf("metadata_%s.json", metadata_version)
   read_local_json(metadata_file)
