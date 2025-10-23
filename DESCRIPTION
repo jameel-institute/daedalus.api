@@ -21,13 +21,13 @@ Imports:
     daedalus.data (>= 0.0.3),
     docopt,
     dplyr,
+    glue,
     jsonlite,
     lgr,
     porcelain,
     R6,
     redux,
     rrq (>= 0.7.21),
-    stringr,
     testthat,
     tidyr
 Suggests: 
@@ -36,8 +36,8 @@ Suggests:
     uuid,
     withr
 Remotes:
-    jameel-institute/daedalus,
     jameel-institute/daedalus.data,
+    jameel-institute/daedalus@new-behav,
     mrc-ide/rrq,
     reside-ic/porcelain
 Config/Needs/website: jameel-institute/jameelinst.rpkg.theme

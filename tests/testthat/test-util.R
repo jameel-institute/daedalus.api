@@ -39,11 +39,11 @@ test_that("can get nested costs", {
 
 test_that("can get vaccine option description", {
   res <- get_vaccine_option_description("medium")
-  expected <- stringr::str_glue(
-    "An investment level corresponding to: ",
-    "vaccine rollout commencing 200 days after the outbreak starts, ",
-    "a vaccine administration rate of 0.43% of population per day, ",
-    "and an upper limit of vaccine coverage of 60% of the general population"
+  expected <- glue::glue(
+    "An investment level corresponding to: \\
+    vaccine rollout commencing 200 days after the outbreak starts, \\
+    a vaccine administration rate of 0.43% of population per day, \\
+    and an upper limit of vaccine coverage of 60% of the general population"
   )
   expect_identical(res, expected)
 })
@@ -101,9 +101,9 @@ test_that("generates expected pathogen description", {
 
   res <- get_pathogen_description("sars_cov_1")
   mockery::expect_args(mock_daedalus_infection, 1, "sars_cov_1")
-  expected <- stringr::str_glue(
-    "A disease with R0 of 1.7 and infection fatality ratio between 24% ",
-    "and 31% depending on country"
+  expected <- glue::glue(
+    "A disease with R0 of 1.7 and infection fatality ratio between 24% \\
+    and 31% depending on country"
   )
   expect_identical(res, expected)
 })
