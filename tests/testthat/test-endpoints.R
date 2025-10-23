@@ -43,7 +43,8 @@ test_that("Can get metadata", {
     "pathogen",
     "response",
     "vaccine",
-    "hospital_capacity"
+    "hospital_capacity",
+    "behaviour"
   )
   expect_setequal(
     vapply(
@@ -120,7 +121,8 @@ test_that("can run model, get status and results", {
       pathogen = "sars_cov_1",
       response = "economic_closures",
       vaccine = "low",
-      hospital_capacity = "4500"
+      hospital_capacity = "4500",
+      behaviour = "none"
     )
   )
   body <- jsonlite::toJSON(data, auto_unbox = TRUE)
