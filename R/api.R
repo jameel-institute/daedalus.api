@@ -34,6 +34,7 @@ root <- function() {
   lapply(versions, function(v) scalar(as.character(v)))
 }
 
+#' Read local metadata file
 read_metadata_file <- function(metadata_version = "0.1.0") {
   metadata_file <- sprintf("metadata_%s.json", metadata_version)
   read_local_json(metadata_file)
@@ -110,6 +111,16 @@ metadata <- function() {
       vaccine_option$description <-
         get_vaccine_option_description(vaccine_option$id)
       vaccine_option
+    }
+  )
+
+  # Behaviour options
+  behaviour_idx <- match("behaviour", param_ids)
+  response$parameters[[behaviour_idx]]$options <- lapply(
+    response$parameters[[behaviour_idx]]$options,
+    function(x) {
+      x$description <- get_behaviour_description(x$id)
+      x
     }
   )
 
