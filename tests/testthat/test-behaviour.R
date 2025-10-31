@@ -22,3 +22,21 @@ test_that("Behaviour option conversion works", {
     })
   )
 })
+
+test_that("Behaviour option descriptions are correct", {
+  behaviour_options <- c("low", "medium", "high")
+  desc_option <- rev(behaviour_options)
+  expected_kwords <- glue::glue("{desc_option} level of optimism")
+
+  invisible(
+    Map(behaviour_options, expected_kwords, f = function(x, y) {
+      expect_true(
+        grepl(y, get_behaviour_description(x), fixed = TRUE)
+      )
+    })
+  )
+
+  expect_true(
+    grepl("does not adopt", get_behaviour_description("none"), fixed = TRUE)
+  )
+})
