@@ -43,8 +43,8 @@ test_that("Can get metadata", {
     "pathogen",
     "response",
     "vaccine",
-    "hospital_capacity",
-    "behaviour"
+    "behaviour",
+    "hospital_capacity"
   )
   expect_setequal(
     vapply(

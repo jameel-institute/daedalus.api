@@ -62,18 +62,9 @@
       ]
     },
     {
-      "id": "hospital_capacity",
-      "label": "Hospital surge capacity",
-      "description": "Number of hospital beds available nationally for pandemic patients",
-      "parameterType": "numeric",
-      "ordered": false,
-      "step": 100,
-      "updateNumericFrom": null
-    },
-    {
       "id": "behaviour",
-      "label": "SOME BEHAVIOURAL LABEL",
-      "description": "SOME BEHAVIOURAL CHOICE DESCRIPTION",
+      "label": "Change in public behaviour",
+      "description": "Level of change in public socialising due to concern about the epidemic; at a low level of behaviour change, the public takes fewer precautions against infection.",
       "parameterType": "select",
       "defaultOption": "none",
       "ordered": true,
@@ -83,6 +74,15 @@
         { "id": "medium", "label": "Medium" },
         { "id": "high", "label": "High" }
       ]
+    },
+    {
+      "id": "hospital_capacity",
+      "label": "Hospital surge capacity",
+      "description": "Number of hospital beds available nationally for pandemic patients",
+      "parameterType": "numeric",
+      "ordered": false,
+      "step": 100,
+      "updateNumericFrom": null
     }
   ],
   "results": {

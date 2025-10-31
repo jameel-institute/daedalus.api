@@ -17,5 +17,7 @@ parameters, suitable for passing to the \code{behaviour} argument of
 \code{\link[daedalus:daedalus]{daedalus::daedalus()}}.
 }
 \description{
-Translate behaviour choice to daedalus input
+Note that the mapping from the dashboard options to the optimism parameter
+is reversed. For a dashboard option of 'low', optimism is high. This allows
+the dashboard option to present as 'change in public behaviour'.
 }
