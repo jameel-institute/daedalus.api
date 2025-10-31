@@ -50,8 +50,8 @@ get_hospital_capacity_range <- function(default_capacity, step) {
 }
 
 get_vaccine_option_description <- function(vaccine_option) {
-  # get vaccination data from the package for a given global vaccine
-  # investment scenario, and generate description (help text) from that
+  # get vaccination data from {daedalus.data} to populate vaccination
+  # option descriptions
   vax_data <- daedalus.data::vaccination_scenario_data[[vaccine_option]]
   glue::glue(
     "An investment level corresponding to: vaccine rollout commencing {start} \\
