@@ -1,10 +1,10 @@
 # daedalus.api 0.1.8
 
-This patch version introduces a choice of behavioural model.
+This patch version introduces a choice of behavioural model under the user-facing label 'Level of behaviour change'.
 
 - Updated `model_run.R` to pass a user-specified behavioural response choice to `daedalus::daedalus()`; this uses the 'new' behavioural model via `daedalus::daedalus_new_behaviour()`;
 
-- Adds a small exported function to help process the behavioural response choice;
+- Adds a small exported function to help process the behavioural response choice; note that the mapping from users' behaviour choice to the parameter $\bar B$ is reversed ("low": high optimism, less protective behaviour; "high": low optimism, more protective behaviour). The default behavioural effectiveness $\delta$ = 0.2, with responsiveness parameter $k_2$ = 0.01.
 
 - Updates the API to return behaviour choice descriptions (added via internal function), and updates the metadata display file to show options;
 
