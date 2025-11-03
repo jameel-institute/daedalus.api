@@ -1,6 +1,6 @@
 # daedalus.api 0.1.8
 
-This patch version introduces a choice of behavioural model under the user-facing label 'Level of behaviour change'.
+This patch version introduces a choice of behavioural model under the user-facing label 'Level of behaviour change' (PR #49).
 
 - Updated `model_run.R` to pass a user-specified behavioural response choice to `daedalus::daedalus()`; this uses the 'new' behavioural model via `daedalus::daedalus_new_behaviour()`;
 
