@@ -92,18 +92,12 @@ get_behaviour_description <- function(behaviour_option) {
   # investment scenario, and generate description (help text) from that
   if (behaviour_option == "none") {
     glue::glue(
-      "The population does not adopt any protective behaviours against the \\
+      "The population does not adopt any protective behaviour against the \\
       risk of infection."
     )
   } else {
-    optimism <- switch(
-      behaviour_option,
-      low = "high",
-      medium = "medium",
-      high = "low"
-    )
     glue::glue(
-      "The population has a {optimism} level of optimism about the epidemic, \\
+      "The population perceives a {behaviour_option} risk of infection, \\
       resulting in {behaviour_option} adoption of behaviour that \\
       protects against infection."
     )
