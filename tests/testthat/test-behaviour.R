@@ -25,8 +25,7 @@ test_that("Behaviour option conversion works", {
 
 test_that("Behaviour option descriptions are correct", {
   behaviour_options <- c("low", "medium", "high")
-  desc_option <- rev(behaviour_options)
-  expected_kwords <- glue::glue("{desc_option} level of optimism")
+  expected_kwords <- glue::glue("{behaviour_options} risk")
 
   invisible(
     Map(behaviour_options, expected_kwords, f = function(x, y) {

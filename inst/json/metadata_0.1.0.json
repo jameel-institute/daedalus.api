@@ -64,7 +64,7 @@
     {
       "id": "behaviour",
       "label": "Change in public behaviour",
-      "description": "Level of change in public socialising due to concern about the epidemic; at a low level of behaviour change, the public takes fewer precautions against infection.",
+      "description": "Level of change in public behaviour due to the perceived risk of infection; at a low level of behaviour change, the public adopts fewer precautions against infection.",
       "parameterType": "select",
       "defaultOption": "none",
       "ordered": true,
