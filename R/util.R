@@ -88,8 +88,7 @@ get_pathogen_description <- function(pathogen_id) {
 }
 
 get_behaviour_description <- function(behaviour_option) {
-  # get vaccination data from the package for a given global vaccine
-  # investment scenario, and generate description (help text) from that
+  # generate behaviour description (help text) from the option
   if (behaviour_option == "none") {
     glue::glue(
       "The population does not adopt any protective behaviour against the \\
