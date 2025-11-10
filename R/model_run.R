@@ -35,6 +35,11 @@ model_run <- function(parameters, model_version) {
   compartment <- NULL
   time <- NULL
   value <- NULL
+  hospitalised <- NULL
+  hospitalised_recov <- NULL
+  hospitalised_death <- NULL
+  infect_symp <- NULL
+  infect_asymp <- NULL
 
   time_series <- dplyr::group_by(model_results$model_data, time, compartment)
   time_series <- dplyr::summarise(time_series, value = sum(value))
@@ -45,10 +50,13 @@ model_run <- function(parameters, model_version) {
     names_from = "compartment"
   )
 
-  time_series$prevalence <-
-    time_series$infect_asymp +
-    time_series$infect_symp +
-    time_series$hospitalised
+  # manually sum hospitalised prevalence to simplify output
+  # separate hospitalisation cols are dropped later during column subsetting
+  time_series <- dplyr::mutate(
+    time_series,
+    hospitalised = hospitalised_recov + hospitalised_death,
+    prevalence = infect_asymp + infect_symp + hospitalised
+  )
 
   time_series <- time_series[, c("prevalence", "hospitalised", "dead")]
 
