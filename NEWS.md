@@ -8,7 +8,7 @@ This patch version introduces a choice of behavioural model under the user-facin
 
 - Updates the API to return behaviour choice descriptions (added via internal function), and updates the metadata display file to show options;
 
-- Updates some tests and `model_run.R` for changes coming in _daedalus_ v0.2.36 and above.
+- Updates mock data, some tests and `model_run.R` for changes in _daedalus_ v0.2.36 and above.
 
 # daedalus.api 0.1.7
 
