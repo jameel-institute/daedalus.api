@@ -27,3 +27,13 @@ TIMESERIES_NAMES <- c(
   "new_dead",
   "new_vaccinated"
 )
+
+#' @name constants
+#'
+#' @keywords constants
+BEHAV_RESPONSIVENESS_K2 <- 0.01
+
+#' @name constants
+#'
+#' @keywords constants
+BEHAV_EFFECTIVENESS_DELTA <- 0.2

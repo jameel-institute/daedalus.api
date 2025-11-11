@@ -5,16 +5,26 @@
 \alias{constants}
 \alias{RESULT_NAMES}
 \alias{TIMESERIES_NAMES}
+\alias{BEHAV_RESPONSIVENESS_K2}
+\alias{BEHAV_EFFECTIVENESS_DELTA}
 \title{Output constants}
 \format{
 An object of class \code{character} of length 7.
 
 An object of class \code{character} of length 8.
+
+An object of class \code{numeric} of length 1.
+
+An object of class \code{numeric} of length 1.
 }
 \usage{
 RESULT_NAMES
 
 TIMESERIES_NAMES
+
+BEHAV_RESPONSIVENESS_K2
+
+BEHAV_EFFECTIVENESS_DELTA
 }
 \description{
 Output constants

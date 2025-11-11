@@ -6,8 +6,8 @@ model_run <- function(parameters, model_version) {
   hospital_capacity <- parameters$hospital_capacity
   hospital_capacity_num <- as.numeric(hospital_capacity)
 
-  # TODO: `behaviour` is likely to be a string that encodes a
-  # `daedalus_new_behaviour()` with some specific parameters
+  # `behaviour` is passed from the UI as a string that is converted to a
+  # `daedalus_new_behaviour()` with some specific parameters in `R/behaviour.R`
   behav_choice_string <- parameters$behaviour
   behaviour <- daedalus.api::process_behaviour_choice(
     behav_choice_string,
