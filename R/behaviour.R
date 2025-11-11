@@ -21,20 +21,20 @@ process_behaviour_choice <- function(x, hospital_capacity) {
     low = daedalus::daedalus_new_behaviour(
       hospital_capacity,
       baseline_optimism = 0.75,
-      responsiveness = 0.01,
-      behav_effectiveness = 0.2
+      responsiveness = BEHAV_RESPONSIVENESS_K2,
+      behav_effectiveness = BEHAV_EFFECTIVENESS_DELTA
     ),
     medium = daedalus::daedalus_new_behaviour(
       hospital_capacity,
       baseline_optimism = 0.5,
-      responsiveness = 0.01,
-      behav_effectiveness = 0.2
+      responsiveness = BEHAV_RESPONSIVENESS_K2,
+      behav_effectiveness = BEHAV_EFFECTIVENESS_DELTA
     ),
     high = daedalus::daedalus_new_behaviour(
       hospital_capacity,
       baseline_optimism = 0.25,
-      responsiveness = 0.01,
-      behav_effectiveness = 0.2
+      responsiveness = BEHAV_RESPONSIVENESS_K2,
+      behav_effectiveness = BEHAV_EFFECTIVENESS_DELTA
     )
   )
 
