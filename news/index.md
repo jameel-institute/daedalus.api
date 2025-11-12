@@ -1,0 +1,91 @@
+# Changelog
+
+## daedalus.api 0.1.8
+
+This patch version introduces a choice of behavioural model under the
+user-facing label ‘Change in public behaviour’ (PR
+[\#49](https://github.com/jameel-institute/daedalus.api/issues/49)).
+
+- Updated `model_run.R` to pass a user-specified behavioural response
+  choice to
+  [`daedalus::daedalus()`](https://jameel-institute.github.io/daedalus/reference/daedalus.html);
+  this uses the ‘new’ behavioural model via
+  [`daedalus::daedalus_new_behaviour()`](https://jameel-institute.github.io/daedalus/reference/class_behaviour.html);
+
+- Adds a small exported function to help process the behavioural
+  response choice; note that the mapping from users’ behaviour choice to
+  the parameter \\\bar B\\ is reversed (“low”: high optimism, less
+  protective behaviour; “high”: low optimism, more protective
+  behaviour). The default behavioural effectiveness \\\delta\\ = 0.2,
+  with responsiveness parameter \\k_2\\ = 0.01.
+
+- Updates the API to return behaviour choice descriptions (added via
+  internal function), and updates the metadata display file to show
+  options;
+
+- Updates mock data, some tests and `model_run.R` for changes in
+  *daedalus* v0.2.36 and above.
+
+## daedalus.api 0.1.7
+
+- Updated the default option for the country parameter from Thailand to
+  United Kingdom.
+
+## daedalus.api 0.1.6
+
+This patch version updates cost and results outputs (PR
+[\#47](https://github.com/jameel-institute/daedalus.api/issues/47)).
+
+- Updates to function
+  [`get_nested_costs()`](https://jameel-institute.github.io/daedalus.api/reference/costs_to_display.md)
+  and JSON schema `scenarioCosts.json` to return costs as an array of
+  metric-value pairs; this allows costs to be expressed in different
+  units.
+
+- Updates to results schema `scenarioResults.json` to return the
+  age-specific VSL for countries.
+
+- Updates to metadata schema to return metric and value for costs with
+  multiple units.
+
+- Added results list names and time-series names as package constants.
+
+- Moved
+  [`cost_item()`](https://jameel-institute.github.io/daedalus.api/reference/costs_to_display.md)
+  function from inline helper to internal package function.
+
+- Updates to tests helper functions; added helper tests for nested list
+  outputs in `R/tests.R`.
+
+## daedalus.api 0.1.5
+
+- Update `model_run()` daedalus model runner to error if a country
+  hospital capacity \<= 0 is passed as this reportedly causes run
+  errors;
+
+- Update `model_run()` to return separate lists for each model NPI;
+
+- Update package to work with *daedalus* `main` \> 0.2.25;
+
+- Removing spelling checks from tests.
+
+## daedalus.api 0.1.4
+
+- Update metadata for policy responses parameter to denote that this
+  parameter’s options are not to be considered as ordered.
+
+## daedalus.api 0.1.3
+
+The changelog for this package begins here.
+
+- Function `model_run()` uses new version of `daedalus()` with hospital
+  capacity parameter moved to `daedalus_country` class;
+
+- Internal costs function
+  [`get_nested_costs()`](https://jameel-institute.github.io/daedalus.api/reference/costs_to_display.md)
+  accesses `<daedalus_output>` member `life_value` for health costs.
+
+- Importing new package *daedalus.data* for some data.
+
+- Updates to formatting (using `air`) and infrastructure to fix lints
+  and make docs easier to find online.

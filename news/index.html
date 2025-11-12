@@ -13,7 +13,7 @@
     <a href="https://www.imperial.ac.uk/jameel-institute/" class="external-link"><img src="https://raw.githubusercontent.com/jameel-institute/jameelinst.rpkg.theme/refs/heads/main/inst/pkgdown/assets/logo_imperial_jameel.svg" id="logo" alt="Abdul Latif Jameel Institute for Disease and Emergency Analytics"></a>
     <a class="navbar-brand me-2" href="../index.html">daedalus.api</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.7</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,6 +44,14 @@
       <small>Source: <a href="https://github.com/jameel-institute/daedalus.api/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.1.8" id="daedalusapi-018">daedalus.api 0.1.8<a class="anchor" aria-label="anchor" href="#daedalusapi-018"></a></h2>
+<p>This patch version introduces a choice of behavioural model under the user-facing label ‘Change in public behaviour’ (PR <a href="https://github.com/jameel-institute/daedalus.api/issues/49" class="external-link">#49</a>).</p>
+<ul><li><p>Updated <code>model_run.R</code> to pass a user-specified behavioural response choice to <code><a href="https://jameel-institute.github.io/daedalus/reference/daedalus.html" class="external-link">daedalus::daedalus()</a></code>; this uses the ‘new’ behavioural model via <code><a href="https://jameel-institute.github.io/daedalus/reference/class_behaviour.html" class="external-link">daedalus::daedalus_new_behaviour()</a></code>;</p></li>
+<li><p>Adds a small exported function to help process the behavioural response choice; note that the mapping from users’ behaviour choice to the parameter <span class="math inline">\(\bar B\)</span> is reversed (“low”: high optimism, less protective behaviour; “high”: low optimism, more protective behaviour). The default behavioural effectiveness <span class="math inline">\(\delta\)</span> = 0.2, with responsiveness parameter <span class="math inline">\(k_2\)</span> = 0.01.</p></li>
+<li><p>Updates the API to return behaviour choice descriptions (added via internal function), and updates the metadata display file to show options;</p></li>
+<li><p>Updates mock data, some tests and <code>model_run.R</code> for changes in <em>daedalus</em> v0.2.36 and above.</p></li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.1.7" id="daedalusapi-017">daedalus.api 0.1.7<a class="anchor" aria-label="anchor" href="#daedalusapi-017"></a></h2>
 <ul><li>Updated the default option for the country parameter from Thailand to United Kingdom.</li>
@@ -86,7 +94,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer></div>
