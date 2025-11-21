@@ -1,3 +1,7 @@
+# daedalus.api 0.1.9
+
+This patch version prevents the behavioural mechanism from being sensitive to the user-provided hospital capacity. The country default hospital capacity is used instead.
+
 # daedalus.api 0.1.8
 
 This patch version introduces a choice of behavioural model under the user-facing label 'Change in public behaviour' (PR #49).

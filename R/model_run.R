@@ -9,18 +9,21 @@ model_run <- function(parameters, model_version) {
   # `behaviour` is passed from the UI as a string that is converted to a
   # `daedalus_new_behaviour()` with some specific parameters in `R/behaviour.R`
   behav_choice_string <- parameters$behaviour
+
+  country_obj <- daedalus::daedalus_country(country)
+
+  # get default hosp cap
+  hosp_cap_default <- daedalus::get_data(country_obj, "hospital_capacity")
   behaviour <- daedalus.api::process_behaviour_choice(
     behav_choice_string,
-    hospital_capacity_num
+    hosp_cap_default
   )
 
   # NOTE: this will eventually be replaced with a country class setter method
   stopifnot(
     "Hospital capacity must be > 0 but it is not!" = hospital_capacity_num > 0.0
   )
-
   # manually assign hospital capacity to `country`
-  country_obj <- daedalus::daedalus_country(country)
   country_obj$hospital_capacity <- hospital_capacity_num
 
   model_results <- daedalus::daedalus(
