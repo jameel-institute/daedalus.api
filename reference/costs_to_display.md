@@ -23,7 +23,7 @@ cost_item(id, values, children = NULL)
 - raw_costs:
 
   A list resulting from a call to
-  [`daedalus::get_costs()`](https://jameel-institute.github.io/daedalus/reference/get_costs.html)
+  [`daedalus::get_costs()`](https://jameel-institute.github.io/daedalus/reference/daedalus_costs.html)
   on a `<daedalus_output>` class object.
 
 - id:

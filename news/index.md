@@ -1,5 +1,10 @@
 # Changelog
 
+## daedalus.api 0.1.10
+
+This patch version enforces use of *daedalus* \>= v0.3.2 with corrected
+contact matrix scaling.
+
 ## daedalus.api 0.1.9
 
 This patch version prevents the behavioural mechanism from being
