@@ -1,3 +1,7 @@
+# daedalus.api 0.1.10
+
+This patch version enforces use of _daedalus_ >= v0.3.2 with corrected contact matrix scaling.
+
 # daedalus.api 0.1.9
 
 This patch version prevents the behavioural mechanism from being sensitive to the user-provided hospital capacity. The country default hospital capacity is used instead.
