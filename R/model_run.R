@@ -91,6 +91,10 @@ model_run <- function(parameters, model_version) {
   time_series$new_vaccinated <-
     daedalus::get_new_vaccinations(model_results)$new_vaccinations
 
+  # effective reproduction number (Rt) time series, computed per timestep
+  # by the DAEDALUS model and returned as `rt_data` on the output object
+  time_series$rt <- model_results$rt_data
+
   raw_costs <- daedalus::get_costs(model_results)
   costs <- get_nested_costs(raw_costs)
 

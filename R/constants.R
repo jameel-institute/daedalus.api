@@ -25,7 +25,8 @@ TIMESERIES_NAMES <- c(
   "new_infected",
   "new_hospitalised",
   "new_dead",
-  "new_vaccinated"
+  "new_vaccinated",
+  "rt"
 )
 
 #' @name constants
