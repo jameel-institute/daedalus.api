@@ -1,3 +1,7 @@
+# deadalus.api 0.1.11
+
+This patch version adds another time-series to the results response, namely the effective reproduction rate (Rt) per time step.
+
 # daedalus.api 0.1.10
 
 This patch version enforces use of _daedalus_ >= v0.3.2 with corrected contact matrix scaling.

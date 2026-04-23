@@ -3,6 +3,7 @@ test_that("can run model and return results", {
   mock_model_data <- read.csv(test_path(mock_data_file))
   mock_results <- list(
     model_data = mock_model_data,
+    rt_data = c(2.5, 1.8),
     response_data = list(
       npi_info = list(
         npi_times_start = 11,
@@ -105,6 +106,7 @@ test_that("can run model and return results", {
     res$time_series$new_vaccinated,
     mock_new_vaccinations_result$new_vaccinations
   )
+  expect_identical(res$time_series$rt, c(2.5, 1.8))
   expect_identical(res$parameters, parameters)
 
   expect_nested_mock_costs(res$costs)
