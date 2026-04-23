@@ -1,6 +1,6 @@
 # deadalus.api 0.1.11
 
-This patch version adds one more time-series to the results response, namely the effective reproduction rate (Rt) per time step.
+This patch version adds another time-series to the results response, namely the effective reproduction rate (Rt) per time step.
 
 # daedalus.api 0.1.10
 
