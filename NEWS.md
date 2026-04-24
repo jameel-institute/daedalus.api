@@ -1,3 +1,7 @@
+# daedalus.api 0.1.12
+
+This patch version enforces use of _daedalus_ > v0.3.5, and adds a call to `daedalus::get_data()` on the model output in the run script `R/model_run.R` to account for changes to the `<daedalus_output>` class in [daedalus PR #156](https://github.com/jameel-institute/daedalus/pull/156).
+
 # daedalus.api 0.1.11
 
 This patch version migrates the building and storing of Docker images from Buildkite to GitHub Container Registry.

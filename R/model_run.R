@@ -34,18 +34,13 @@ model_run <- function(parameters, model_version) {
     behaviour = behaviour
   )
 
-  # prevent warnings about global variables
-  compartment <- NULL
-  time <- NULL
-  value <- NULL
-  hospitalised <- NULL
-  hospitalised_recov <- NULL
-  hospitalised_death <- NULL
-  infect_symp <- NULL
-  infect_asymp <- NULL
+  model_data <- daedalus::get_data(model_results)
 
-  time_series <- dplyr::group_by(model_results$model_data, time, compartment)
-  time_series <- dplyr::summarise(time_series, value = sum(value))
+  time_series <- dplyr::summarise(
+    model_data,
+    value = sum(value),
+    .by = c("time", "compartment")
+  )
   time_series <- tidyr::pivot_wider(
     time_series,
     id_cols = "time",
@@ -57,18 +52,16 @@ model_run <- function(parameters, model_version) {
   # separate hospitalisation cols are dropped later during column subsetting
   time_series <- dplyr::mutate(
     time_series,
-    hospitalised = hospitalised_recov + hospitalised_death,
-    prevalence = infect_asymp + infect_symp + hospitalised
+    hospitalised = .data$hospitalised_recov + .data$hospitalised_death,
+    prevalence = .data$infect_asymp + .data$infect_symp + .data$hospitalised
   )
 
   time_series <- time_series[, c("prevalence", "hospitalised", "dead")]
 
   # get total vaccinations time series
-  vaccine_group <- NULL
-  model_data <- daedalus::get_data(model_results)
   vax_time_series <- dplyr::filter(
     model_data,
-    vaccine_group == "vaccinated"
+    .data$vaccine_group == "vaccinated"
   )
   vax_time_series <- dplyr::summarise(
     vax_time_series,
