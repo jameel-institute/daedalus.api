@@ -1,6 +1,6 @@
 Package: daedalus.api
 Title: Serve the 'daedalus' model via an API
-Version: 0.1.10
+Version: 0.1.11
 Authors@R: c(
     person("Pratik", "Gupte", , "p.gupte24@imperial.ac.uk", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5294-7819")),
@@ -46,4 +46,4 @@ Encoding: UTF-8
 Language: en-GB
 Roxygen: list(markdown = TRUE, roclets = c("rd", "namespace",
     "porcelain::porcelain_roclet"))
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
