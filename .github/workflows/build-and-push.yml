@@ -23,5 +23,5 @@ jobs:
         run: ./docker/build
       - name: Docker connection test
         run: ./docker/test_connection
-      - name: Push image branch ${{ env.BRANCH_NAME }}
+      - name: Push image of branch ${{ env.BRANCH_NAME }}
         run: ./docker/push
