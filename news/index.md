@@ -1,5 +1,10 @@
 # Changelog
 
+## daedalus.api 0.1.11
+
+This patch version migrates the building and storing of Docker images
+from Buildkite to GitHub Container Registry.
+
 ## daedalus.api 0.1.10
 
 This patch version enforces use of *daedalus* \>= v0.3.2 with corrected
