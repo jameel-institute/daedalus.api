@@ -71,4 +71,4 @@ model version will be the most recent metadata's `[VERSION]`.
 
 ## Related projects
 
-See the [_daedalus_ package](https://github.com/jameel-institute/daedalus) which implements the DAEDALUS integrated model of economic, social, and health costs of a pandemic.
+See the [_daedalus_ package](https://github.com/jameel-institute/daedalus), which implements the DAEDALUS integrated model of economic, social, and health costs of a pandemic.
