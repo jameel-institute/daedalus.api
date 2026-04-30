@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 
-[![Project Status: Concept -- Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](https://www.repostatus.org/badges/latest/concept.svg)](https://www.repostatus.org/#concept) [![CRAN status](https://www.r-pkg.org/badges/version/daedalus.api)](https://CRAN.R-project.org/package=daedalus.api) [![Codecov test coverage](https://codecov.io/gh/jameel-institute/daedalus.api/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jameel-institute/daedalus.api?branch=main) [![R-CMD-check](https://github.com/jameel-institute/daedalus.api/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jameel-institute/daedalus.api/actions/workflows/R-CMD-check.yaml) [![Build status](https://badge.buildkite.com/2fe5d34f1b4c4681b4e0e8d464f4fdaf44358fc48325b92580.svg)](https://buildkite.com/mrc-ide/daedalus-dot-api)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active) [![Codecov test coverage](https://codecov.io/gh/jameel-institute/daedalus.api/branch/main/graph/badge.svg)](https://app.codecov.io/gh/jameel-institute/daedalus.api?branch=main) [![R-CMD-check](https://github.com/jameel-institute/daedalus.api/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jameel-institute/daedalus.api/actions/workflows/R-CMD-check.yaml) [![Build status](https://github.com/jameel-institute/daedalus.api/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/jameel-institute/daedalus.api/actions/workflows/build-and-push.yml)
 
 <!-- badges: end -->
 
