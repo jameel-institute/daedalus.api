@@ -1,3 +1,13 @@
+# daedalus.api 0.1.13
+
+This patch version changes the default model options for a dashboard run, and is intended to be used for the READI-TF workshop and launch event.
+
+- Closures are timed and not reactive, and active from 50 -- 200 days;
+
+- All infections have no infection-derived immunity waning, with $\rho$ set to 0.0;
+
+- All vaccination options enforce essentially no immunity waning.
+
 # daedalus.api 0.1.12
 
 This patch version enforces use of _daedalus_ > v0.3.6 (not yet released; see [this PR](https://github.com/jameel-institute/daedalus/pull/154)), which updated community contacts scaling.
