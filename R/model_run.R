@@ -31,17 +31,6 @@ model_run <- function(parameters, model_version) {
     rho = 0.0
   )
 
-  # SG launch: create a timed NPI with openness coefs given by `response`
-  start_time <- 50
-  end_time <- 200
-  openness <- daedalus.data::closure_strategy_data[[response]]
-  response_obj <- daedalus::daedalus_timed_npi(
-    start_time,
-    end_time,
-    list(openness),
-    country_obj
-  )
-
   # SG launch: set vax immunity waning to near zero
   waning_period_infinite <- 1e8
   vaccine_obj <- daedalus::daedalus_vaccination(
@@ -53,7 +42,7 @@ model_run <- function(parameters, model_version) {
   model_results <- daedalus::daedalus(
     country_obj,
     pathogen_obj,
-    response_strategy = response_obj,
+    response_strategy = response,
     vaccine_investment = vaccine_obj,
     behaviour = behaviour
   )

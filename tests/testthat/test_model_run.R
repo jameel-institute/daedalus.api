@@ -69,9 +69,6 @@ test_that("can run model and return results", {
   country_x <- daedalus::daedalus_country(ctx)
   country_x$hospital_capacity <- hosp_cap
 
-  time_on <- 50
-  time_off <- 200
-  openness <- list(daedalus.data::closure_strategy_data[["elimination"]])
   infection <- daedalus::daedalus_infection("influenza_1918", rho = 0.0)
 
   expect_identical(
@@ -79,12 +76,7 @@ test_that("can run model and return results", {
     list(
       country_x,
       infection,
-      response_strategy = daedalus::daedalus_timed_npi(
-        time_on,
-        time_off,
-        openness,
-        country_x
-      ),
+      response_strategy = "elimination",
       vaccine_investment = daedalus::daedalus_vaccination(
         "high",
         country_x,
