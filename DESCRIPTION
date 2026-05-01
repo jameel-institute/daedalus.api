@@ -17,7 +17,7 @@ License: MIT + file LICENSE
 URL: https://github.com/jameel-institute/daedalus.api
 BugReports: https://github.com/jameel-institute/daedalus.api/issues
 Imports: 
-    daedalus (> 0.3.6),
+    daedalus (>= 0.3.7),
     daedalus.data (>= 0.0.3),
     docopt,
     dplyr,
