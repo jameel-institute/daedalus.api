@@ -10,6 +10,7 @@ You can install the development version of daedalus.api from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("jameel-institute/daedalus.api")
 ```

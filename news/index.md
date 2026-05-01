@@ -1,5 +1,17 @@
 # Changelog
 
+## daedalus.api 0.1.12
+
+This patch version enforces use of *daedalus* \> v0.3.6 (not yet
+released; see [this
+PR](https://github.com/jameel-institute/daedalus/pull/154)), which
+updated community contacts scaling. This PR also updates for *daedalus*
+\> 0.3.5 and adds a call to
+[`daedalus::get_data()`](https://jameel-institute.github.io/daedalus/reference/get_data.html)
+on the model output in the run script `R/model_run.R` to account for
+changes to the `<daedalus_output>` class in daedalus PR
+[\#156](https://github.com/jameel-institute/daedalus.api/issues/156).
+
 ## daedalus.api 0.1.11
 
 This patch version migrates the building and storing of Docker images
